@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "<!DOCTYPE html>\n<html lang=\"en-us\">\n  <head>\n    <meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<meta name=\"generator\" content=\"Hugo 0.25.1\" />\n\n\n<title>A Hugo website</title>\n<meta property=\"og:title\" content=\"A Hugo website\">\n<meta property=\"og:type\" content=\"website\">\n\n\n\n<meta property=\"description\" content=\"A website built through Hugo and blogdown.\">\n\n\n\n\n\n<link href=\"./index.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"A Hugo website\" />\n\n\n\n<link rel=\"stylesheet\" href=\"./css/fonts.css\" media=\"all\">\n<link rel=\"stylesheet\" href=\"./css/main.css\" media=\"all\">\n\n\n\n  </head>\n  <body>\n    <div class=\"wrapper\">\n      <header class=\"header\">\n        <nav class=\"nav\">\n  <a href=\"./\" class=\"nav-logo\">\n    <img src=\"./images/logo.png\"\n         width=\"50\"\n         height=\"50\"\n         alt=\"Logo\">\n  </a>\n\n  <ul class=\"nav-links\">\n    \n    <li><a href=\"./about/\">About</a></li>\n    \n    <li><a href=\"https://github.com/rstudio/blogdown\">GitHub</a></li>\n    \n    <li><a href=\"https://twitter.com/rstudio\">Twitter</a></li>\n    \n  </ul>\n</nav>\n\n      </header>\n\n\n<main class=\"content\" role=\"main\">\n\n  \n  <div class=\"archive\">\n    \n    <h2 class=\"archive-title\">2016</h2>\n    \n    <article class=\"archive-item\">\n      <a href=\"./2016/12/30/a-plain-markdown-post/\" class=\"archive-item-link\">A Plain Markdown Post</a>\n      <span class=\"archive-item-date\">\n        2016/12/30\n      </span>\n    </article>\n    \n    \n    <h2 class=\"archive-title\">2015</h2>\n    \n    <article class=\"archive-item\">\n      <a href=\"./2015/07/23/hello-r-markdown/\" class=\"archive-item-link\">Hello R Markdown</a>\n      <span class=\"archive-item-date\">\n        2015/07/23\n      </span>\n    </article>\n    \n    <article class=\"archive-item\">\n      <a href=\"./2015/01/01/lorem-ipsum/\" class=\"archive-item-link\">Lorem Ipsum</a>\n      <span class=\"archive-item-date\">\n        2015/01/01\n      </span>\n    </article>\n    \n    \n  </div>\n  \n\n</main>\n\n      <footer class=\"footer\">\n        <ul class=\"footer-links\">\n          <li>\n            <a href=\"./index.xml\" type=\"application/rss+xml\" target=\"_blank\">RSS feed</a>\n          </li>\n          <li>\n            <a href=\"https://gohugo.io/\" class=\"footer-links-kudos\">Made with <img src=\"./images/hugo-logo.png\" width=\"22\" height=\"22\"></a>\n          </li>\n        </ul>\n      </footer>\n\n    </div>\n    \n\n    \n\n    \n  </body>\n</html>\n\n",
+    "created" : 1501872612899.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3386793450",
+    "id" : "C9FBA11E",
+    "lastKnownWriteTime" : 1501872748,
+    "last_content_update" : 1501872748,
+    "path" : "~/Desktop/Website2/public/index.html",
+    "project_path" : "public/index.html",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "html"
+}
