@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=IM+Fell+Double+Pica|IM+Fell+English|Old+Standard+TT');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville|Old+Standard+TT');
 
 body {
   font-family: 'Old Standard TT', serif;
 }
 h1, h2, h3, h4, h5, h6, .nav, .article-duration, .archive-item-link, .footer {
-  font-family: 'IM Fell Double Pica', serif;
+  font-family: 'Libre Baskerville', serif;
 }
