@@ -104,13 +104,15 @@ code {
 }
 
 .article-title {
-  font-size: 34px;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: ;
   color: #222;
   margin: 0;
-  line-height: 1.3;
 }
 
 .article-date {
+ text-decoration: none;
   color: #ccc;
 }
 
@@ -184,6 +186,7 @@ code {
 
 .archive-item-date {
   color: #ccc;
+  text-decoration: none;
   font-size: 14px;
   padding: 5px 0;
   margin-top: 5px;
