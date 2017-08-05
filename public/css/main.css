@@ -6,10 +6,14 @@ body {
 }
 
 body {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -moz-font-feature-settings: "liga" on;
+text-rendering: optimizeLegibility;
+speak: none;
+font-style: normal;
+font-weight: normal;
+font-variant: normal;
+text-transform: none;
+line-height: 1;
+-webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -115,7 +119,7 @@ code {
   float: right;
   font-size: 10px;
   padding: 1px 5px;
-  font-weight: bold;
+  font-weight: ;
   border-radius: 3px;
   background: #bbb;
   color: #fff
@@ -190,7 +194,7 @@ code {
   display: inline-block;
   text-decoration: none;
   font-size: 21px;
-  font-weight: bold;
+  font-weight: ;
   color: #222;
   padding: 5px 0;
   border-bottom: 1px solid #ddd;
