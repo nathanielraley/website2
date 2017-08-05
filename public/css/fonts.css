@@ -3,6 +3,6 @@
 body {
   font-family: 'Old Standard TT', serif;
 }
-h1, h2, h3, h4, h5, h6, .nav, .article-duration, .archive-item-link, .article-title .footer {
+h1, h2, h3, h4, h5, h6, .nav, .article-duration, .archive-item-link, .article-title, .footer {
   font-family: 'Libre Baskerville', serif;
 }
