@@ -1,0 +1,27 @@
+---
+title: "About"
+author: "Nathaniel Raley"
+date: "August 5, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Hello! My name is Nathaniel Woodward (*né* Raley). I am an educator, researcher, and statistical consultant at UT Austin.
+
+aaaaaa
+
+I also like pestering my cats[^1], warbling, juggling, and games with grids.
+
+recreational mathematics, general knowledge trivia, and most fermented comestibles. If I were a nonhuman animal, I have it on good authority that I would be an [umbrella cockatoo](http://en.wikipedia.org/wiki/Umbrella_cockatoo#Gallery).
+
+> quotation quotation quotation
+
+
+In August 2017, I migrated my blog and personal website from blogger and AWS to GitHub/Netlify so I could blog more simply using the [**blogdown**](https://github.com/rstudio/blogdown) package. This theme was adapted from [Yihui Xie's](https://github.com/yihui/hugo-lithium-theme) adaptation of [J. Rutheiser's original](https://github.com/jrutheiser/hugo-lithium-theme)
+
+
+[^1]: Footnote
