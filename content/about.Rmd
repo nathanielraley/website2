@@ -11,19 +11,18 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-![](grm3.png)
+<img src="grm3.png" width="300">
 
 Hello! My name is Nathaniel Woodward (*né* Raley).   
 I am an educator, researcher, statistical consultant at UT Austin. 
 
 I love learning and I love learning about learning[^1]---whether *in vivo, vitro,* or *silico*.
 
+<!--
 I am dedicated to optimizing human learning through psychological, biological, and technological cross-pollination. 
 
 
-
-
-<!--My life's work is how life works
+My life's work is how life works
 I believe that in addition to improving the quality and availability of education, an enduring love of learning should be the aim of every educator and the prerogative of every child. Further, I feel that urgent effort is needed to optimize student learning---increasing the efficacy of education will generate advancements at present unfathomable in the total amount of knowledge and truth in the world. Still more powerful pedagogies will result, fueling a feedback loop that will push our species onward and upward over critical thresholds in discovery. Only an optimally educated humanity will be equipped to solve today’s most pressing problems and to safeguard a future for our posterity
 
 mechanics of memory
