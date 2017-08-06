@@ -47,12 +47,12 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description>Hello! My name is Nathaniel Woodward (né Raley). I am an educator, researcher, and statistical consultant at UT Austin.
-aaaaaa
-I also like pestering my cats1, warbling, juggling, and games with grids.
-recreational mathematics, general knowledge trivia, and most fermented comestibles. If I were a nonhuman animal, I have it on good authority that I would be an umbrella cockatoo.
- quotation quotation quotation
- In August 2017, I migrated my blog and personal website from blogger and AWS to GitHub/Netlify so I could blog more simply using the blogdown package.</description>
+      <description>Hello! My name is Nathaniel Woodward (né Raley).
+I am an educator, researcher, statistical consultant at UT Austin.
+I love learning and I love learning about learning1—whether in vivo, vitro, or silico.
+I am dedicated to optimizing human learning through psychological, biological, and technological cross-pollination.
+Research  Teaching Here is a platitude, but wait and I’ll unpack it: “To be a good teacher is to be a good student.”
+For as long as I can remember, people have always asked me what I’m smiling about, and I’ve never known how to respond.</description>
     </item>
     
   </channel>
