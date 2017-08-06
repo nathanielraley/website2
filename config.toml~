@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "/home/"
 relativeurls = true
 languageCode = "en-us"
 title = "Nathaniel Raley Woodward"
@@ -14,14 +14,15 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
     name = "About"
     url = "/about/"
 [[menu.main]]
-    name = "GitHub"
-    url = "https://github.com/nathanielraley"
- [[menu.main]]
-    name = "CV"
-    url = "cv.pdf"
+    name = "Blog"
+    url = "/"
 [[menu.main]]
-    name = "Twitter"
-    url = "https://twitter.com/nathanielraley"
+    name = "Teaching"
+    url = "/teaching/"
+[[menu.main]]
+    name = "Research"
+    url = "/research/"
+
 
 [params]
     description = "Personal Website of N.R. Woodward"

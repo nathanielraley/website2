@@ -14,14 +14,15 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
     name = "About"
     url = "/about/"
 [[menu.main]]
-    name = "GitHub"
-    url = "https://github.com/nathanielraley"
+    name = "Blog"
+    url = "/"
 [[menu.main]]
-    name = "CV"
-    url = "cv.pdf"
+    name = "Teaching"
+    url = "/teaching/"
 [[menu.main]]
-    name = "Twitter"
-    url = "https://twitter.com/nathanielraley"
+    name = "Research"
+    url = "/research/"
+
 
 [params]
     description = "Personal Website of N.R. Woodward"

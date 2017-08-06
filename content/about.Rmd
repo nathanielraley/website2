@@ -11,6 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+![](grm3.png)
 
 Hello! My name is Nathaniel Woodward (*né* Raley).   
 I am an educator, researcher, statistical consultant at UT Austin. 
@@ -36,7 +37,7 @@ Realize, though, that "living" and "learning" are mutually entailing and thus fu
 Integrating over your every lesson-learned gives more than just what you know... it's who you are! A “tree of life” and a “tree of knowledge” have proverbial roots in most every culture, but if you dig beneath the surface you find that they grow together---like Baucis and Philemon of myth, or the great Pando of Utah, they are the same tree! (Some have preferred rhizome.) 
 
 "you live and you learn." But this is tautological: to live is to learn!
--->
+
 
 
 #Research
@@ -68,8 +69,7 @@ In August 2017, I migrated my blog and personal website from blogger/AWS to GitH
 #Personal
 
 
-I also like pestering my cats[^], warbling, juggling, and games with grids[^].
-
+I also like pestering my cats[^], warbling, juggling[^], timed games on grids[^],
 recreational mathematics, general knowledge trivia, and most fermented comestibles. 
 If I were a nonhuman animal, I have it on good authority that I would be an [umbrella cockatoo](http://en.wikipedia.org/wiki/Umbrella_cockatoo#Gallery).
 
@@ -81,10 +81,8 @@ If I were a nonhuman animal, I have it on good authority that I would be an [umb
 
 
 
-
-
-
+[^2]: ![](minesweeper.jpg)
+[^3]:
+-->
 
 [^1]: I also love learning about learning about learning
-[^2]: ![](minesweeper.png)
-[^3]: 
