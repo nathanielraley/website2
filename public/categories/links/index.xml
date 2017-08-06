@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Links on Nathaniel Raley Woodward</title>
+    <link>/categories/links/</link>
+    <description>Recent content in Links on Nathaniel Raley Woodward</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 07 Dec 2013 02:22:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/links/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First post: a couple links</title>
+      <link>/2013/12/07/first-post-a-couple-links/</link>
+      <pubDate>Sat, 07 Dec 2013 02:22:00 +0000</pubDate>
+      
+      <guid>/2013/12/07/first-post-a-couple-links/</guid>
+      <description>&amp;ldquo;O Muses, O high genius, aid me now!&amp;ldquo; -Inferno, Canto II
+While I&amp;rsquo;ve nothing interesting to say right now, I do have a few things to show you, a few tools I&amp;rsquo;ve found.
+If you use the &amp;ldquo;highlighter&amp;rdquo; function in a .pdf reader, you might find this service helpful (sumnotes.net); with a click, it copies all of the text you&amp;rsquo;ve highlighted and combines it into a single file. This is certainly nontrivial, and it took me a good half-an-hour to find.</description>
+    </item>
+    
+  </channel>
+</rss>
