@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nathaniel Raley Woodward</title>
+    <title>Home on Nathaniel Raley Woodward</title>
     <link>/</link>
-    <description>Recent content on Nathaniel Raley Woodward</description>
+    <description>Recent content in Home on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 30 Dec 2016 21:49:57 -0700</lastBuildDate>
@@ -51,6 +51,24 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
 I am an educator, researcher, statistical consultant at UT Austin.
 I love learning and I love learning about learning1—whether in vivo, vitro, or silico.
 The passions should be bound up in the glorious project of fulfilling human  nature and searching for final truths, and this binding should be the goal of  education.&#39;&#39; Students who love to learn will seek meaning, truth, and enjoyment in everything they do---and they will find it.</description>
+    </item>
+    
+    <item>
+      <title>Research</title>
+      <link>/research/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Teaching</title>
+      <link>/teaching/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/teaching/</guid>
+      <description></description>
     </item>
     
   </channel>

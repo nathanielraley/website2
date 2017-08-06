@@ -1,0 +1,16 @@
+---
+title: Home
+output: html
+---
+
+$\text{meotodes meahte and his modgeþanc,}$
+
+
+[<img src="grm3.png" style="max-width:15%;min-width:150px;float:right;" alt="" />](https://github.com/yihui/hugo-xmin)
+
+# Under Construction!
+
+
+$${\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow {d}}\ N\left(0,\sigma ^{2}\right)$$
+
+
