@@ -55,6 +55,7 @@ a {
 
 code {
   background-color: rgba(0, 0, 0, 0.02);
+  font-size: 14px;
 }
 
 .wrapper {
@@ -295,8 +296,8 @@ code {
   }
 
   .content {
-    font-size: 19px;
-    line-height: 1.8;
+    font-size: 17px;
+    line-height: 1.7;
   }
 
   .highlight {
