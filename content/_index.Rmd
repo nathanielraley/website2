@@ -6,7 +6,7 @@ output: html
 $\text{meotodes meahte and his modgeþanc,}$
 
 
-[<img src="grm3.png" style="max-width:15%;min-width:150px;float:right;" alt="" />](https://github.com/yihui/hugo-xmin)
+<img src="grm3.png" style="max-width:15%;min-width:150px;float:right;" alt="" />]
 
 # Under Construction!
 

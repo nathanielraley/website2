@@ -268,10 +268,11 @@ curve(dnorm(x,0,sqrt(10/3)),add=T,col="red")}
 
 Pretty incredible, right?
 
-Here's a gif illustrating this exact situation---the sampling distribution of $\sum{X_{i=1}^n} X_i, \ \ \ \ \ X_i \sim U(-1,1)$ for $i=1,2,...9$. Prepare to be mesmerized:
+Here's a gif illustrating this exact situation---the sampling distribution of $\sum{X_{i=1}^n} X_i, \ \  X_i \sim U(-1,1)$ for $i=1,2,...9$. 
+
 <center>![](sumunif.gif)</center>
 
-Putting it all together, we can say that as the sample size increases, the means of the samples (the sampling distribution) will approach this normal distribution $N(\bar{X},\sigma^2 /2)$, or equivalently,
+Putting it all together, we can say that regarless of how $X$ is distributed, as the sample size $n$ increases, the means of the samples (the sampling distribution of $\bar{X_n}$) will approach this normal distribution $N(\bar{X},\frac{\sigma^2}{\sqrt{n}})$, or equivalently,
 $${\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow\ N\left(0,\sigma ^{2}\right)}$$
 
 

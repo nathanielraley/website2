@@ -313,11 +313,11 @@ hist(replicate(10000,sum(runif(10,-1,1))),breaks=50,main=&quot;&quot;,prob=T)
 curve(dnorm(x,0,sqrt(10/3)),add=T,col=&quot;red&quot;)}</code></pre>
 <p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Pretty incredible, right?</p>
-Here’s a gif illustrating this exact situation—the sampling distribution of <span class="math inline">\(\sum{X_{i=1}^n} X_i, \ \ \ \ \ X_i \sim U(-1,1)\)</span> for <span class="math inline">\(i=1,2,...9\)</span>. Prepare to be mesmerized:
+<p>Here’s a gif illustrating this exact situation—the sampling distribution of <span class="math inline">\(\sum{X_{i=1}^n} X_i, \ \  X_i \sim U(-1,1)\)</span> for <span class="math inline">\(i=1,2,...9\)</span>.</p>
 <center>
 <img src="sumunif.gif" />
 </center>
-<p>Putting it all together, we can say that as the sample size increases, the means of the samples (the sampling distribution) will approach this normal distribution <span class="math inline">\(N(\bar{X},\sigma^2 /2)\)</span>, or equivalently, <span class="math display">\[{\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow\ N\left(0,\sigma ^{2}\right)}\]</span></p>
+<p>Putting it all together, we can say that regarless of how <span class="math inline">\(X\)</span> is distributed, as the sample size <span class="math inline">\(n\)</span> increases, the means of the samples (the sampling distribution of <span class="math inline">\(\bar{X_n}\)</span>) will approach this normal distribution <span class="math inline">\(N(\bar{X},\frac{\sigma^2}{\sqrt{n}})\)</span>, or equivalently, <span class="math display">\[{\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow\ N\left(0,\sigma ^{2}\right)}\]</span></p>
 </div>
 <div id="finally-back-to-heights-how-unsure-are-we" class="section level2">
 <h2>Finally, Back to Heights: How (Un)Sure Are We?</h2>
