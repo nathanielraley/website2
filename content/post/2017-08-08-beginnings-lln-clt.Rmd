@@ -272,16 +272,15 @@ Here's a gif illustrating this exact situation---the sampling distribution of $\
 <center>![](sumunif.gif)</center>
 
 Putting it all together, we can say that as the sample size increases, the means of the samples (the sampling distribution) will approach this normal distribution $N(\bar{X},\sigma^2 /2)$, or equivalently,
-
-$$\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow\ N\left(0,\sigma ^{2}\right)$$
+$${\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow\ N\left(0,\sigma ^{2}\right)}$$
 
 
 ## Finally, Back to Heights: How (Un)Sure Are We?
 
 
-Going back to our very first sample of size 10, we can now say that we are 95% sure that the population mean is within $\bar{X}\pm 2*\sigma/\sqrt{n}$, which is 
+Going back to our very first sample of size 10, we can now say that we are 95% sure that the population mean is within $\bar{X}\pm 1.96*\sigma/\sqrt{n}$, which is 
 ```{R}
-mean(s10)+c(-2*pop.sd/sqrt(10),2*pop.sd/sqrt(10))
+mean(s10)+c(-1.96*pop.sd/sqrt(10),1.96*pop.sd/sqrt(10))
 ```
 
 But here we are using our knowledge of the population mean, `r round(pop.sd,3)` to put a confidence interval around our esimated mean! In the real world, we won't know the mean $\mu$ or the standard devation $\sigma$ of the population: we will have to estimate them both, using the sample mean $\bar{X} =\frac{1}{n}\sum_{i=1}^{n}X_i$ and the sample standard deviation $s$. But as we will see, there's a problem. 

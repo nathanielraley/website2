@@ -259,14 +259,13 @@ Here’s a gif illustrating this exact situation—the sampling distribution of 
 <center>
 <img src="sumunif.gif" />
 </center>
-<p>Putting it all together, we can say that as the sample size increases, the means of the samples (the sampling distribution) will approach this normal distribution <span class="math inline">\(N(\bar{X},\sigma^2 /2)\)</span>, or equivalently,</p>
-<p><span class="math display">\[\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow\ N\left(0,\sigma ^{2}\right)\]</span></p>
+<p>Putting it all together, we can say that as the sample size increases, the means of the samples (the sampling distribution) will approach this normal distribution <span class="math inline">\(N(\bar{X},\sigma^2 /2)\)</span>, or equivalently, <span class="math display">\[{\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow\ N\left(0,\sigma ^{2}\right)}\]</span></p>
 </div>
 <div id="finally-back-to-heights-how-unsure-are-we" class="section level2">
 <h2>Finally, Back to Heights: How (Un)Sure Are We?</h2>
-<p>Going back to our very first sample of size 10, we can now say that we are 95% sure that the population mean is within <span class="math inline">\(\bar{X}\pm 2*\sigma/\sqrt{n}\)</span>, which is</p>
-<pre class="r"><code>mean(s10)+c(-2*pop.sd/sqrt(10),2*pop.sd/sqrt(10))</code></pre>
-<pre><code>## [1] 64.66809 69.65187</code></pre>
+<p>Going back to our very first sample of size 10, we can now say that we are 95% sure that the population mean is within <span class="math inline">\(\bar{X}\pm 1.96*\sigma/\sqrt{n}\)</span>, which is</p>
+<pre class="r"><code>mean(s10)+c(-1.96*pop.sd/sqrt(10),1.96*pop.sd/sqrt(10))</code></pre>
+<pre><code>## [1] 64.71793 69.60203</code></pre>
 <p>But here we are using our knowledge of the population mean, 3.94 to put a confidence interval around our esimated mean! In the real world, we won’t know the mean <span class="math inline">\(\mu\)</span> or the standard devation <span class="math inline">\(\sigma\)</span> of the population: we will have to estimate them both, using the sample mean <span class="math inline">\(\bar{X} =\frac{1}{n}\sum_{i=1}^{n}X_i\)</span> and the sample standard deviation <span class="math inline">\(s\)</span>. But as we will see, there’s a problem.</p>
 <center>
 <img src="student1.png" />
