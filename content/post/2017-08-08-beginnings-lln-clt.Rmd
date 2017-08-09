@@ -230,7 +230,7 @@ var<-sum(tab1[,1]^2*tab1[,2])
 curve(dnorm(x,mean,sqrt(var)),add=T)}
 ```
 Remarkably similar! The distribution of the sum of three draws of 
-$ X=\left\{\begin{matrix} 1& \text{with probability 1/3} \\ 2 & \text{with probability 1/3} \\ 3 & \text{with probability 1/3} \end{matrix}\right\}$
+$$ X=\left\{\begin{matrix} 1& \text{with probability 1/3} \\ 2 & \text{with probability 1/3} \\ 3 & \text{with probability 1/3} \end{matrix}\right\}$$
 is eerily close to normal. Notice here that we didn't have to divide our variance by $\sqrt{n}$ because we were dealing with the distribution of the sum, not an average! Here's what the distribution of $\sum_{i=1}^4 X_i$ looks like, in case you aren't convinced.
 ```{R}
 X1=rep(c(-1,0,1),27)
