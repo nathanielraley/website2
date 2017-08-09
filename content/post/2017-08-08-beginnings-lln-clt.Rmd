@@ -59,7 +59,7 @@ s10<-sample(pop.height,10,replace=T)
 mean(s10);sd(s10)
 ```
 
-Well---becoming omnicient for a moment---we can see that this mean is quite a bit closer to the population mean: $\mid \bar{X_{10}}-\mu\mid=$`r round(abs(pop.mean-mean(s10)),3)`  versus $\mid \bar{X_1}-\mu\mid=$ `r round(abs(pop.mean-s1),3)`. Are we guaranteed to get closer and closer to the population mean as we measure more and more people? 
+Well---becoming omnicient for a moment---we can see that this mean is quite a bit closer to the population mean:$\mid \bar{X_10}-\mu\mid=$ `r round(abs(pop.mean-mean(s10)),3)`  versus $\mid \bar{X_1}-\mu\mid=$ `r round(abs(pop.mean-s1),3)`. Are we guaranteed to get closer and closer to the population mean as we measure more and more people? 
 
 ```{r}
 ss<-vector()
@@ -229,7 +229,9 @@ var<-sum(tab1[,1]^2*tab1[,2])
 {plot(tab1,pch=19,cex=2,ylim=c(0,.3))
 curve(dnorm(x,mean,sqrt(var)),add=T)}
 ```
-Remarkably similar! The distribution of the sum of three draws of $X=\left\{{\begin{matrix}1&{\mbox{with}}\ {\mbox{probability}}\ 1/3\\2&{\mbox{with}}\ {\mbox{probability}}\ 1/3\\3&{\mbox{with}}\ {\mbox{probability}}\ 1/3\end{matrix}}\right$ is eerily close to normal. Notice here that we didn't have to divide our variance by $\sqrt{n}$ because we were dealing with the distribution of the sum, not an average! Here's what the distribution of $\sum_{i=1}^4 X_i$ looks like, in case you aren't convinced.
+Remarkably similar! The distribution of the sum of three draws of 
+$ X=\left\{\begin{matrix} 1& \text{with probability 1/3} \\ 2 & \text{with probability 1/3} \\ 3 & \text{with probability 1/3} \end{matrix}\right\}$
+is eerily close to normal. Notice here that we didn't have to divide our variance by $\sqrt{n}$ because we were dealing with the distribution of the sum, not an average! Here's what the distribution of $\sum_{i=1}^4 X_i$ looks like, in case you aren't convinced.
 ```{R}
 X1=rep(c(-1,0,1),27)
 X2=rep(c(-1,-1,-1,0,0,0,1,1,1),9)
@@ -247,7 +249,7 @@ That was for a discrete probability distribution, but how about a continuous one
 ```{R}
 curve(dunif(x,-1,1),xlim=c(-2,2))
 ```
-Now let's repeatedly draw two random numbers $X$ from this distribution, add them together, and plot the result. We will also overlay a normal distribution, $N(0,\frac{1}{3 \sqrt{n})$
+Now let's repeatedly draw two random numbers $X$ from this distribution, add them together, and plot the result. We will also overlay a normal distribution, $N(0,\sqrt{4/12})$, because the variance of a uniform is given by$\frac{1}{12}(max-min)^2$
 
 ```{R}
 {hist(replicate(10000,sum(runif(2,-1,1))),breaks=100,main="",prob=T)
