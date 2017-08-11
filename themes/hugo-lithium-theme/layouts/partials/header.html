@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bigfoot.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/bigfoot.css">
+<script type="text/javascript">
+  $.bigfoot(
+        {
+            numberResetSelector: "article",
+           // activateOnHover: true,
+           // deleteOnUnhover: true,
+            hoverDelay: 250
+        }
+    );
 </script>
+ 
   <head>
     {{ partial "head.html" . }}
   </head>

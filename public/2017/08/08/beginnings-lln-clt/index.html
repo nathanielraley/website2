@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en-us">
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../js/bigfoot.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../css/bigfoot.css">
+<script type="text/javascript">
+  $.bigfoot(
+        {
+            numberResetSelector: "article",
+           
+           
+            hoverDelay: 250
+        }
+    );
 </script>
+ 
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -285,7 +299,7 @@ tab1</code></pre>
 var&lt;-sum(tab1[,1]^2*tab1[,2])
 {plot(tab1,pch=19,cex=2,ylim=c(0,.3))
 curve(dnorm(x,mean,sqrt(var)),add=T)}</code></pre>
-<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-18-1.png" width="672" /> Remarkably similar! The distribution of the sum of three draws of <span class="math display">\[ X=\left\{\begin{matrix} 1&amp; \text{with probability 1/3} \\ 2 &amp; \text{with probability 1/3} \\ 3 &amp; \text{with probability 1/3} \end{matrix}\]</span> is eerily close to normal. Notice here that we didn’t have to divide our variance by <span class="math inline">\(\sqrt{n}\)</span> because we were dealing with the distribution of the sum, not an average! Here’s what the distribution of <span class="math inline">\(\sum_{i=1}^4 X_i\)</span> looks like, in case you aren’t convinced.</p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-18-1.png" width="672" /> Remarkably similar! The distribution of the sum of three draws of <span class="math display">\[ X=\left\{\begin{matrix} 1&amp; \text{with probability 1/3} \\ 2 &amp; \text{with probability 1/3} \\ 3 &amp; \text{with probability 1/3} \end{matrix}\right\}\]</span> is eerily close to normal. Notice here that we didn’t have to divide our variance by <span class="math inline">\(\sqrt{n}\)</span> because we were dealing with the distribution of the sum, not an average! Here’s what the distribution of <span class="math inline">\(\sum_{i=1}^4 X_i\)</span> looks like, in case you aren’t convinced.</p>
 <pre class="r"><code>X1=rep(c(-1,0,1),27)
 X2=rep(c(-1,-1,-1,0,0,0,1,1,1),9)
 X3=rep(c(rep(-1,9),rep(0,9),rep(1,9)),3)
