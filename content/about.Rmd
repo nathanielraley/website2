@@ -12,12 +12,15 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 <img src="ndr_head.jpg" style="float: left; width: 25%; margin-right: 1%; margin-bottom: 0.5em;">
-<img src="jubes_on_beach.png" style="float: left; width: 25%; margin-right: 1%; margin-bottom: 0.5em;">
+<img src="jubes_on_beach.png" style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;">
 
 
-Hello! My name is Nathaniel Woodward (*né* Raley). I am a sometime educator, researcher, and statistical consultant at UT Austin. 
+Hello! My name is Nathaniel Woodward (*né* Raley). 
+I am a sometime educator, researcher, and statistical consultant at UT Austin. 
+
 
 #Mini bio?
+
 I can't decide what to put here (!), so here's my life story as elevator movie-pitch (mind the twee): bad boy meets good girl in HS academic competition, studies hard[^10] to impress her;[^11] opposites attract, indeed mesh perfectly; they fall in love but soon separated by college; they endure this trial, get married, together ever since, happily ever after! Plot twist: all the while, he stays obsessed with studying/learning, continues to go to academic competitions as awkward adult, teaches himself math so he can model/predict learning and memory, becomes learning researcher and statistician, aspires to share love of learning with everyone, dreams of optimally educated humanity that solves all problems and safeguards future! Protagonist then makes website and types brief, clichéd account of his life at the top.
 
 In brief, I love learning,[^5] I love learning about learning,[^1] and in both my teaching and my research, my guiding purpose is to improve people’s lifetime learning outcomes---to provide students with meaningful learning experiences that lead to durable, flexible knowledge; to show them how enjoyable learning can be so that they are motivated to pursue knowledge for its own sake; and to give them the cognitive and meta-cognitive skills they need to pursue their independent inquiry effectively and efficiently.
@@ -93,9 +96,9 @@ recreational mathematics (here's [a fun one I saw rencently](https://www.janestr
 
 
 [^1]: I also love learning about learning about learning, but it probably ends there (see ["Yudkowsky's Law of Ultrafinite Recursion"](https://www.facebook.com/yudkowsky/posts/10154119438404228))
-[^2]: <img src="minesweeper.jpg" width="300">
+[^2]: <img src="minesweeper.png" width="250">
 [^3]: sourdough, tempeh, beer, kombucha, wine, idli, dosas, pickles, gochujang, miso, kimchi, sauerkraut...  
-[^4]: <img src="umbrella_cockatoo.jpg" width="300">
+[^4]: <img src="umbrella_cockatoo.jpg" width="250">
 [^5]: whether *in vivo, in vitro,* or *in silico*
 [^6]: <img src="lady.png">
 [^7]: <img src="https://i.imgur.com/YQKgyfK.gif">
