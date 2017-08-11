@@ -11,15 +11,19 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<img src="ndr_head.jpg" width="300">
-
-Hello! My name is Nathaniel Woodward (*né* Raley).   
-I am a sometime educator, researcher, and statistical consultant at UT Austin. 
+<img src="ndr_head.jpg" style="float: left; width: 25%; margin-right: 1%; margin-bottom: 0.5em;">
+<img src="jubes_on_beach.png" style="float: left; width: 25%; margin-right: 1%; margin-bottom: 0.5em;">
 
 
-I love learning[^5], I love learning about learning[^1]
+Hello! My name is Nathaniel Woodward (*né* Raley). I am a sometime educator, researcher, and statistical consultant at UT Austin. 
+
+#Mini bio?
+I can't decide what to put here (!), so here's my life story as elevator movie-pitch (mind the twee): bad boy meets good girl in HS academic competition, studies hard[^10] to impress her;[^11] opposites attract, indeed mesh perfectly; they fall in love but soon separated by college; they endure this trial, get married, together ever since, happily ever after! Plot twist: all the while, he stays obsessed with studying/learning, continues to go to academic competitions as awkward adult, teaches himself math so he can model/predict learning and memory, becomes learning researcher and statistician, aspires to share love of learning with everyone, dreams of optimally educated humanity that solves all problems and safeguards future! Protagonist then makes website and types brief, clichéd account of his life at the top.
+
+In brief, I love learning,[^5] I love learning about learning,[^1] and in both my teaching and my research, my guiding purpose is to improve people’s lifetime learning outcomes---to provide students with meaningful learning experiences that lead to durable, flexible knowledge; to show them how enjoyable learning can be so that they are motivated to pursue knowledge for its own sake; and to give them the cognitive and meta-cognitive skills they need to pursue their independent inquiry effectively and efficiently.
 
 
+I feel that in a fundamental sense, living *is* learning---that one's perceived quality of life 
 
 <!--
 I am dedicated to optimizing human learning through psychological, biological, and technological cross-pollination. 
@@ -29,9 +33,6 @@ My life's work is how life works
 I believe that in addition to improving the quality and availability of education, an enduring love of learning should be the aim of every educator and the prerogative of every child. Further, I feel that urgent effort is needed to optimize student learning---increasing the efficacy of education will generate advancements at present unfathomable in the total amount of knowledge and truth in the world. Still more powerful pedagogies will result, fueling a feedback loop that will push our species onward and upward over critical thresholds in discovery. Only an optimally educated humanity will be equipped to solve today’s most pressing problems and to safeguard a future for our posterity
 
 mechanics of memory
-
-In both my teaching and my research, my guiding purpose is to improve students’ lifetime learning outcomes---to provide students with meaningful learning experiences that lead to durable, flexible knowledge; to show them how enjoyable learning can be so that they are motivated to pursue knowledge for its own sake; and to give them the cognitive and meta-cognitive skills they need to pursue their independent
-inquiry effectively and efficiently.
 
 
 Realize, though, that "living" and "learning" are mutually entailing and thus functionally equivalent: both terms imply changes in the state of a system with respect to its environment, given a unique history of such interactions.
@@ -73,23 +74,32 @@ Students who love to learn will seek meaning, truth, and enjoyment in everything
 
 #Site
 
+Why blog? Initially, it was just to have a place externalize my ideas. I would have an idea, and, after trawling my stream of consciousness for hunches and inklings, I needed a place to dump all this stuff so it isn't forgotten, a digital creel. Life's too short for fleeting thoughts; here I could pin them all down side by side and, under the loupe of scrutiny, come to determine and refine what it is I believe. Good old Plato would've called sites like these *hypomnemata*; they act as a sort of prosthetic memory for ones musings---from the amusing to the bemusing---that serve as a record of the person I was for the people I will become. I can look back and see how, in each post or upload, I have unconsciously embedded aspects of my identity-at-the-time. Because when we write, the billions of experiences we've had since birth are brought to bear, and so the author leaves a residue even as she is changed by the process itself.
+
+>"How can I tell what I think until I see what I say?" -- E.M. Forster (1927)
+
+You too can see what I say: the internet creates sort of reverse-voyeurism where I get to say things and pretend you are listening. Even an imagined audience can cause reactivity, and I usually do well under peer pressure. And, because of several sunk costs (e.g., domain registration), I hope to channel loss-aversion into regular updates and upkeep, so drop by and hold me to account!
+
+
 In August 2017, I migrated my blog and personal website from blogger/AWS to GitHub/Netlify so I could blog stats stuff more simply straight from R Studio using the [**blogdown**](https://github.com/rstudio/blogdown) package developed by Yihui Xie. Indeed, this site is adapted from [his](https://github.com/yihui/hugo-lithium-theme) adaptation of [J. Rutheiser's original](https://github.com/jrutheiser/hugo-lithium-theme) theme. I have tweaked it considerably (and wasted much time in doing so), including the addition of bigfootjs for fun footnotes.
 
 
 #Personal
 
 
-I also like pestering each of my[^6] three[^7] cats,[^8] juggling[^9], puzzling (sweeping mines,[^2] crossing words), quizzing,
+I also like pestering each of my[^6] three[^7] cats,[^8] juggling,[^9] puzzling (sweeping mines,[^2] crossing words), quizzing,
 recreational mathematics (here's [a fun one I saw rencently](https://www.janestreet.com/join-jane-street/open-positions/?utm_content=sierpinski), eating spicy and or fermented[^3] things in accordance with obligate vegetarianism and facultative/fair-weather freeganism. If I were a nonhuman animal, I have it on good authority that I would be an umbrella cockatoo[^4].
 
 
 
 [^1]: I also love learning about learning about learning, but it probably ends there (see ["Yudkowsky's Law of Ultrafinite Recursion"](https://www.facebook.com/yudkowsky/posts/10154119438404228))
-[^2]: ![](minesweeper.jpg)
+[^2]: <img src="minesweeper.jpg" width="300">
 [^3]: sourdough, tempeh, beer, kombucha, wine, idli, dosas, pickles, gochujang, miso, kimchi, sauerkraut...  
-[^4]: ![](umbrella_cockatoo.jpg)
+[^4]: <img src="umbrella_cockatoo.jpg" width="300">
 [^5]: whether *in vivo, in vitro,* or *in silico*
-[^6]: {{< instagram rukkEotnwz hidecaption >}}
-[^7]: {{< instagram BAISZO5Nn8q hidecaption >}}
-[^8]: {{< instagram oMtuLINn53 hidecaption >}}
-[^9]: <iframe width="640" height="360" src="https://www.youtube.com/embed/FKU1p5SUlIc?list=PL3kcOofui6JZj6iFqsLzC-APKj8t4-V-T" frameborder="0" allowfullscreen></iframe>
+[^6]: <img src="lady.png">
+[^7]: <img src="https://i.imgur.com/YQKgyfK.gif">
+[^8]: <img src="upsidedinge.png">
+[^9]: <iframe width="320" height="180" src="https://www.youtube.com/embed/FKU1p5SUlIc?list=PL3kcOofui6JZj6iFqsLzC-APKj8t4-V-T" frameborder="0" allowfullscreen></iframe>
+[^10]: For the first time in 12 years of formal schooling...
+[^11]: Turns out that though she's impossibly impressive, she's impossible to impress

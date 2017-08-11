@@ -22,10 +22,10 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 [[menu.main]]
     name = "Research"
     url = "/research/"
-
+    
 
 [params]
-    description = "Personal Website of N.R. Woodward"
+    description = "Personal Webpage - N.R. Woodward"
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.11.0"
@@ -38,7 +38,6 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 
     [params.logo]
     url = "logo.png"
-    width = 50
-    height = 50
-    alt = "Logo"
-
+    width = 60
+    height = 60
+    alt = ""
