@@ -1,6 +1,6 @@
 ---
 title: Home
-output: html
+output: blogdown::html_page
 ---
 ```{R echo=F}
 
@@ -12,7 +12,7 @@ for (i in seq(1,90,3)){x<-seq(i,90,.001); lines(x,exp(-(x-(i))/((i)^(1.5))), lty
 for (i in seq(1,90,3)){x<-seq(i,i+3,.001); lines(x,exp(-(x-(i))/((i)^(1.5))),lw=2)}}
 ```
 
-$$e^{-\frac{t-S}{t^{1.5}}}$$
+
 
 
 $${\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow {d}}\ N\left(0,\sigma ^{2}\right)$$
