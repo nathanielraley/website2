@@ -10,8 +10,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<img height="200"  src="ndr_head.jpg" style="float: center;  margin-right: 1%; margin-bottom: 0.5em;">
-<img height="200" src="jubes_on_beach.png" style="float: center; margin-right: 1%; margin-bottom: 0.5em;">
+<img height="200"  src="ndr_head.jpg" style="float: right;  margin-right: 1%; margin-bottom: 0.5em;">
+<img height="200" src="jubes_on_beach.png" style="float: right; margin-right: 1%; margin-bottom: 0.5em;">
 
 <br><br><br><br><br><br><br>
 
