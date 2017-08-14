@@ -295,9 +295,9 @@
 
 .bigfoot-footnote__button {
   position: relative;
-  height: 0.7em;
-  width: 0.7em;
-  border-radius: 0.5em;
+  height: 0.0em;
+  width: 0.0em;
+  border-radius: 0.0em;
 }
 
 .bigfoot-footnote__button:after {

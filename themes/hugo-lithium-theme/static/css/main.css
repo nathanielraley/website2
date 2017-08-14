@@ -72,6 +72,7 @@ code {
 
 .nav {
   max-width: 800px;
+  height: 20px;
   margin: 0 auto;
   padding: 0 15px;
   text-align: right;
@@ -89,9 +90,9 @@ code {
 
 .nav-logo img {
   display: block;
-  max-height: 40px;
+  max-height: 100px;
   width: auto;
-  border-radius: 50%;
+  border-radius: 0;
 }
 
 .nav-links {

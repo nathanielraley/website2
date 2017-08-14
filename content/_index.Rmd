@@ -15,7 +15,7 @@ for (i in seq(1,90,3)){x<-seq(i,i+3,.001); lines(x,exp(-(x-(i))/((i)^(1.5))),lw=
 
 
 
-$${\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow {d}}\ N\left(0,\sigma ^{2}\right)$$
+$$%{\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\ {\xrightarrow {d}}\ N\left(0,\sigma ^{2}\right)$$
 
 
 ```{R echo=F}

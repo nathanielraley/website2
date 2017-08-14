@@ -13,16 +13,21 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 [[menu.main]]
     name = "About"
     url = "/about/"
+    weight = 1
 [[menu.main]]
     name = "Blog"
     url = "/post/"
+    weight = 2
+[[menu.main]]
+    name = "CV"
+    url = "/cv.pdf"
+    weight = 4
 [[menu.main]]
     name = "Teaching"
     url = "/teaching/"
+    weight = 3
 [[menu.main]]
-    name = "Research"
-    url = "/research/"
-    
+    name = ""
 
 [params]
     description = "Personal Webpage - N.R. Woodward"
@@ -38,6 +43,6 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 
     [params.logo]
     url = "logo.png"
-    width = 60
-    height = 60
+    width = 100
+    height = 100
     alt = ""
