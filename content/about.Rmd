@@ -10,8 +10,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<img height="200"  src="ndr_head.jpg" style="float: right;  margin-right: 1%; margin-bottom: 0.5em;">
-<img height="200" src="jubes_on_beach.png" style="float: right; margin-right: 1%; margin-bottom: 0.5em;">
+<center><img height="200"  src="ndr_head.jpg" style="margin-right: 1%; margin-bottom: 0.5em;">
+<img height="200" src="jubes_on_beach.png" style="margin-right: 1%; margin-bottom: 0.5em;"></center>
 
 <br><br><br><br><br><br><br>
 
@@ -22,7 +22,7 @@ In both my teaching and my research, my guiding purpose is to improve people’s
 
 #Mini Bio?
 
-Here's my life story as an elevator movie-pitch (mind the twee): bad boy meets good girl in [HS academic competition](https://en.wikipedia.org/wiki/United_States_Academic_Decathlon), studies hard[^10] to impress her;[^11] opposites attract,[^15] indeed mesh perfectly; they fall in love but soon separated by college; they endure this trial, get married, together ever since, happily ever after! Plot twist: all the while, he stays obsessed with studying/learning, continues to go to academic competitions as awkward adult, teaches himself math to better model/predict learning and memory, becomes learning researcher and statistician, aspires to share love of learning with everyone, dreams of optimally educated humanity that solves all the problems and safeguards the future! Protagonist then makes website and types brief, clichéd account of his life at the top.
+Here's my life story as an elevator movie-pitch (mind the twee): bad boy meets good girl in [HS academic competition](https://en.wikipedia.org/wiki/United_States_Academic_Decathlon), studies hard[^10] to impress her;[^11] opposites attract,[^15] indeed mesh perfectly; they fall in love but soon separated by college; they endure this trial, get married, together ever since, happily ever after! Plot twist: all the while, he remains obsessed with studying, continues to go to academic competitions as awkward adult, teaches himself math to better model/predict learning and memory, becomes learning researcher and statistician, aspires to share love of learning with everyone, dreams of optimally educated humanity that solves all the problems and safeguards the future! Protagonist then makes website and types brief, clichéd account of his life at the top.
 
 In all seriousness, I love learning,[^5] I love learning about learning[^1]---the love of learning infuses my every moment with excitement and personal meaning. When you love learning, life is transformed from a thing that happens to you into into a first-person quest for truth, beauty, and goodness: new experiences are mingled with old ones in the crucible of your imagination, producing ever-better mental models of reality, connecting previously unrelated ideas to form new patterns, new visions about the way things are... Once set aflame, this passion for personal truth is continually stoked by the small thrill of every realization and sustained by our profound need to bring order to ourselves and to the cosmos---the conviction that the universe will prove to make some final sense. A joy of learning suffuses life with meaning! It is the essence of education and the prerogative of every human being! We should all feel the tug of curiosity, the engulfing flow of discovery and problem-solving, the sheer awe of finally "getting it." Every little epiphany is worth its weight in gold: the final product of your every lesson-learned is far more what you know, it is who you are!
 
