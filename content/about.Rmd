@@ -47,7 +47,7 @@ In August 2017, I migrated my blog and personal website from blogger/AWS to GitH
 
 #Personal
 
-<center>![Several Ways I Usually Feel](howIfeelwhen_meme1.png)</center>
+<center>![Three Ways I Usually Feel During Social Interactions](howIfeelwhen_meme1.png)</center>
 
 Despite the impression you may have gotten from my prose style, I am extremely economical and I abominate wastes of any kind, especially those of time (the thing I value most highly) and money (which I have to sell my time to get).[^13]
 
@@ -66,7 +66,7 @@ Besides, I like indoor activities best! I enjoy pestering my[^6] three[^7] cats,
 
 What else is there about me? If I were a nonhuman animal, I have it on good authority that I would be an umbrella cockatoo.[^4]  
 I hate the residue left behind after peeling stickers off. I hate when copy editors use ugly em dashes  -- like these hideous things -- instead of their much prettier---and obviously correct---alternative. With few exceptions, I don't like watching movies or television shows:
-I *hate* the film Amadeus, but I quite enjoyed Wall\*E. I think George R. R. Martin is a huge pervy hack, but I believe [Achewood](http://www.ohnorobot.com/random.pl?comic=636) should be short-listed for the Nobel Prize. I don't like "video games," but if I did, I would like real-time strategy games. I was fortunate to live through a fleeting golden age of music (late 2000s/early 2010s) when Girl Talk released *Feed The Animals* and *All Day*, Lady Gaga was everywhere unstoppable, the New Pornographers had at least 3 amazing albums, and Das Racist was still together.  I guess I'm a cat person *and* a dog person, in that I like ~98% of the cats I've met but only about 10% of the dogs?[^18]
+I *hate* the film Amadeus, but I quite enjoyed Wall\*E. I think George R. R. Martin is a huge pervy hack, but I believe [Achewood](http://www.ohnorobot.com/random.pl?comic=636) should be short-listed for the Nobel Prize. I don't like "video games," but if I did, I would like real-time strategy games. I was fortunate to live through a fleeting golden age of music (late 2000s/early 2010s) when Girl Talk released *Feed The Animals* and *All Day*, Lady Gaga was everywhere unstoppable, the New Pornographers had at least 3 amazing albums, and Das Racist was still together. I guess I'm a cat person *and* a dog person, in that I like ~98% of the cats I've met but only about 10% of the dogs?[^18]
 
 
 [^1]: I also love learning about learning about learning, but it probably ends there (see ["Yudkowsky's Law of Ultrafinite Recursion"](https://www.facebook.com/yudkowsky/posts/10154119438404228))
