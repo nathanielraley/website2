@@ -1,0 +1,239 @@
+---
+title: 'Basic Stats U Need #2: T-Test'
+author: ''
+date: '2017-08-23'
+slug: basic-stats-u-need-t-test
+categories: []
+tags:
+  - R Markdown
+  - Introductory Stats
+  - Sampling Distribution
+  - T-Test
+  - Student's T Distribution
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=F}
+set.seed(9999)
+pw<-.5
+women.height<-rnorm(pw*40000,63.8,2.7)
+men.height<-rnorm((1-pw)*40000,69.3,3.0)
+pop.height<-c(women.height,men.height)
+pop.mean<-mean(pop.height)
+pop.sd<-sd(pop.height)
+```
+
+
+## Part 2: the t-Distribution
+
+We saw in the previous post that if X is a random variable and the population distribution of X is normal with mean $\mu$ and standard deviation $\sigma$ (variance $\sigma^2$) then, the distribution of the sample mean $\bar{X}$ for samples of a given size $n$ is normal, with mean $\mu$ and standard deviation of $\frac{\sigma}{\sqrt{n}}$, which we can write $\bar{X}_n \sim N(\mu,\frac{\sigma}{\sqrt{n}})$.[^1] More exciting, we saw that by the Central Limit Theorem, the sampling distribution will be normal *regardless of the original population distribution* if the sample size is large enough.
+
+
+Recall that a Z-score is computed $Z=\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}$
+If you haven't seen this before, realize that we are just rescaling our sampling distribution from the previous post, $\bar{X} \sim N(\mu,\frac{\sigma}{\sqrt{n}})$, in order to preserve all of the information while setting the mean to 0 and the standard deviation to 1. Another way to think of it is than, instead of dealing in terms of the sample mean $\bar{X}$, we want to deal in terms of the distances of the sample mean from the population mean $\bar{X}-\mu$ in units of standard deviation $\sigma$, and we deal with that by transforming $\bar{X} \sim N(\mu,\sigma^2/n)$ into $Z=\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}$.
+
+We can do this because a normal random variable $X$ is still normal when it undergoes a linear transformation (multiplying it, adding to it, etc). This means that if $X\sim N(\mu,\sigma)$, then $Y=aX+b$ is also normal, $Y\sim N(a\mu+b,a\sigma)$. Using this property,
+
+$$\bar{X}-\mu \sim N(\mu-\mu,\frac{\sigma}{\sqrt{n}}) = N(0,\frac{\sigma}{\sqrt{n}})$$
+And
+
+$$\frac{\bar{X}-\mu}{\sigma/\sqrt{n}} \sim N(\frac{0}{\sigma/\sqrt{n}},\frac{\sigma/\sqrt{n}}{\sigma/\sqrt{n}})= N(0,1)$$. 
+
+Here's a quick example just so you can see this in action: the heights (in inches) of adult women in the US are distributed as $N(63.8,2.7)$. Let's say you, $X_1$, are a 5'8" woman (68 inches tall). 
+```{R}
+dist<-rnorm(10000,63.8,2.7)
+
+{hist(dist,breaks=100,main="",prob=T)
+curve(dnorm(x,63.8,2.7),add=T,col="blue")
+abline(v=68,col="red")
+text(68,.1,"68")}
+
+# Now we subtract the population mean from every observation in our sample
+
+dist.minus.mean<-dist-63.8
+{hist(dist.minus.mean,breaks=100,main="",prob=T)
+  curve(dnorm(x+63.8,63.8,2.7),add=T,col="blue")
+#notice how adding the mean y=f(x+63.8)
+abline(v=68-63.8,col="red")
+text(4.2,.1,"4.2")}
+
+# See how nothing changed except the x-axis; we have effectively scooted the entire distribution right, so that it is centered at zero. Now let's divide each observation by the population standard deviation$
+
+dist.minus.mean.dividedby.sd<-dist.minus.mean/2.7
+{hist(dist.minus.mean.dividedby.sd,breaks=100,main="",prob=T)
+curve(dnorm(x,0,1),add=T,col="blue")
+abline(v=(68-63.8)/2.7, col="red")
+text(2,.3,labels="1.555555")}
+```
+
+I drew a sample of 10,000 from such a distribution just to illustrate how subtracting the mean from *each* of those 10,000 values and then dividing *each* by the standard deviation preserves the normality of the sample (see distribution overlayed in blue).
+
+Recall too that, if our statistic is normally distributed, 95% of the density should lie within 1.96 standard deviations of the mean. Here, `pnorm` is the CDF for the normal distribution: it gives us the area under the curve from $-\infty$ to $q$, where q is a Z-score. 
+
+```{R}
+pnorm(1.96)-pnorm(-1.96)
+```
+
+
+OK, now back to STUDENT:
+
+<center>![](student1.png)</center>
+<br>
+
+Here's what he means. Let's take repeated samples of 10 students' heights and calculate the $\bar{X}$ and $s$ for each.
+
+```{R}
+samps10<-matrix(nrow=10,ncol=10000)
+samps10<-replicate(10000,sample(pop.height,10))
+samps.mean<-apply(samps10,2,mean)
+samps.sd<-apply(samps10,2,sd)
+```
+
+Now, is it really true that, when we substitute $s$ for $\sigma$ that 95% of the time the true population mean lies within $\bar{X}\pm 1.96*s/\sqrt{n}$?
+
+```{R}
+s10.s<-mean(samps.mean-1.96*samps.sd/sqrt(10)> pop.mean | pop.mean>samps.mean+1.96*samps.sd/sqrt(10))
+s10.s
+```
+
+Hmm, it looks like the population mean is actually outside this range `r s10.s*100`% of the time. Clearly, when we do not know $\sigma$, we cannot substitute $s$ with impunity. Again, had we known $s$, things would have been fine:
+
+```{R}
+samps10<-matrix(nrow=10,ncol=10000)
+samps10<-replicate(10000,sample(pop.height,10))
+samps.mean<-apply(samps10,2,mean)
+s10.sigma<-mean(samps.mean-1.96*pop.sd/sqrt(10)> pop.mean | pop.mean>samps.mean+1.96*pop.sd/sqrt(10))
+s10.sigma
+```
+
+Using the population standard deviation, we find that the population mean falls outside two standard errors of the sample mean just `r s10.sigma*100`% of the time. But this is no help to us in the real world!
+
+Things just get worse with smaller samples. Here's what happens if we just have $n=3$
+
+```{R}
+samps3<-matrix(nrow=3,ncol=10000)
+samps3<-replicate(10000,sample(pop.height,3))
+samps3.mean<-apply(samps3,2,mean)
+samps3.sd<-apply(samps3,2,sd)
+s3.s<-mean(samps3.mean-1.96*samps3.sd/sqrt(3)> pop.mean | pop.mean>samps3.mean+1.96*samps3.sd/sqrt(3))
+s3.s
+```
+
+Yikes, now the population mean falls outside our 95% confidence interval `r s3.s*100`% of the time; clearly, assuming normality is inappropriate when samples are small and we are using $s$ instead of $\sigma$. 
+
+This problem was solved by William Sealy Gosset ("Student"") in 1908, whose paper is excerpted throughout this post 
+
+
+<center>![](student3.png)</center>
+<br>
+
+The "alternative" he furnishes is none other than the $t$ distribution.[^2] I will walk us through the derivations in his celebrated paper at the bottom, but as makes for an enormous, excruciating tangent, I will give a brief overview:
+
+1. First, he determines the sampling distribution of standard deviations drawn from a normal population; he finds that this agrees with the Chi-squared distribution
+
+2. The, he shows that there is no correlation between the sample mean and the sample standard deviation (suggesting that the two random variables are independent).
+
+3. Finally, he determines the distribution of t (which he calls $z$), which is the distance between the sample mean and the population mean, divided by the sample standard deviation $\frac{\bar{x}-\mu}{s/\sqrt{n}}$ (note the *n* in the denominator instead of our *n-1*)
+
+First, he shows that 
+
+$$ 
+x=\frac{(n-1)}{\sigma^2}s^2 \sim \chi^2_{n-1}, \text{ that is, it has the density}\\
+p(x|n) =\frac{1}{2^{\frac{n-1}{2}}\Gamma(\frac{n-1}{2})}x^{\frac{n-1}{2}-1}e^{-\frac{x}{2}}
+$$
+
+Can we confirm this? Recall that our population variance $\sigma^2$ was `r pop.sd^2`, so let's plot 'em and see if this density fits
+
+```{R}
+#The distribution of sample variance when n=3
+n=3
+{hist((n-1)/(pop.sd^2)*samps3.sd^2,prob=T,breaks=50)
+curve(1/(2^((n-1)/2)*gamma((n-1)/2))*x^((n-1)/2-1)*exp(-x/2),xlim=c(0,30),add=T)
+curve(dchisq(x,df=2),add=T)}
+
+#The distribution of the sample variance when n=10
+n=10
+{hist((n-1)/(pop.sd^2)*samps.sd^2,prob=T,breaks=50)
+curve(1/(2^((n-1)/2)*gamma((n-1)/2))*x^((n-1)/2-1)*exp(-x/2),xlim=c(0,30),add=T)
+curve(dchisq(x,df=9),add=T)}
+
+```
+
+Looks pretty good! Finally, he finds the distribution of the distances of the sample mean to the true mean $\bar{X_n}-\mu$, divided by the standard deviation of the sample mean $s/\sqrt{n}$ (instead of dividing by $\sigma/\sqrt{n}$; see previous post). 
+
+$$
+t=\frac{\bar{X}-\mu}{s/\sqrt{n}}, \text{ which has the density}\\
+p(t|n)=\frac{\Gamma(\frac{n}{2})}{\Gamma(\frac{n-1}{2})} \frac{1}{\sqrt{(n-1)\pi}}\left(1+\frac{t^2}{n-1}\right)^{-n/2}
+$$
+
+Replacing $\sigma$ with $s$ in our Z-score formula gives a statistic that follows ...you guessed it, the *t* distribution! The function itself looks way different that the normal density function $p(x|\mu,\sigma)=\frac{1}{\sqrt{2 \pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$. First of all, notice that it doesn't depend on $\mu$ or $\sigma$ at all; let's see how it actually looks compared to a normal distirbution
+
+```{R}
+t.pdf<-function(x,n){gamma(n/2)/(sqrt((n-1)*pi)*gamma((n-1)/2))*(1+x^2/(n-1))^(-n/2)}
+{curve(t.pdf(x,3),xlim=c(-4,4),ylim=c(0,.4),col="red")
+  curve(t.pdf(x,4),xlim=c(-4,4),ylim=c(0,.4),col="red",add=T,lty=2)
+  curve(t.pdf(x,6),xlim=c(-4,4),ylim=c(0,.4),col="red",add=T,lty=3)
+  curve(t.pdf(x,11),xlim=c(-4,4),ylim=c(0,.4),col="red",add=T,lty=4)
+  curve(t.pdf(x,26),xlim=c(-4,4),ylim=c(0,.4),col="red",add=T,lty=5)
+curve(dnorm(x,0,1),add=T,col="blue")}
+
+```
+
+Above, we have plotted five *t* distributions (red) with 2, 3, 5, 10, and 25 degrees of freedom. Notice that the distribution with df=25 is almost indistinguishable from the normal distribution (blue). In fact, though it wasn't proven until much later, $t_n \rightarrow N(0,1)\ as \ n \rightarrow \infty$
+
+Does this jibe with our observed data better than the normal?
+Let's look at our samples of size 3 again and plot their respective t-statistics:
+
+```{R}
+n=3
+ts=(samps3.mean-pop.mean)/(samps3.sd/sqrt(n))
+{hist(ts,prob=T,breaks=500,xlim=c(-10,10))
+curve(dt(x,df=2),add=T,col="red")
+curve(dnorm(x,0,samps3.sd[1]/sqrt(n)),add=T,col="blue")}
+
+n=10
+ts=(samps.mean-pop.mean)/(samps.sd/sqrt(n))
+{hist(ts,prob=T,breaks=50,xlim=c(-5,5))
+curve(dt(x,df=9),add=T,col="red")
+curve(dnorm(x,0,samps.sd[1]/sqrt(n)),add=T,col="blue")}
+```
+
+Looks much better! Remember how when we assumed that the means of samples of size 3 were normally distributed, our 95% confidence interval (the interval from Z=-1.96 to Z=1.96) only included the mean `r (1-s3.s)*100`% of the time? In a $t$ distribution with n-1 degrees of freedom, 95% of the distribution lies within 4.3 *sample* standard deviations of the population mean. 
+
+```{R}
+qt(c(.025,.975),2)
+```
+
+```{R}
+x1<-seq(-6,-4.3,len=100)
+x2<-seq(4.3,6,len=100)
+y1<-dt(x1,2)
+y2<-dt(x2,2)
+x3<-seq(-6,-1.96,len=100)
+x4<-seq(1.96,6,len=100)
+y3<-dnorm(x3)
+y4<-dnorm(x4)
+{curve(dt(x,2), from=-6, to=6,ylim=c(0,.4),col="red")
+curve(dnorm(x),from=-6, to=6,add=T,col="blue")
+polygon(c(x1[1],x1,x1[100]),c(0,y1,0),col="red",border=NA)
+polygon(c(x2[1],x2,x2[100]),c(0,y2,0),col="red",border=NA)
+polygon(c(x3[1],x3,x3[100]),c(0,y3,0),col="blue",border=NA)
+polygon(c(x4[1],x4,x4[100]),c(0,y4,0),col="blue",border=NA)}
+```
+
+The plot above shows a normal $N(0,1)$ distribution in blue and a $t$ distribution with 2 degrees of freedom in red; note that the red areas under the $t$ add up to 5% and the blue areas under the $N(0,1)$ add up to 5%.
+
+
+
+Since the $t$-statistic $t=\frac{\bar{X}-\mu}{s/\sqrt{n}}$ follows this distribution, we can rearrange it to find the confidence interval around the population mean.
+
+$$
+-t \le \frac{\bar{X}-\mu}{s/\sqrt{n}} \le t \\
+\frac{-ts}{\sqrt{n}} \le \bar{X}-\mu \le \frac{ts}{\sqrt{n}} \\
+\frac{-ts}{\sqrt{n}}-\bar{X} \le -\mu \le \frac{ts}{\sqrt{n}}-\bar{X} \\
+\frac{ts}{\sqrt{n}}+\bar{X} \ge \mu \ge \frac{-ts}{\sqrt{n}}+\bar{X} \\
+\bar{X}-\frac{ts}{\sqrt{n}} \le \mu \le \bar{X}+\frac{ts}{\sqrt{n}} \\
+$$

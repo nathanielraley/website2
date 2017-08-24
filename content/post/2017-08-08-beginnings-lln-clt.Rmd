@@ -1,8 +1,8 @@
 ---
-title: 'Beginnings: LLN & CLT'
+title: 'Basic Stats U Need #1: Z-Scores, Sampling Dist\'ns, LLN, CLT'
 author: Nathaniel Raley Woodward
 date: '2017-08-08'
-slug: beginnings-lln-clt
+slug: basic-stats-u-need-z-scores
 categories: []
 tags:
   - R Markdown
@@ -10,6 +10,8 @@ tags:
   - Sampling Distribution
   - LLN
   - CLT
+  - Law of Large Numbers
+  - Central Limit Theorem
 ---
 
 ```{r setup, include=FALSE}
