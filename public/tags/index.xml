@@ -6,42 +6,24 @@
     <description>Recent content in Tags on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Aug 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Clt</title>
-      <link>/tags/clt/</link>
-      <pubDate>Tue, 08 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/clt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Introductory Stats</title>
       <link>/tags/introductory-stats/</link>
-      <pubDate>Tue, 08 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/introductory-stats/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Lln</title>
-      <link>/tags/lln/</link>
-      <pubDate>Tue, 08 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/lln/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>R Markdown</title>
       <link>/tags/r-markdown/</link>
-      <pubDate>Tue, 08 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/r-markdown/</guid>
       <description></description>
@@ -50,9 +32,27 @@
     <item>
       <title>Sampling Distribution</title>
       <link>/tags/sampling-distribution/</link>
-      <pubDate>Tue, 08 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/sampling-distribution/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Students T Distribution</title>
+      <link>/tags/students-t-distribution/</link>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/students-t-distribution/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>T Test</title>
+      <link>/tags/t-test/</link>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/t-test/</guid>
       <description></description>
     </item>
     

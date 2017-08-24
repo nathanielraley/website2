@@ -1,6 +1,6 @@
 ---
 title: 'Basic Stats U Need #2: T-Test'
-author: ''
+author: Nathaniel Raley Woodward
 date: '2017-08-23'
 slug: basic-stats-u-need-t-test
 categories: []

@@ -1,15 +1,96 @@
----
-title: 'Basic Stats U Need #1: Z-Scores, Sampling Distns, LLN, CLT'
-author: Nathaniel Raley Woodward
-date: '2017-08-08'
-slug: basic-stats-u-need-z-scores
-categories: []
-tags: []
----
+<!DOCTYPE html>
+<html lang="en-us">
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../js/bigfoot.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../css/bigfoot.css">
+<script type="text/javascript">
+  $.bigfoot(
+        {
+            numberResetSelector: "article",
+           
+           
+            hoverDelay: 250
+        }
+    );
+</script>
+ 
+<link rel="stylesheet" href="css/font-awesome.min.css">
+ 
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<title>Basic Stats U Need #1: Z-Scores, Sampling Distns, LLN, CLT - Nathaniel Raley Woodward</title>
+<meta property="og:title" content="Basic Stats U Need #1: Z-Scores, Sampling Distns, LLN, CLT - Nathaniel Raley Woodward">
 
 
 
-<p>Hello! This is the first in a series of posts that cover topics typically encountered on any Introduction to Statistics course syllabus (yes, that is to say <em>frequentist</em>). The idea was born out of a desire to blog about the Analysis of Variance and its many forms, but I soon found myself addressing pre-requisites, which led to tangents and lemmas that took on lives of (and ballooned into posts of) their own. So here were are, getting our feet wet with sampling distributions (in which the Law of Large Numbers (LLN) and the Central Limit Theorem (CLT) play leading roles). These two grand-sounding acronyms are just as grand as they sound, so hold on to your ass! If you have already been initiated into the mysteries of LLN/CLT, you are heartily encouraged to skip ahead.</p>
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="100"
+         height="100"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="../../../../post/">Blog</a></li>
+    
+    <li><a href="../../../../teaching/">Teaching</a></li>
+    
+    <li><a href="../../../../cv.pdf">CV</a></li>
+    
+    <li><a href=""></a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">13 min read</span>
+    
+
+    <h1 class="article-title">Basic Stats U Need #1: Z-Scores, Sampling Distns, LLN, CLT</h1>
+
+    
+    <span class="article-date">2017/08/08</span>
+    
+
+    <div class="article-content">
+      <p>Hello! This is the first in a series of posts that cover topics typically encountered on any Introduction to Statistics course syllabus (yes, that is to say <em>frequentist</em>). The idea was born out of a desire to blog about the Analysis of Variance and its many forms, but I soon found myself addressing pre-requisites, which led to tangents and lemmas that took on lives of (and ballooned into posts of) their own. So here were are, getting our feet wet with sampling distributions (in which the Law of Large Numbers (LLN) and the Central Limit Theorem (CLT) play leading roles). These two grand-sounding acronyms are just as grand as they sound, so hold on to your ass! If you have already been initiated into the mysteries of LLN/CLT, you are heartily encouraged to skip ahead.</p>
 <div id="introduction-concrete-example" class="section level2">
 <h2>Introduction: Concrete Example</h2>
 <p>Alright then, let’s say you want to know the average height of all undergraduate students at the University of Texas at Austin. However, we don’t want to measure all ~40,000 students, so we take a sample, take the average height, and hope that it is close to the average height of all students. But how close is it?</p>
@@ -26,7 +107,7 @@ curve(dnorm(x,pop.mean,pop.sd), add=TRUE)
 curve(dnorm(x,63.8,2.7)/(1/pw),add=T,col=&quot;red&quot;)
 curve(dnorm(x,69.3,3.0)/(1/(1-pw)),add=T,col=&quot;blue&quot;)
 curve(dnorm(x,63.8,2.7)/(1/pw)+dnorm(x,69.3,3.0)/(1/(1-pw)),add=T,col=&quot;green&quot;)</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>The population (green) is not quite normal; rather, it’s a mix of two normal distributions: see red and blue normals. Add them together, and you get the green one. The mean and standard deviation of our population are 66.49 and 3.94, and a normal distribution with those parameters is shown in black. But lets forge ahead and see what happens; we grab the first student who passes by and we measure them. Remember, we are interested in the average height of all students!</p>
 <pre class="r"><code>s1&lt;-sample(pop.height,1,replace=T)
 s1</code></pre>
@@ -48,7 +129,7 @@ for(i in 2:1000){
 }
 plot(ss,type=&#39;l&#39;,ylab=&quot;mean of sample&quot;, xlab=&quot;sample size&quot;)
 abline(pop.mean,0,col=&quot;green&quot;)</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>It appears so! Namely, we claim that the sample average <span class="math inline">\(\bar{X}_n = \frac{1}{n}(X_1+...+X_n)\)</span> of independent observations from the same distribution converges to the mean of the distribution <span class="math inline">\(\mu\)</span>. That is, as <span class="math inline">\(n \rightarrow \infty\)</span>, <span class="math inline">\(\bar{X}_n \rightarrow \mu\)</span>. This is a form of the Law of Large Numbers: essentially, the average of more and more (<a href="https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables">i.i.d.</a>) variables gets closer and closer to a single number, the expected value (or population mean). We will prove it later, when we have another tool to help us!</p>
 </div>
 <div id="standard-deviation-of-the-sample-mean-aka-standard-error" class="section level2">
@@ -62,7 +143,7 @@ s10.means&lt;-apply(samps10,2,mean)
 hist(s10.means,breaks=20,prob=T,main=&quot;&quot;,xlim=c(60,73))
 curve(dnorm(x,mean(s10.means),sd(s10.means)),add=T)
 curve(dnorm(x,63.8,2.7)/(1/pw)+dnorm(x,69.3,3.0)/(1/(1-pw)),add=T,col=&quot;green&quot;)</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Now, I ask you: what is the standard deviation of these 10-observation means?</p>
 <pre class="r"><code>sd(s10.means)</code></pre>
 <pre><code>## [1] 1.252002</code></pre>
@@ -81,7 +162,7 @@ hist(s100.means,breaks=20,prob=T,main=&quot;&quot;,xlim=c(60,73))
 curve(dnorm(x,mean(s100.means),sd(s100.means)),add=T)
 curve(dnorm(x,63.8,2.7)/(1/pw)+dnorm(x,69.3,3.0)/(1/(1-pw)),add=T,col=&quot;green&quot;)
 curve(dnorm(x,mean(s10.means),sd(s10.means)),add=T)</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>sd(s100.means)</code></pre>
 <pre><code>## [1] 0.3949855</code></pre>
 <p>So the variance of the distribution of means <span class="math inline">\(\bar{X}\)</span> is a function of the size of the sample each mean is based on. That’s reasonable: taking it to it’s logical conclusion, if you were to take a bunch of samples of 40,000 people from our population of 40,000 then the mean of each sample will always equal the population mean, and thus the variance of all of these means will be zero.</p>
@@ -92,7 +173,7 @@ for(n in 1:500){
 }
 samp.sds&lt;-apply(samps.big,1,sd)
 plot(samp.sds,type=&#39;l&#39;,ylab=&quot;SD of sample mean&quot;, xlab=&quot;sample size&quot;,ylim=c(0,4))</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>As we suspected, the standard deviation of the sample mean approaches 0 as the sample size increases. Let’s look at these sampling distributions of the mean using the new package ggjoy:</p>
 <pre><code>## Loading required package: ggplot2</code></pre>
 <pre class="r"><code>samps.big&lt;-as.data.frame(cbind(seq(1,1000,1),t(samps.big)))
@@ -102,17 +183,17 @@ samps.thin&lt;-melt(samps.thin,id=&quot;V1&quot;)
 names(samps.thin)&lt;-c(&quot;id&quot;,&quot;n&quot;,&quot;Means&quot;)
 ggplot(samps.thin, aes(x =Means, y=n,height=..density..))+geom_joy(scale=3)</code></pre>
 <pre><code>## Picking joint bandwidth of 0.319</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>OK fine, so we see its going to zero, but at what rate? Well, we know it’s a function of the population standard deviation, but how <em>exactly</em> are they related? As sample gets bigger, sd gets smaller, so perhaps they are just inversely related (red)? Nope, inverse drops too quickly, but that’s the right idea. We need to make the denominator smaller so it doesn’t drop so much. We can make it smaller by taking the log (blue), or taking the sqare root (green)</p>
 <pre class="r"><code>plot(samp.sds,type=&#39;l&#39;,ylab=&quot;SD of sample mean&quot;, xlab=&quot;sample size&quot;)
 curve(pop.sd/x,add=T,col=&quot;red&quot;)
 curve(pop.sd/log(x),add=T, col=&quot;blue&quot;)
 curve(pop.sd/sqrt(x),add=T,col=&quot;green&quot;)</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Bingo. The standard deviation of the sample mean appears to be the population standard deviation divided by the square root of the sample size: <span class="math inline">\(SD(\bar{X})=\frac{\sigma}{\sqrt{n}}\)</span> and thus <span class="math inline">\(Var(\bar{X})=\frac{\sigma^2}{n}\)</span> as shown below. Note that in both cases, as <span class="math inline">\(n \rightarrow \infty\)</span>, <span class="math inline">\(Var(\bar{X}) \rightarrow 0\)</span></p>
 <pre class="r"><code>plot(samp.sds^2,type=&#39;l&#39;,ylab=&quot;Variance of sample mean&quot;, xlab=&quot;sample size&quot;)
 curve(var(pop.height)/x,add=T,col=&quot;green&quot;)</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Let’s quickly prove this. We need only invoke two other results: pulling constants out of a <span class="math inline">\(Var[...]\)</span> squares them, and <span class="math inline">\(X_is\)</span> from the same distribution have the same <span class="math inline">\(Var[X_i]=\sigma^2\)</span>.</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -138,7 +219,7 @@ tab</code></pre>
 ## [2,]  0 0.3333333
 ## [3,]  1 0.3333333</code></pre>
 <pre class="r"><code>plot(tab,pch=19,cex=2)</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>What is the average, or expected value, of <span class="math inline">\(X\)</span>? <span class="math inline">\(E[X]=\frac{1}{3}(-1)+\frac{1}{3}(0)+\frac{1}{3}(1)=0\)</span>. What is the variance? This is good trick to know so I will write it out in full, but dont worry if you don’t follow it <span class="math display">\[
 \begin{aligned}
 Var[X] &amp;=E[(X-E[X])^2] \\
@@ -173,7 +254,7 @@ tab</code></pre>
 ## 4   1 0.2222222
 ## 5   2 0.1111111</code></pre>
 <pre class="r"><code>plot(aggregate(prob~sum,data=tab,sum),pch=19,cex=2)</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-17-1.png" width="672" /> Notice how the sum of two draws from X have already pulled this in closer to the mean: the least common sums are 2 and -2, and the most common is the mean (0).</p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-17-1.png" width="672" /> Notice how the sum of two draws from X have already pulled this in closer to the mean: the least common sums are 2 and -2, and the most common is the mean (0).</p>
 <p>Let’s do this one more time: we consider all possible sums of three <span class="math inline">\(Xs\)</span>, we will plot their distribution, and we will overlay a normal distribution with the same mean and variance as <span class="math inline">\(X_1+X_2+X_3\)</span>.</p>
 <pre class="r"><code>X1=rep(c(-1,0,1),9)
 X2=rep(c(-1,-1,-1,0,0,0,1,1,1),3)
@@ -222,7 +303,7 @@ tab1</code></pre>
 var&lt;-sum(tab1[,1]^2*tab1[,2])
 {plot(tab1,pch=19,cex=2,ylim=c(0,.3))
 curve(dnorm(x,mean,sqrt(var)),add=T)}</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-18-1.png" width="672" /> Remarkably similar! The distribution of the sum of three draws of <span class="math display">\[ X=\left\{\begin{matrix} 1&amp; \text{with probability 1/3} \\ 2 &amp; \text{with probability 1/3} \\ 3 &amp; \text{with probability 1/3} \end{matrix}\right\}\]</span> is eerily close to normal. Notice here that we didn’t have to divide our variance by <span class="math inline">\(\sqrt{n}\)</span> because we were dealing with the distribution of the sum, not an average! Here’s what the distribution of <span class="math inline">\(\sum_{i=1}^4 X_i\)</span> looks like, in case you aren’t convinced.</p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-18-1.png" width="672" /> Remarkably similar! The distribution of the sum of three draws of <span class="math display">\[ X=\left\{\begin{matrix} 1&amp; \text{with probability 1/3} \\ 2 &amp; \text{with probability 1/3} \\ 3 &amp; \text{with probability 1/3} \end{matrix}\right\}\]</span> is eerily close to normal. Notice here that we didn’t have to divide our variance by <span class="math inline">\(\sqrt{n}\)</span> because we were dealing with the distribution of the sum, not an average! Here’s what the distribution of <span class="math inline">\(\sum_{i=1}^4 X_i\)</span> looks like, in case you aren’t convinced.</p>
 <pre class="r"><code>X1=rep(c(-1,0,1),27)
 X2=rep(c(-1,-1,-1,0,0,0,1,1,1),9)
 X3=rep(c(rep(-1,9),rep(0,9),rep(1,9)),3)
@@ -233,13 +314,13 @@ mean&lt;-sum(tab1[,1]*tab1[,2])
 var&lt;-sum(tab1[,1]^2*tab1[,2])
 {plot(tab1,pch=19,cex=2,ylim=c(0,.3))
 curve(dnorm(x,mean,sqrt(var)),add=T)}</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>That was for a discrete probability distribution, but how about a continuous one. Imagine that every number between -1 and 1 is equally likely to be chosen—that is, imagine that our observations <span class="math inline">\(X_i \sim Uniform(-1,1)\)</span>, which looks like</p>
 <pre class="r"><code>curve(dunif(x,-1,1),xlim=c(-2,2))</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-20-1.png" width="672" /> Now let’s repeatedly draw two random numbers <span class="math inline">\(X\)</span> from this distribution, add them together, and plot the result. We will also overlay a normal distribution, <span class="math inline">\(N(0,\sqrt{4/12})\)</span>, because the variance of a uniform is given by<span class="math inline">\(\frac{1}{12}(max-min)^2\)</span></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-20-1.png" width="672" /> Now let’s repeatedly draw two random numbers <span class="math inline">\(X\)</span> from this distribution, add them together, and plot the result. We will also overlay a normal distribution, <span class="math inline">\(N(0,\sqrt{4/12})\)</span>, because the variance of a uniform is given by<span class="math inline">\(\frac{1}{12}(max-min)^2\)</span></p>
 <pre class="r"><code>{hist(replicate(10000,sum(runif(2,-1,1))),breaks=100,main=&quot;&quot;,prob=T)
   curve(dnorm(x,0,sqrt(2/3)),add=T)}</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>I think you get the idea, but let’s go overboard do the same for sums of larger sample sizes: how about <span class="math inline">\(n=3,5,10\)</span>?</p>
 <pre class="r"><code>{par(mfrow=c(1,3))
 hist(replicate(10000,sum(runif(3,-1,1))),breaks=50,main=&quot;&quot;,prob=T)
@@ -248,7 +329,7 @@ hist(replicate(10000,sum(runif(5,-1,1))),breaks=50,main=&quot;&quot;,prob=T)
 curve(dnorm(x,0,sqrt(5/3)),add=T,col=&quot;red&quot;)
 hist(replicate(10000,sum(runif(10,-1,1))),breaks=50,main=&quot;&quot;,prob=T)
 curve(dnorm(x,0,sqrt(10/3)),add=T,col=&quot;red&quot;)}</code></pre>
-<p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Pretty incredible, right?</p>
 <p>Here’s a gif illustrating this exact situation—the sampling distribution of <span class="math inline">\(\sum{X_{i=1}^n} X_i, \ \  X_i \sim U(-1,1)\)</span> for <span class="math inline">\(i=1,2,...9\)</span>.</p>
 <center>
@@ -268,3 +349,57 @@ curve(dnorm(x,0,sqrt(10/3)),add=T,col=&quot;red&quot;)}</code></pre>
 <p>This works when the sample size (the “number of experiments”) is large enough, but not when it is small.</p>
 <p>But this post is growing much too long! In the next one, we will look at how this issue was settled in the 1908 paper excerpted above (<em>hint:</em> the author is STUDENT).</p>
 </div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+       <img src="images/912.gif" width="200" style="padding:10px;">
+        <ul class="footer-links">
+           <li>
+           <a href="http://www.facebook.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          </li>
+          <li>
+           <a href="http://www.twitter.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          <li>
+           <a href="http://www.github.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-github" aria-hidden="true"> </i></a>
+          </li>
+          <li>
+             <a href="http://www.linkedin.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+          </li>
+           <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

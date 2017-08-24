@@ -13,7 +13,6 @@ knitr::opts_chunk$set(echo = TRUE)
 <center><img height="200"  src="ndr_head.jpg" style="margin-right: 1%; margin-bottom: 0.5em;">
 <img height="200" src="jubes_on_beach.png" style="margin-right: 1%; margin-bottom: 0.5em;"></center>
 
-<br><br><br><br><br><br><br>
 
 Hello! My name is Nathaniel Woodward (*né* Raley).
 I am a sometime educator, researcher, and statistical consultant at UT Austin. 
