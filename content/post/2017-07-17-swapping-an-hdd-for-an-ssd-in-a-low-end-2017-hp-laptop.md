@@ -7,6 +7,7 @@ link: https://nrwoodward.wordpress.com/2017/07/17/swapping-an-hdd-for-an-ssd-in-
 slug: swapping-an-hdd-for-an-ssd-in-a-low-end-2017-hp-laptop
 title: Swapping an HDD for an SSD in a Low-End 2017 HP Laptop
 wordpress_id: 17
+output: html_document
 ---
 
 In less than two day's time, I was able to purchase my third computer from a perfect-craigslist-stranger (without issue!) and replace the hard disk with a solid state drive, and I wanted to take a minute to document the experience here; if you are interested only in a rough guide for SSD installation for a 2017 HP laptop, you are heartily encouraged to skip down several paragraphs.  

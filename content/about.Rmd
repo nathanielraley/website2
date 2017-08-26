@@ -35,19 +35,19 @@ Students who love to learn will seek meaning, truth, and enjoyment in everything
 
 #Site
 
-Why [blog](/post/)? Initially it was just to have a place to externalize ideas so I wouldn't forget them---a digital creel for fishing in one's own stream of consciousness. Life's too short for fleeting thoughts; here I could pin them all down side by side and, under the loupe of scrutiny, come to determine (and revise!) what it is I believe.[^14] Good old Plato would've called sites like these [hypomnemata](https://en.wikipedia.org/wiki/Hypomnema); they work like a prosthetic memory for one's musings (the amusing, bemusing, c-musing...), serving as a record of the person I was for the people I will become. I can now look back and see how, in each post or upload, I have unconsciously embedded aspects of my identity-at-the-time, because when we write the billions of experiences we've had since birth are brought to bear, and so the author leaves a residue even as he is changed by the process itself.
+Why [blog](/post/)? Initially it was just to have a place to externalize ideas so I wouldn't forget them---a digital creel to take fishing in the stream of consciousness. Life's too short for fleeting thoughts; here I could pin them all down side by side and, under the loupe of scrutiny, come to determine (and revise!) what it is I believe.[^14] Good old Plato would've called sites like these [hypomnemata](https://en.wikipedia.org/wiki/Hypomnema); they work like a prosthetic memory for one's musings (the amusing, bemusing, c-musing...), serving as a record of the person I was for the people I will become. I can now look back and see how, in each post or upload, I have unconsciously embedded aspects of my identity-at-the-time. When we write, the billions of experiences we've had since birth are brought to bear, and so the author leaves a residue even as he is changed by the process itself.
 
 > "How can I tell what I think until I see what I say?" <br>
 > --E.M. Forster, Aspects of the Novel
 
-You too can see what I say: the internet has created a sort of reverse-voyeurism where I get to say [Important Things](/post/) behind a one-way (two way?) mirror and pretend you're watching...  even an imagined audience can cause [reactivity](https://en.wikipedia.org/wiki/Reactivity_(psychology)) and I'm a people-pleaser besides! [Sunk costs](https://en.wikipedia.org/wiki/Sunk_cost) being what they are (e.g., domain registration fee, hours of my life getting this thing up and running), I hope to channel [loss-aversion](https://en.wikipedia.org/wiki/Loss_aversion) into regular updates and upkeep so drop by and hold me to account[^12] (or I'll just imagine that you would)!
+You too can see what I say: the internet has created a sort of reverse-voyeurism where I get to say [Important Things](/post/) behind a one-way (or is it two-way?) mirror and pretend you're watching...  even an imagined audience can cause [reactivity](https://en.wikipedia.org/wiki/Reactivity_(psychology)) and I'm a people-pleaser besides! [Sunk costs](https://en.wikipedia.org/wiki/Sunk_cost) being what they are (e.g., domain registration fee, hours of my life getting this thing up and running), I hope to channel [loss-aversion](https://en.wikipedia.org/wiki/Loss_aversion) into regular updates and upkeep so drop by and hold me to account[^12] (or I can just imagine that you've been by)!
 
 In August 2017, I migrated my blog and personal website from blogger/AWS to GitHub/Netlify so I could blog stats stuff more simply straight from R Studio using the [**blogdown**](https://github.com/rstudio/blogdown) package developed by Yihui Xie. Indeed, this site is adapted from [his](https://github.com/yihui/hugo-lithium-theme) adaptation of [J. Rutheiser's original](https://github.com/jrutheiser/hugo-lithium-theme) theme. I have tweaked it considerably (and wasted much time in doing so), including the addition of bigfootjs for fun footnotes.[^20]
 
 
 #Personal
 
-<center>![Three Ways I Usually Feel During Social Interactions](howIfeelwhen_meme1.png)</center>
+<center>![Three Ways I Usually Feel Inside During Social Interactions](howIfeelwhen_meme1.png)</center>
 
 Despite the impression you may have gotten from my prose style, I am extremely economical and I abominate wastes of any kind, especially those of time (the thing I value most highly) and money (which I have to sell my time to get).[^13]
 
@@ -59,13 +59,13 @@ I am also very risk-averse, so I seldom go out anywhere unless compelled by stro
 > "It's a dangerous business, Frodo, going out of your door. You step into the Road, and if you don't keep your feet, there is no knowing where you might be swept off to. Do you realize that this is the very path that goes through Mirkwood, and that if you let it, it might take you to the Lonely Mountain or even further and to worse places?" <br>
 > --Bilbo Baggins
 
-Besides, I like indoor activities best! I enjoy pestering my[^6] three[^7] cats,[^8] juggling,[^9] puzzling (sweeping mines,[^2] crossing words[^16]), [quizzing](https://utexas.campuslabs.com/engage/organization/QuizBowl), recreational [reading](https://www.goodreads.com/user/show/44370058-nathaniel) and mathematics (here's [a fun one I saw recently](https://www.janestreet.com/join-jane-street/open-positions/?utm_content=sierpinski)), eating spicy and/or fermented[^3] things in accordance with lax (read: lapsed) veganism[^21] (basically, I eat cheese if it's free/going to waste/difficult to avoid). 
+Besides, I like indoor activities best! I enjoy pestering my[^6] three[^7] cats,[^8] juggling,[^9] puzzling (sweeping mines,[^2] crossing words[^16]), [quizzing](https://utexas.campuslabs.com/engage/organization/QuizBowl), recreational [reading](https://www.goodreads.com/user/show/44370058-nathaniel) and mathematics (here's [a fun one I saw recently](https://www.janestreet.com/join-jane-street/open-positions/?utm_content=sierpinski)), eating spicy and/or fermented[^3] things in accordance with lax (read: lapsed) veganism[^21] (basically, I eat cheese if it's free, going to waste, difficult to avoid, etc.). 
 
 
 <center>![Same](lisa_myinterests.jpg)</center>
 
-What else is there about me? If I were a nonhuman animal, I have it on good authority that I would be an umbrella cockatoo.[^4] I hate the residue left behind after peeling stickers off. I hate when copy editors use ugly em dashes  -- like these hideous things -- instead of their much prettier---and obviously correct---alternative. With few exceptions, I don't like watching movies or television shows:
-I *hate* the film Amadeus, but I quite enjoyed Wall\*E. I think George R. R. Martin is a huge pervy hack, but I believe [Achewood](http://www.ohnorobot.com/random.pl?comic=636) should be short-listed for the Nobel Prize. I don't like "video games," but if I did, I would like real-time strategy games. I was fortunate to live through a fleeting golden age of music (late 2000s/early 2010s) when Girl Talk released *Feed The Animals* and *All Day*, Lady Gaga was everywhere unstoppable, the New Pornographers had at least 3 amazing albums, and Das Racist was still together. I guess I'm a cat person *and* a dog person, in that I like ~98% of the cats I've met but only about 10% of the dogs?[^18]
+ 
+What else is there about me? If I were a nonhuman animal, I have it on good authority that I would be an umbrella cockatoo.[^4] I am a proponent of the Nordic theory of love.[^23] My sense of justice revolts at structural inequality and undeserved/unmerited fortune or fame, and I hate when copy editors use ugly em dashes  -- like these hideous things -- instead of their much prettier---and obviously correct---alternative.  My sense of *fremdschämen* on behalf of humanity is socially crippling, and I get positively irate about the residue left behind after peeling stickers off of jars. I'll take active text-based over video-based content any day (read: $reading \ge watching$); with few exceptions, I don't like movies or TV.[^22] I especially hated the film Amadeus (but I very much enjoyed Wall\*E). [Textwise](https://www.goodreads.com/user/show/44370058-nathaniel), I think George R. R. Martin is a huge hack and that [Chris Onstad](http://www.ohnorobot.com/random.pl?comic=636) deserves the first Nobel Prize for Literature based exclusively on achievements in the genre of webcomics. I was fortunate to come of age in a period of excellent music (late 2000s/early 2010s) when Girl Talk released *Feed The Animals* and *All Day*, Lady Gaga was everywhere and everything, the New Pornographers had at least 3 amazing albums, and Das Racist was still together. I guess I'm a cat person *and* a dog person, in that I like ~98% of the cats I've met but only about 10% of the dogs?[^18]
 
 
 [^1]: I also love learning about learning about learning, but it probably ends there (see ["Yudkowsky's Law of Ultrafinite Recursion"](https://www.facebook.com/yudkowsky/posts/10154119438404228))
@@ -97,6 +97,8 @@ I don't believe other animals, even other mammals, have anything like human cons
 [^18]: and < .005% of the humans. Ah but don't worry, I like you though!
 [^19]: who, if not always actively menacing, are always unpredictable and are usually texting while driving!
 [^20]: So fun!
+[^22]: And despite their being "active" passtimes, I don't like "video games" much either, but if I did, I would like real-time strategy games or RPGs
+[^23]: “That authentic love and friendship are possible only between individuals who are independent and equal.” 
 [^17]: Candidates include old standards such as <br>
 * What is the meaning of life?
 * Why are we here?
