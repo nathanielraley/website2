@@ -48,7 +48,7 @@ In August 2017, I migrated my blog and personal website from blogger/AWS to GitH
 #Personal
 
 <center>![](howIfeelwhen_meme1.png)
-<figcaption><font size="1">Three ways I usually feel inside during social interactions.</font></figcaption>
+<figcaption><font size="1">Three ways I usually feel inside watching or participating in social interactions.</font></figcaption>
 </center>
 
 Despite the impression you may have gotten from my prose style, I am extremely economical and I abominate wastes of any kind, especially those of time (the thing I value most highly) and money (which I have to sell my time to get).[^13]

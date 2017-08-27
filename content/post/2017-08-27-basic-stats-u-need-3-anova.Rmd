@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 
-If the hero of [our last post](/post/basic-stats-u-need-t-test/) was William "Student" Gosset, then the hero of this and the next few posts will be [Sir Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher). After Student had derived the *t* distribution, he sent it to Fisher along with an historically ironic note: "I am sending you a copy of Student's Tables as you are the only man that's ever likely to use them!"
+If the hero of [our last post](https://nrwoodward.netlify.com/2017/08/23/basic-stats-u-need-t-test/) was William "Student" Gosset, then the hero of this and the next few posts will be [Sir Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher). After Student had derived the *t* distribution, he sent it to Fisher along with an historically ironic note: "I am sending you a copy of Student's Tables as you are the only man that's ever likely to use them!"
 
 We have Fisher to thank for the Analysis of Variance (ANOVA), a technique which generalizes the independent two-sample *t*-test to more than two groups (we also have him to thank for the term "variance" itself). Echoing remarks I made in the first post of this series, ANOVA is a superb teaching/learning tool for students of inferential statistics (despite being easily subsumed by the linear model framework). There are tons of blog posts about ANOVA, but I want to walk you through *the way I was taught* this concept because I thought it was extremely effective.[^1] Let's set the stage with a simple example first, with which we will illustate the computations required for conducting a one-way ANOVA.
 
@@ -508,6 +508,6 @@ Also note that the Bonferonni and Bonferroni-Holm procedures and general and can
 
 ##End
 
-I hope you have enjoyed this introduction to ANOVA! I wanted to talk about power analysis but I think I had better save this topic for the next ANOVA post, where we talk about multifactor designs like the two-way ANOVA, and where we discuss interactions. Stay tuned!
+I hope you have enjoyed this introduction to ANOVA! I wanted to talk about power analysis but I think I had better save this topic for the next ANOVA post, where we deal with multifactor designs like the two-way ANOVA and where we discuss interactions. Stay tuned!
 
-[^1]: Thanks Dr. Emmer, Professor Emeritus at UT Austin, In whose last class ever I learned so much!
+[^1]: Thanks Dr. Emmer, Professor Emeritus at UT Austin, In whose last-class-ever I learned so much!
