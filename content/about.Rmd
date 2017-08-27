@@ -48,7 +48,7 @@ In August 2017, I migrated my blog and personal website from blogger/AWS to GitH
 #Personal
 
 <center>![](howIfeelwhen_meme1.png)
-<figcaption>Three ways I usually feel inside during social interactions.</figcaption>
+<figcaption><font size="1">Three ways I usually feel inside during social interactions.</font></figcaption>
 </center>
 
 Despite the impression you may have gotten from my prose style, I am extremely economical and I abominate wastes of any kind, especially those of time (the thing I value most highly) and money (which I have to sell my time to get).[^13]
@@ -65,10 +65,10 @@ Besides, I like indoor activities best! I enjoy pestering my[^6] three[^7] cats,
 
 <center>
 ![](lisa_myinterests.jpg)
-<figcaption>Same.</figcaption>
+<figcaption><font size="1">Same.</font></figcaption>
 </center>
 
-What else is there about me? If I were a nonhuman animal, I have it on good authority that I would be an umbrella cockatoo.[^4] I am a proponent of the Nordic theory of love.[^23] My sense of justice revolts at structural inequality and undeserved/unmerited fortune or fame (or punishment), and I hate when copy editors use ugly em dashes  -- like these hideous things -- instead of their much prettier---and obviously correct---alternative.  My sense of *fremdschämen* on behalf of humanity can be socially crippling, and I get positively irate about the residue left behind after peeling stickers off of jars. I'll take active text-based content over video-based content any day ($reading \ge watching$); with few exceptions, I don't like movies or TV.[^22] I especially hated the film Amadeus (but I very much enjoyed Wall\*E). [Textwise](https://www.goodreads.com/user/show/44370058-nathaniel), I think George R. R. Martin is a huge hack and that [Chris Onstad](http://www.ohnorobot.com/random.pl?comic=636) deserves the first Nobel Prize for Literature based exclusively on achievements in the genre of webcomics. I was fortunate to come of age in a period of excellent music (late 2000s/early 2010s) when Girl Talk released *Feed The Animals* and *All Day*, Lady Gaga was everywhere and everything, the New Pornographers had at least 3 amazing albums, and Das Racist was still together. I guess I'm a cat person *and* a dog person, in that I like ~98% of the cats I've met but only about 10% of the dogs?[^18]
+What else is there about me? If I were a nonhuman animal, I have it on good authority that I would be an umbrella cockatoo.[^4] I am a proponent of the Nordic theory of love.[^23] I have a child's sense of justice that revolts at wrongful punishments, structural inequalities, and undeserved/unmerited fortune or fame. I hate when copy editors use ugly em dashes  -- like these hideous things -- instead of their much prettier---and obviously correct---alternative.  My sense of *fremdschämen* on behalf of humanity can be socially crippling, and I get positively irate about the residue left behind after peeling stickers off of jars. I'll take text-based over video-based content any day ($reading \ge watching$): with few exceptions, I don't like movies or TV.[^22] I especially hated the film Amadeus (but I very much enjoyed Wall\*E). [Textwise](https://www.goodreads.com/user/show/44370058-nathaniel), I think George R. R. Martin is a huge hack and that [Chris Onstad](http://www.ohnorobot.com/random.pl?comic=636) deserves the first Nobel Prize for Literature based exclusively on achievements in the genre of webcomics. I was fortunate to come of age in a period of excellent music (late 2000s/early 2010s).[^24] I guess I'm a cat person *and* a dog person, in that I like ~98% of the cats I've met but only about 10% of the dogs?[^18]
 
 
 [^1]: I also love learning about learning about learning, but it probably ends there (see ["Yudkowsky's Law of Ultrafinite Recursion"](https://www.facebook.com/yudkowsky/posts/10154119438404228))
@@ -102,6 +102,7 @@ I don't believe other animals, even other mammals, have anything like human cons
 [^20]: So fun!
 [^22]: And despite their being "active" passtimes, I don't like "video games" much either, but if I did, I would like real-time strategy games or RPGs
 [^23]: “That authentic love and friendship are possible only between individuals who are independent and equal.” 
+[^24]: ...when Girl Talk released *Feed The Animals* and *All Day*, Lady Gaga was everywhere and everything, the New Pornographers had at least 3 amazing albums, Das Racist was still together...
 [^17]: Candidates include old standards such as <br>
 * What is the meaning of life?
 * Why are we here?
