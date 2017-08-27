@@ -17,8 +17,7 @@
       <pubDate>Sun, 27 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/2017/08/27/basic-stats-u-need-3-anova/</guid>
-      <description>.table { margin-left:auto; margin-right:auto; width: 60%; text-align:center; }  R Markdown If the hero of our last post was William “Student” Gosset, then the hero of this and the next few posts will be Ronald Fisher. After Student had derived the t distribution, he wrote Fisher to say “I am sending you a copy of Student’s Tables as you are the only man that’s ever likely to use them!”
-We have Fisher to thank for the Analysis of Variance (ANOVA), a technique which generalizes the independent two-sample t-test to more than two groups (we also have him to thank for the term “variance” itself).</description>
+      <description>One-Way ANOVA by way of Two-Sample T-Test Sums of Squares Visualizing Sums of Squares Calculations Sums of Squares Plot  The ANOVA Table Degrees of Freedom for \(SS_W\) and \(SS_B\) The F-Test Doing a One-Way ANOVA in R  Effect Size Post Hoc Tests   .table { margin-left:auto; margin-right:auto; width: 60%; text-align:center; }  One-Way ANOVA by way of Two-Sample T-Test If the hero of our last post was William “Student” Gosset, then the hero of this and the next few posts will be Sir Ronald Fisher.</description>
     </item>
     
     <item>

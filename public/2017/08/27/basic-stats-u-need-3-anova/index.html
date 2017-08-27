@@ -90,7 +90,25 @@
     
 
     <div class="article-content">
-      <style type="text/css">
+      <div id="TOC">
+<ul>
+<li><a href="#one-way-anova-by-way-of-two-sample-t-test">One-Way ANOVA by way of Two-Sample T-Test</a></li>
+<li><a href="#sums-of-squares">Sums of Squares</a><ul>
+<li><a href="#visualizing-sums-of-squares">Visualizing Sums of Squares</a></li>
+<li><a href="#calculations">Calculations</a></li>
+<li><a href="#sums-of-squares-plot">Sums of Squares Plot</a></li>
+</ul></li>
+<li><a href="#the-anova-table">The ANOVA Table</a><ul>
+<li><a href="#degrees-of-freedom-for-ss_w-and-ss_b">Degrees of Freedom for <span class="math inline">\(SS_W\)</span> and <span class="math inline">\(SS_B\)</span></a></li>
+<li><a href="#the-f-test">The F-Test</a></li>
+<li><a href="#doing-a-one-way-anova-in-r">Doing a One-Way ANOVA in R</a></li>
+</ul></li>
+<li><a href="#effect-size">Effect Size</a></li>
+<li><a href="#post-hoc-tests">Post Hoc Tests</a></li>
+</ul>
+</div>
+
+<style type="text/css">
 .table {
     margin-left:auto; 
     margin-right:auto;
@@ -98,10 +116,10 @@
     text-align:center;
 }
 </style>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>If the hero of <a href="../../../../post/basic-stats-u-need-t-test/">our last post</a> was William “Student” Gosset, then the hero of this and the next few posts will be Ronald Fisher. After Student had derived the <em>t</em> distribution, he wrote Fisher to say “I am sending you a copy of Student’s Tables as you are the only man that’s ever likely to use them!”</p>
-<p>We have Fisher to thank for the Analysis of Variance (ANOVA), a technique which generalizes the independent two-sample t-test to more than two groups (we also have him to thank for the term “variance” itself). Echoing remarks I made in the first post of this series, ANOVA is a superb teaching/learning tool for students of inferential statistics (despite being easily subsumed by the linear model framework). There are tons of blog posts about ANOVA, but I want to walk you through <em>the way I was taught</em> this concept because I thought it was extremely effective.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Let’s set the stage with a simple example first, with which we will illustate the computations required for conducting a one-way ANOVA.</p>
+<div id="one-way-anova-by-way-of-two-sample-t-test" class="section level2">
+<h2>One-Way ANOVA by way of Two-Sample T-Test</h2>
+<p>If the hero of <a href="nathanielwoodward.com/2017/08/23/basic-stats-u-need-t-test/">our last post</a> was William “Student” Gosset, then the hero of this and the next few posts will be <a href="https://en.wikipedia.org/wiki/Ronald_Fisher">Sir Ronald Fisher</a>. After Student had derived the <em>t</em> distribution, he sent it to Fisher along with an historically ironic note: “I am sending you a copy of Student’s Tables as you are the only man that’s ever likely to use them!”</p>
+<p>We have Fisher to thank for the Analysis of Variance (ANOVA), a technique which generalizes the independent two-sample <em>t</em>-test to more than two groups (we also have him to thank for the term “variance” itself). Echoing remarks I made in the first post of this series, ANOVA is a superb teaching/learning tool for students of inferential statistics (despite being easily subsumed by the linear model framework). There are tons of blog posts about ANOVA, but I want to walk you through <em>the way I was taught</em> this concept because I thought it was extremely effective.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Let’s set the stage with a simple example first, with which we will illustate the computations required for conducting a one-way ANOVA.</p>
 <p>Let’s say you have developed 4 different fertilizers and you want to test whether they affect plant growth differently. You have at your disposal 20 genetically identical plants, so you randomly assign each plant to one of the four fertilizer conditions. You do this because there could still be initial differences among the plants (maybe some were sprouted on the edge of the container vs the middle, etc) and randomization spreads any systematic differences out across fertilizer conditions, so that the conditions are as similar in composition as possible before they receive the treatment. Besides the fertilizer treatment, everything else about the four conditions should be held constant (amount of water, sun, etc.) so that the only variable that could plausibly account for differential plant growth is the treatment itself. Thus 5 random plants get fertilizer A, 5 get B, 5 get C, and 5 get D. After growing the plants for a fixed period of time, we collect the outcome data. Let’s measure each plant’s height in centimeters (though yield might be more appropriate). These heights are given below</p>
 <table>
 <thead>
@@ -169,30 +187,30 @@ s_p^2&amp;=\frac{(s_A^2+s_B^2)}{2}\\
 <p>Using our data for A and C, let’s calculate <span class="math inline">\(t\)</span> using this last formula for <span class="math inline">\(s_p\)</span> (it looks more complicated, but trust me on this).</p>
 <pre class="r"><code>heights&lt;-data.frame(A=c(6,7,8,9,10), B=c(9, 10, 12, 14, 15), C=c(4,6,6,6,8), D=c(7,9,10,11,13))
 n=5
-meanA&lt;-mean(heights$A); meanA</code></pre>
-<pre><code>## [1] 8</code></pre>
-<pre class="r"><code>meanC&lt;-mean(heights$C); meanC</code></pre>
-<pre><code>## [1] 6</code></pre>
-<pre class="r"><code># What is the difference between the mean of group A and the mean of group C?
-meanDiff&lt;-meanA-meanC; meanDiff</code></pre>
-<pre><code>## [1] 2</code></pre>
-<pre class="r"><code># Now we subtract the mean of group A from each of the 5 heights in group A
-deviationsA&lt;-heights$A-meanA; deviationsA</code></pre>
-<pre><code>## [1] -2 -1  0  1  2</code></pre>
-<pre class="r"><code># Same for C: we subtract the group mean from each observation in the group
-deviationsC&lt;-heights$C-meanC; deviationsC</code></pre>
-<pre><code>## [1] -2  0  0  0  2</code></pre>
-<pre class="r"><code># Next, we square these differences for both groups:
-sqDevsA&lt;-deviationsA^2; sqDevsA</code></pre>
-<pre><code>## [1] 4 1 0 1 4</code></pre>
-<pre class="r"><code>sqDevsC&lt;-deviationsC^2; sqDevsC</code></pre>
-<pre><code>## [1] 4 0 0 0 4</code></pre>
-<pre class="r"><code># Then we add up all of these squared deviations
-sumSqDevs&lt;-sum(sqDevsA,sqDevsC); sumSqDevs</code></pre>
-<pre><code>## [1] 18</code></pre>
-<pre class="r"><code># Finally, we divide by 2(n-1) to get the pooled variance
-s2p&lt;-sumSqDevs/(2*(n-1)); s2p</code></pre>
-<pre><code>## [1] 2.25</code></pre>
+meanA&lt;-mean(heights$A); meanA
+## [1] 8
+meanC&lt;-mean(heights$C); meanC
+## [1] 6
+# What is the difference between the mean of group A and the mean of group C?
+meanDiff&lt;-meanA-meanC; meanDiff
+## [1] 2
+# Now we subtract the mean of group A from each of the 5 heights in group A
+deviationsA&lt;-heights$A-meanA; deviationsA
+## [1] -2 -1  0  1  2
+# Same for C: we subtract the group mean from each observation in the group
+deviationsC&lt;-heights$C-meanC; deviationsC
+## [1] -2  0  0  0  2
+# Next, we square these differences for both groups:
+sqDevsA&lt;-deviationsA^2; sqDevsA
+## [1] 4 1 0 1 4
+sqDevsC&lt;-deviationsC^2; sqDevsC
+## [1] 4 0 0 0 4
+# Then we add up all of these squared deviations
+sumSqDevs&lt;-sum(sqDevsA,sqDevsC); sumSqDevs
+## [1] 18
+# Finally, we divide by 2(n-1) to get the pooled variance
+s2p&lt;-sumSqDevs/(2*(n-1)); s2p
+## [1] 2.25</code></pre>
 <p>Thus, our t-statistic and our test (null hypothesis: <span class="math inline">\(\mu_A = \mu_C\)</span>, alternative: <span class="math inline">\(\mu_A \ne \mu_C\)</span>) is</p>
 <pre class="r"><code>tStat&lt;-meanDiff/sqrt(s2p*(2/5))
 tStat</code></pre>
@@ -226,9 +244,8 @@ tStat</code></pre>
 ## mean of x mean of y 
 ##         8         6</code></pre>
 <p>But the question still remains: how can we compare more than two groups simultaneously? Let’s say we just want an answer to the question of whether fertilizer condition affects plant height. How do we pose such a question? Specifically, how do we test the null hypothesis <span class="math inline">\(H_0: \mu_A=\mu_B=\mu_C=\mu_D\)</span> against the alternative hypothesis that at least one of these means does not equal the others?</p>
-</div>
-<div id="one-way-anova" class="section level1">
-<h1>One-Way ANOVA</h1>
+<div id="one-way-anova" class="section level3">
+<h3>One-Way ANOVA</h3>
 <p>By way of a broad overview, the approach we will take to this problem is to <em>partition</em> the total variability into two parts: one attributable to random variability within each group/condition/treatment, and one attributable to the variability between the groups themselves. The ANOVA compares the ratio of the variability between groups to the variability within the groups—if the variability <em>between</em> groups is larger than the random variability <em>within</em> groups, then the grouping variable is said to have a significant effect on the dependent variable. Put another way, if most of the total variability (e.g., in plant height) is due to the different groups, then the grouping factor (e.g., fertilizer) is affecting the outcome more at a greater-than-chance level.</p>
 <p>Let’s adopt some useful notation (for observations, grand mean, group means, etc) before we return to our plant-growth scenario.</p>
 <p>For subjects (individuals, plants, students, “units”), we use the subscript <span class="math inline">\(i; \ (i=1,2,3,...,i,...,n_k)\)</span> where <span class="math inline">\(n_k\)</span> is the total number of observations in a given group <span class="math inline">\(k\)</span>.<br />
@@ -288,8 +305,10 @@ For groups (conditions, treatments, etc.), we therefore use the subscript <span 
 </tbody>
 </table>
 <p>In our example data, the number of groups is <span class="math inline">\(K=4\)</span> and the number of observations in each group is the same (<span class="math inline">\(n_1=n_2=...n_K=5\)</span>). The total number of observations across groups is given by <span class="math inline">\(N=\sum_{k=1}^Kn_k=n_1+n_2+...n_K\)</span></p>
-<div id="sums-of-squares" class="section level2">
-<h2>Sums of Squares</h2>
+</div>
+</div>
+<div id="sums-of-squares" class="section level1">
+<h1>Sums of Squares</h1>
 <p>ANOVA works by partitioning <em>sums of squares</em> (actually, sums of square deviations of <span class="math inline">\(x_{ik}\)</span> from either the group mean <span class="math inline">\(\bar{x}_{\bullet k}\)</span> or grand mean <span class="math inline">\(\bar{x}_{\bullet \bullet}\)</span>).</p>
 <p>The <strong>Total Sum of Squares (<span class="math inline">\(SS_T\)</span>)</strong> is simply the sum of the squared distance of each observation from the grand mean: <span class="math inline">\(\sum (x_{ik}-\bar{x}_{\bullet \bullet})^2\)</span>. Using our notation above, this is written <span class="math display">\[
 SS_T=\sum_{k=1}^{K}\sum_{i=1}^{n_k}(x_{ik}-\bar{x}_{\bullet \bullet})^2
@@ -311,10 +330,8 @@ SS_B=\sum_{k=1}^Kn_k\times (\bar{x}_{\bullet k}-\bar{x}_{\bullet \bullet})^2
 SS_W=\sum_{k=1}^K\sum_{i=1}^{n_k}(x_{i k}-\bar{x}_{\bullet k})^2
 \]</span></p>
 <p>This calculates the squared distances of each observation from its own <em>group mean</em> and adds these together across all groups. Notice that we have <span class="math inline">\(N\)</span> total terms in the sum here too.</p>
-</div>
-</div>
-<div id="calculating-and-visualizing-sums-of-squares" class="section level1">
-<h1>Calculating and Visualizing Sums of Squares</h1>
+<div id="visualizing-sums-of-squares" class="section level2">
+<h2>Visualizing Sums of Squares</h2>
 <p>These formulas may be daunting at first, and it can be very helpful to see an illustration of what each one represents. So without further ado,</p>
 <p><img src="../../../../post/2017-08-27-basic-stats-u-need-3-anova_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This plot is really important! It allows you to visualize the dispersion of the data in each of the three SS calculations. On the left, we have the Total deviations <span class="math inline">\((x_{ik}-\bar{x}_{\bullet \bullet})\)</span>: black dotted lines represent the deviations of each observation (large dots) from the grand mean (black bar); in the middle, we have Within-Group deviations <span class="math inline">\((x_{ik}-\bar{x}_{\bullet k})\)</span>: the deviations of each observation from their respective group mean (colored lines); on the right, we have Between-Group deviations <span class="math inline">\((x_{\bullet k}-\bar{x}_{\bullet \bullet})\)</span>: the deviations of each group mean from the grand mean <em>times the number of observations in each group</em>. To calculate the Total, Within-Group, and Between-Group Sums of Squares, you simply square each of the deviations in their respective plots above and then add them up, giving you three different sums.</p>
@@ -385,6 +402,7 @@ SS_W=\sum_{k=1}^K\sum_{i=1}^{n_k}(x_{i k}-\bar{x}_{\bullet k})^2
 </tr>
 </tbody>
 </table>
+</div>
 <div id="calculations" class="section level2 tabset">
 <h2>Calculations</h2>
 <div id="calculations-1" class="section level3">
@@ -448,8 +466,10 @@ SS_B&amp;=\sum_{k=1}^Kn_k\times (\bar{x}_{\bullet k}-\bar{x}_{\bullet \bullet})^
 <h2>Sums of Squares Plot</h2>
 <p><img src="../../../../post/2017-08-27-basic-stats-u-need-3-anova_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>OK great, so we have our sums of squares: How do we perform the ANOVA with them? ANOVA uses an F-test for a ratio of two variances. Recall that we can think of our sums of squares as the numerator of a variance… what about the denominator? It will be helpful to consult a generic ANOVA output table:</p>
-<div id="anova-table" class="section level3">
-<h3>ANOVA Table</h3>
+</div>
+</div>
+<div id="the-anova-table" class="section level1">
+<h1>The ANOVA Table</h1>
 <table>
 <thead>
 <tr class="header">
@@ -499,16 +519,15 @@ MS_W&amp;=\frac{\sum_{k=1}^4\sum_{i=1}^{5}(x_{i k}-\bar{x}_{\bullet k})^2}{N-K}
 \]</span></p>
 <pre class="r"><code>mean(c(var(heights$A),var(heights$B),var(heights$C),var(heights$D)))</code></pre>
 <pre><code>## [1] 4</code></pre>
-</div>
-<div id="degrees-of-freedom-for-ss_w-and-ss_b" class="section level3">
-<h3>Degrees of Freedom for <span class="math inline">\(SS_W\)</span> and SS_B$</h3>
+<div id="degrees-of-freedom-for-ss_w-and-ss_b" class="section level2">
+<h2>Degrees of Freedom for <span class="math inline">\(SS_W\)</span> and <span class="math inline">\(SS_B\)</span></h2>
 <p>The degrees of freedom for <span class="math inline">\(SS_W\)</span> is easy to remember too: just look at the components of the sum in the formula and note that the observations are constrained by the 4 group means, <span class="math inline">\(\bar{x}_{\bullet k}\)</span>. Thus, 20 observations go in, but once we know 4 of the observations in a given group, we automatically know the fifth one (because we have the group mean, and <span class="math inline">\(x_5=n_k\bar{x}_{\bullet k}-(x_1+x_2+x_3+x_4)\)</span>). Thus, the degrees of freedom is given by <span class="math inline">\(N-K = 20-4 = 16\)</span>, the total number of observations minus the total number of groups.</p>
 <p>Lastly, to find the degrees of freedom for <span class="math inline">\(SS_B\)</span> we look at the components of the sum-of-squares calculation: here the unique observations are the group means themselves, and they are constrained by the grand mean, such that <span class="math display">\[
 n_5\bar{x}_{\bullet 5}=N\bar{x}_{\bullet \bullet}-(n_1\bar{x}_{\bullet 1}+n_2\bar{x}_{\bullet 2}+n_3\bar{x}_{\bullet 3}+n_4\bar{x}_{\bullet 4})
 \]</span> Thus, the degrees of freedom for <span class="math inline">\(SS_B\)</span> are found by taking the number of group means and subtracting 1 for the grand mean: <span class="math inline">\(K-1=4-1=3\)</span>.</p>
 </div>
-<div id="the-f-test" class="section level3">
-<h3>The F-Test</h3>
+<div id="the-f-test" class="section level2">
+<h2>The F-Test</h2>
 <p>We saw above that the Mean Squares are found by dividing the Sums of Squares by their DF, <span class="math inline">\(MS=\frac{SS}{df}\)</span>. Let’s fill in the ANOVA table now with all of our calculations.</p>
 <table style="width:40%;">
 <colgroup>
@@ -569,13 +588,13 @@ abline(v=F.stat,lty=2)}</code></pre>
 1-pf(F.stat,numer.df,denom.df)</code></pre>
 <pre><code>## [1] 0.0014506</code></pre>
 <p>We see in the plot above that the probability of observing an F-statistic of <span class="math inline">\(8.\bar{3}\)</span> (dotted line) or larger under the null hypothesis is very unlikely, <span class="math inline">\(p&gt;F=.001\)</span>. The area in black under the <span class="math inline">\(F_{(3,16)}\)</span> marks of 5% of the probability distribution. Anything observed F-statistic in the black region would reject the null hypothesis (that group means do no differ) at the traditional significance level <span class="math inline">\(\alpha=.05\)</span>. Another way of stating the null hypothesis is this: all groups are random samples of the same population, and thus that all treatments result in the same effect. Rejecting the null hypothesis means we have non-negligible evidence that different treatments result in different effects.</p>
-</div>
 <div id="why-does-this-work" class="section level3">
 <h3>Why Does This Work?</h3>
 <p>The expected value of the within-group variance is equal to the population variance, <span class="math inline">\(E(MS_W)=\sigma^2\)</span>. However, it can be shown that the expected value of the between-group variance is equal to the population variance <em>plus</em> an additional term representing the variabiliy of the group means around the grand mean, <span class="math inline">\(E(MS_B)=\sigma^2 + \frac{\sum_{k=1}^Kn_k (\mu_{\bullet k}-\mu_{\bullet \bullet})^2}{K-1}\)</span>. Under the null hypothesis <span class="math inline">\(\mu_1=\mu_2=...=\mu_K\)</span>, this second term will equal zero, because for all <span class="math inline">\(k\)</span>, <span class="math inline">\((\mu_{\bullet k}-\mu_{\bullet \bullet})=0\)</span>. Thus, under <span class="math inline">\(H_0\)</span>, the expected value of the F-statistic is <span class="math inline">\(E(F_{stat})=E\left(\frac{MS_B}{MS_W}\right)=\frac{\sigma^2}{\sigma^2}=1\)</span>. If our observed F-statisic is significantly larger than 1 (due to large differences between group means and thus a large <span class="math inline">\(\frac{\sum_{k=1}^Kn_k (\mu_{\bullet k}-\mu_{\bullet \bullet})^2}{K-1}\)</span> term) than we have evidence against our null hypothesis, suggesting that at least one of the group means is different from the others.</p>
 </div>
-<div id="doing-a-one-way-anova-in-r" class="section level3">
-<h3>Doing a One-Way ANOVA in R</h3>
+</div>
+<div id="doing-a-one-way-anova-in-r" class="section level2">
+<h2>Doing a One-Way ANOVA in R</h2>
 <p>Performing a one-way ANOVA in R is very straightforward. Notice that R gives exactly the same results as our hand calculations. Note also that “Mean Squared Residuals” (or “Mean Squared Error”, MSE) refers to the same thing as “Mean Squared Within”—it is whatever variability is left over after accounting for the effect of the groups.</p>
 <pre class="r"><code>anova1&lt;-aov(Height~Group,data=dat.long)
 summary(anova1)</code></pre>
@@ -585,20 +604,19 @@ summary(anova1)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
-<div id="effect-size" class="section level3">
-<h3>Effect Size</h3>
+</div>
+<div id="effect-size" class="section level1">
+<h1>Effect Size</h1>
 <p>Effect size is just what it sounds like: a measure of the strength of an effect or treatment. These go hand-in-hand with any hypothesis test, because a hypothesis test alone tells you nothing about the size of an effect per se, but only that it is statistically significant. For example, if you have an enormous sample size, then you have very high power to detect small differences. However, these small differences may not be <em>practically significant</em>, and effect sizes are crucial for giving context to any significance test.</p>
 <p>A common effect-size measure for ANOVA is the eta-squared (<span class="math inline">\(\eta^2\)</span>), which is the ratio of the <span class="math inline">\(SS_B\)</span> to the <span class="math inline">\(SS_T\)</span>, <span class="math inline">\(\eta^2=\frac{SS_B}{SS_T}\)</span>. In our example above, we have <span class="math inline">\(\eta^2=\frac{100}{164}=.61\)</span> This is a measure of the variance of the dependent variable explained by the treatment in our sample. If you are familiar with regression output, it is equivalent to the R^2.</p>
 <p>Another common effect-size measure for ANOVA is cohen’s <span class="math inline">\(f^2\)</span>, which is calculating using <span class="math inline">\(\eta^2\)</span>, <span class="math inline">\(f^2=\frac{\eta^2}{1-\eta^2}\)</span>. We can see by looking that <span class="math inline">\(f^2\)</span> is the ratio of variance explained to the variance <em>not</em> explained. Here, we would have <span class="math inline">\(.61/.39=1.56\)</span>.</p>
 <p>According to Cohen’s (1988) guidelines (which were meant only for the social sciences, are a bit out of date, and are certainly oversimplifications), <span class="math inline">\(f^2 \ge 0.02, f^2 \ge 0.15,\)</span> and <span class="math inline">\(f^2 \ge 0.35\)</span> represent small, medium, and large effect sizes, respectively. According to this, the effect of our treatment is huge.</p>
 </div>
-<div id="post-hoc-tests" class="section level3">
-<h3>Post Hoc Tests</h3>
+<div id="post-hoc-tests" class="section level1">
+<h1>Post Hoc Tests</h1>
 <p>After performing an ANOVA which as revealed a significant effect for a factor, we know that not all groups are the same in terms of there score on the outcome variable, but we know little else. Therefore, it is often of interest to conduct a few more tests to see which groups (levels of the factor) are actually different from one another. The most common approach is to conduct t-tests between each possible pair of groups while correcting for multiple comparisons. In our example, we have 4 means (A, B, C, D), and so we have <span class="math inline">\(4 \choose{2}\)</span> <span class="math inline">\(=\frac{4!}{2!2!}=6\)</span> unique group comparisons <span class="math inline">\(\{AB, AC, AD, BC, BD, CD\}\)</span>. Unfortunately, the more hypotheses we test, the more likely we are to get a significant difference due to chance alone. To see this, note that when we say <span class="math inline">\(\alpha=.05\)</span> for a given test, it means that it has a probability of 5% that a “significant” difference is due to chance alone. If we were to conduct 6 such tests (e.g., t-tests), the probability of making a Type I error (incorrectly rejecting <span class="math inline">\(H_0\)</span>) <em>for at least 1 of these comparisons</em> is much greater than <span class="math inline">\(\alpha=.05\)</span>, it’s <span class="math inline">\(\alpha_{familywise}=1-(1-\alpha)^6=1-.95^6=1-.735=.265\)</span>. Thus, the probability of observing a significant difference in one of the 6 comparisons—the overall probability of making at least false rejection of H_0—is actually 26.5%! When we do multiple significance tests, we want to set the familywise (or overall) error rate at 5% instead, and there are many techniques for doing so.</p>
-</div>
-</div>
-<div id="tukeys-test" class="section level2">
-<h2>Tukey’s Test</h2>
+<div id="tukeys-test" class="section level3">
+<h3>Tukey’s Test</h3>
 <p>One way around this is to use an approach variously refered to as Tukey’s test, Tukey’s HSD (honestly significant difference), Tukey’s paired comparisons, etc.</p>
 <p>For example, to test whether Group A and Group B differed in Height, we would calculate <em>q</em> <span class="math display">\[
 q=\frac{|\bar{x}_A-\bar{x}_B|}{\sqrt{MS_W/n}}=\frac{|8-14|}{\sqrt{4/5}}=2\sqrt5=4.472
@@ -623,8 +641,8 @@ q=\frac{|\bar{x}_A-\bar{x}_B|}{\sqrt{MS_W/n}}=\frac{|8-14|}{\sqrt{4/5}}=2\sqrt5=
 <p>Thus, we see that groups A and B are significantly different, C and B are significantly different, and D and C are significantly different while holding the familywise error rate for all six comparisons at <span class="math inline">\(\alpha_{fw}=.05\)</span>, because unlike t-tests, the Tukey test applies simultaneously to all pairwise comparisons.</p>
 <p>If you find yourself with unequal sample sizes across groups, you simply use the harmonic mean of the group sizes <span class="math inline">\(n_k\)</span>, <span class="math inline">\(\frac{K}{\sum_{k=1}^K \frac{1}{n_k}}=\frac{K}{\frac{1}{n_1}+\frac{1}{n_2}+...\frac{1}{n_K}}\)</span>, instead of <span class="math inline">\(n\)</span> in your calculation of <em>q</em>.</p>
 </div>
-<div id="bonferroni-t-tests" class="section level2">
-<h2>Bonferroni T-Tests</h2>
+<div id="bonferroni-t-tests" class="section level3">
+<h3>Bonferroni T-Tests</h3>
 <p>Another approach is to say OK, we are doing 6 tests, so lets set the familywise error rate to <span class="math inline">\(\alpha_{fw}=\frac{\alpha}{5}=\frac{.05}{6}=.008\bar{3}\)</span>. Thus, for any one of our paired comparisons to be different, we would need to observe a <span class="math inline">\(p&lt;.008\bar{3}\)</span>. This method is much more conservative (that is, it tends to over-correct, making it more likely that we make a Type II error by failing to reject a false <span class="math inline">\(H_0\)</span>). We can see this by running all 6 t-tests like so:</p>
 <pre class="r"><code># A vs. B
 t.test(dat.long[dat.long$Group==&#39;A&#39;,]$Height,dat.long[dat.long$Group==&#39;B&#39;,]$Height,var.equal = T)$p.value
@@ -651,8 +669,8 @@ t.test(dat.long[dat.long$Group==&#39;C&#39;,]$Height,dat.long[dat.long$Group==&#
 ## [1] 0.009632847</code></pre>
 <p>Notice here that only <em>B vs. C</em> is found to be significantly different at <span class="math inline">\(\alpha=.008\bar{3}\)</span> whereas using Tukey’s test, <em>A vs. B</em> and <em>C vs. D</em> were significant as well.</p>
 </div>
-<div id="stepdown-bonferroni-holm" class="section level2">
-<h2>Stepdown: Bonferroni-Holm</h2>
+<div id="stepdown-bonferroni-holm" class="section level3">
+<h3>Stepdown: Bonferroni-Holm</h3>
 <p>We will look at one last correction that is a less conservative variation on bonferroni. Here, we run our six t-tests like we did above, and we sort our p-values from least to greatest:</p>
 <pre class="r"><code>bf_holm&lt;-data.frame(Comparison=c(&quot;AB&quot;,&quot;AC&quot;,&quot;AD&quot;,&quot;BC&quot;,&quot;BD&quot;,&quot;CD&quot;),Pvalue=c(
 t.test(dat.long[dat.long$Group==&#39;A&#39;,]$Height,dat.long[dat.long$Group==&#39;B&#39;,]$Height,var.equal = T)$p.value,
@@ -681,16 +699,16 @@ bf_holm[order(bf_holm$Pvalue),]</code></pre>
 <p>For example, our smallest p-value is <span class="math inline">\(BC\)</span> and we have <span class="math inline">\(\alpha_1=\frac{.05}{(6+1)-1}=\frac{.05}{6}=.008\bar{3}\)</span>. So for the first comparison, the p-value is the same as Bonferroni. Since <span class="math inline">\(.00175 \le .008\bar{3}\)</span>, we say that groups <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> are significantly different, and we move on to our the comparison with the second-smallest p-value, <span class="math inline">\(CD\)</span>. Here we get <span class="math inline">\(\alpha_2=\frac{.05}{(6+1)-2}=\frac{.05}{5}=.01\)</span>, and since <span class="math inline">\(p_2=.00963&lt;.01\)</span>, groups <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span> are significantly different. For the comparison with the third-smallest p-value, <span class="math inline">\(AB\)</span>, we have <span class="math inline">\(\alpha_3=\frac{.05}{(6+1)-3}=\frac{.05}{4}=.0125\)</span>, but since <span class="math inline">\(p_3=.0176 \not\le .0125\)</span>, groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are not significantly different, and we stop.</p>
 <p>Notice that using this procedure, 2 comparisons were found to be significantly different (compared to 1 using Bonferonni and 3 using Tukey).</p>
 <p>Also note that the Bonferonni and Bonferroni-Holm procedures and general and can be used for any set of hypothesis tests that one is conducting.</p>
+<div id="end" class="section level4">
+<h4>End</h4>
+<p>I hope you have enjoyed this introduction to ANOVA! I wanted to talk about power analysis but I think I had better save this topic for the next ANOVA post, where we deal with multifactor designs like the two-way ANOVA and where we discuss interactions. Stay tuned!</p>
 </div>
-<div id="end" class="section level2">
-<h2>End</h2>
-<p>I hope you have enjoyed this introduction to ANOVA! I wanted to talk about power analysis but I think I had better save this topic for the next ANOVA post, where we talk about multifactor designs like the two-way ANOVA, and where we discuss interactions. Stay tuned!</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Thanks Dr. Emmer, Professor Emeritus at UT Austin, In whose last class ever I learned so much!<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>Thanks Dr. Emmer, Professor Emeritus at UT Austin, In whose last-class-ever I learned so much!<a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
 

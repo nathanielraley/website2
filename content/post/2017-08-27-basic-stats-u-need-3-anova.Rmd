@@ -5,6 +5,10 @@ date: '2017-08-27'
 slug: basic-stats-u-need-3-anova
 categories: []
 tags: []
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 2
 ---
 <style type="text/css">
 .table {
@@ -18,9 +22,9 @@ tags: []
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## One-Way ANOVA by way of Two-Sample T-Test
 
-If the hero of [our last post](https://nrwoodward.netlify.com/2017/08/23/basic-stats-u-need-t-test/) was William "Student" Gosset, then the hero of this and the next few posts will be [Sir Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher). After Student had derived the *t* distribution, he sent it to Fisher along with an historically ironic note: "I am sending you a copy of Student's Tables as you are the only man that's ever likely to use them!"
+If the hero of [our last post](nathanielwoodward.com/2017/08/23/basic-stats-u-need-t-test/) was William "Student" Gosset, then the hero of this and the next few posts will be [Sir Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher). After Student had derived the *t* distribution, he sent it to Fisher along with an historically ironic note: "I am sending you a copy of Student's Tables as you are the only man that's ever likely to use them!"
 
 We have Fisher to thank for the Analysis of Variance (ANOVA), a technique which generalizes the independent two-sample *t*-test to more than two groups (we also have him to thank for the term "variance" itself). Echoing remarks I made in the first post of this series, ANOVA is a superb teaching/learning tool for students of inferential statistics (despite being easily subsumed by the linear model framework). There are tons of blog posts about ANOVA, but I want to walk you through *the way I was taught* this concept because I thought it was extremely effective.[^1] Let's set the stage with a simple example first, with which we will illustate the computations required for conducting a one-way ANOVA.
 
@@ -64,14 +68,13 @@ $$
 
 Using our data for A and C, let's calculate $t$ using this last formula for $s_p$ (it looks more complicated, but trust me on this).
 
-```{R, }
+```{R, collapse=T }
 heights<-data.frame(A=c(6,7,8,9,10), B=c(9, 10, 12, 14, 15), C=c(4,6,6,6,8), D=c(7,9,10,11,13))
 n=5
 meanA<-mean(heights$A); meanA
 meanC<-mean(heights$C); meanC
 # What is the difference between the mean of group A and the mean of group C?
 meanDiff<-meanA-meanC; meanDiff
-
 # Now we subtract the mean of group A from each of the 5 heights in group A
 deviationsA<-heights$A-meanA; deviationsA
 # Same for C: we subtract the group mean from each observation in the group
@@ -106,7 +109,7 @@ t.test(heights$A,heights$C,var.equal = F)
 
 But the question still remains: how can we compare more than two groups simultaneously? Let's say we just want an answer to the question of whether fertilizer condition affects plant height. How do we pose such a question? Specifically, how do we test the null hypothesis $H_0: \mu_A=\mu_B=\mu_C=\mu_D$ against the alternative hypothesis that at least one of these means does not equal the others?
 
-# One-Way ANOVA
+### One-Way ANOVA
 
 By way of a broad overview, the approach we will take to this problem is to *partition* the total variability into two parts: one attributable to random variability within each group/condition/treatment, and one attributable to the variability between the groups themselves. The ANOVA compares the ratio of the variability between groups to the variability within the groups---if the variability *between* groups is larger than the random variability *within* groups, then the grouping variable is said to have a significant effect on the dependent variable. Put another way, if most of the total variability (e.g., in plant height) is due to the different groups, then the grouping factor (e.g., fertilizer) is affecting the outcome more at a greater-than-chance level.
 
@@ -133,7 +136,7 @@ Just to be clear---because notation is super important!
 In our example data, the number of groups is $K=4$ and the number of observations in each group is the same ($n_1=n_2=...n_K=5$). The total number of observations across groups is given by $N=\sum_{k=1}^Kn_k=n_1+n_2+...n_K$  
 
 
-##Sums of Squares
+#Sums of Squares
 
 ANOVA works by partitioning *sums of squares* (actually, sums of square deviations of $x_{ik}$ from either the group mean $\bar{x}_{\bullet k}$ or grand mean $\bar{x}_{\bullet \bullet}$).
 
@@ -172,7 +175,7 @@ $$
 
 This calculates the squared distances of each observation from its own *group mean* and adds these together across all groups. Notice that we have $N$ total terms in the sum here too.
 
-# Calculating and Visualizing Sums of Squares
+##Visualizing Sums of Squares
 
 These formulas may be daunting at first, and it can be very helpful to see an illustration of what each one represents. So without further ado,
 
@@ -324,7 +327,7 @@ SS2plot
  
 OK great, so we have our sums of squares: How do we perform the ANOVA with them? ANOVA uses an F-test for a ratio of two variances. Recall that we can think of our sums of squares as the numerator of a variance... what about the denominator? It will be helpful to consult a generic ANOVA output table:
 
-### ANOVA Table
+#The ANOVA Table
 
 |Source of Variation| SS | df | MS | F | 
 |:---|:---:|:---:|:---:|:---:|
@@ -355,7 +358,7 @@ $$
 mean(c(var(heights$A),var(heights$B),var(heights$C),var(heights$D)))
 ```
 
-###Degrees of Freedom for $SS_W$ and SS_B$
+##Degrees of Freedom for $SS_W$ and $SS_B$
 
 The degrees of freedom for $SS_W$ is easy to remember too: just look at the components of the sum in the formula and note that the observations are constrained by the 4 group means, $\bar{x}_{\bullet k}$. Thus, 20 observations go in, but once we know 4 of the observations in a given group, we automatically know the fifth one (because we have the group mean, and $x_5=n_k\bar{x}_{\bullet k}-(x_1+x_2+x_3+x_4)$). Thus, the degrees of freedom is given by $N-K = 20-4 = 16$, the total number of observations minus the total number of groups.
 
@@ -365,7 +368,7 @@ n_5\bar{x}_{\bullet 5}=N\bar{x}_{\bullet \bullet}-(n_1\bar{x}_{\bullet 1}+n_2\ba
 $$
 Thus, the degrees of freedom for $SS_B$ are found by taking the number of group means and subtracting 1 for the grand mean: $K-1=4-1=3$.
 
-###The F-Test
+##The F-Test
 
 We saw above that the Mean Squares are found by dividing the Sums of Squares by their DF, $MS=\frac{SS}{df}$. Let's fill in the ANOVA table now with all of our calculations.
 
@@ -403,7 +406,7 @@ We see in the plot above that the probability of observing an F-statistic of $8.
 The expected value of the within-group variance is equal to the population variance, $E(MS_W)=\sigma^2$. However, it can be shown that the expected value of the between-group variance is equal to the population variance *plus* an additional term representing the variabiliy of the group means around the grand mean, $E(MS_B)=\sigma^2 + \frac{\sum_{k=1}^Kn_k (\mu_{\bullet k}-\mu_{\bullet \bullet})^2}{K-1}$. Under the null hypothesis $\mu_1=\mu_2=...=\mu_K$, this second term will equal zero, because for all $k$, $(\mu_{\bullet k}-\mu_{\bullet \bullet})=0$. Thus, under $H_0$, the expected value of the F-statistic is $E(F_{stat})=E\left(\frac{MS_B}{MS_W}\right)=\frac{\sigma^2}{\sigma^2}=1$. If our observed F-statisic is significantly larger than 1 (due to large differences between group means and thus a large $\frac{\sum_{k=1}^Kn_k (\mu_{\bullet k}-\mu_{\bullet \bullet})^2}{K-1}$ term) than we have evidence against our null hypothesis, suggesting that at least one of the group means is different from the others. 
 
 
-###Doing a One-Way ANOVA in R
+##Doing a One-Way ANOVA in R
 
 Performing a one-way ANOVA in R is very straightforward. Notice that R gives exactly the same results as our hand calculations. Note also that "Mean Squared Residuals" (or "Mean Squared Error", MSE) refers to the same thing as "Mean Squared Within"---it is whatever variability is left over after accounting for the effect of the groups.
 
@@ -412,7 +415,7 @@ anova1<-aov(Height~Group,data=dat.long)
 summary(anova1)
 ```
 
-### Effect Size
+# Effect Size
 
 Effect size is just what it sounds like: a measure of the strength of an effect or treatment. These go hand-in-hand with any hypothesis test, because a hypothesis test alone tells you nothing about the size of an effect per se, but only that it is statistically significant. For example, if you have an enormous sample size, then you have very high power to detect small differences. However, these small differences may not be *practically significant*, and effect sizes are crucial for giving context to any significance test.
 
@@ -422,11 +425,11 @@ Another common effect-size measure for ANOVA is cohen's $f^2$, which is calculat
 
 According to Cohen’s (1988) guidelines (which were meant only for the social sciences, are a bit out of date, and are certainly oversimplifications), $f^2 \ge 0.02, f^2 \ge 0.15,$ and $f^2 \ge 0.35$ represent small, medium, and large effect sizes, respectively. According to this, the effect of our treatment is huge.
 
-### Post Hoc Tests
+# Post Hoc Tests
 
 After performing an ANOVA which as revealed a significant effect for a factor, we know that not all groups are the same in terms of there score on the outcome variable, but we know little else. Therefore, it is often of interest to conduct a few more tests to see which groups (levels of the factor) are actually different from one another. The most common approach is to conduct t-tests between each possible pair of groups while correcting for multiple comparisons. In our example, we have 4 means (A, B, C, D), and so we have $4 \choose{2}$ $=\frac{4!}{2!2!}=6$ unique group comparisons $\{AB, AC, AD, BC, BD, CD\}$. Unfortunately, the more hypotheses we test, the more likely we are to get a significant difference due to chance alone. To see this, note that when we say $\alpha=.05$ for a given test, it means that it has a probability of 5% that a "significant" difference is due to chance alone. If we were to conduct 6 such tests (e.g., t-tests), the probability of making a Type I error (incorrectly rejecting $H_0$) *for at least 1 of these comparisons* is much greater than $\alpha=.05$, it's $\alpha_{familywise}=1-(1-\alpha)^6=1-.95^6=1-.735=.265$. Thus, the probability of observing a significant difference in one of the 6 comparisons---the overall probability of making at least false rejection of H_0---is actually 26.5%! When we do multiple significance tests, we want to set the familywise (or overall) error rate at 5% instead, and there are many techniques for doing so. 
 
-##Tukey's Test
+###Tukey's Test
 
 One way around this is to use an approach variously refered to as Tukey's test, Tukey's HSD (honestly significant difference), Tukey's paired comparisons, etc.
 
@@ -449,7 +452,7 @@ Thus, we see that groups A and B are significantly different, C and B are signif
 
 If you find yourself with unequal sample sizes across groups, you simply use the harmonic mean of the group sizes $n_k$, $\frac{K}{\sum_{k=1}^K \frac{1}{n_k}}=\frac{K}{\frac{1}{n_1}+\frac{1}{n_2}+...\frac{1}{n_K}}$, instead of $n$ in your calculation of *q*. 
 
-## Bonferroni T-Tests
+### Bonferroni T-Tests
 
 Another approach is to say OK, we are doing 6 tests, so lets set the familywise error rate to $\alpha_{fw}=\frac{\alpha}{5}=\frac{.05}{6}=.008\bar{3}$. Thus, for any one of our paired comparisons to be different, we would need to observe a $p<.008\bar{3}$. This method is much more conservative (that is, it tends to over-correct, making it more likely that we make a Type II error by failing to reject a false $H_0$). We can see this by running all 6 t-tests like so:
 
@@ -475,7 +478,7 @@ t.test(dat.long[dat.long$Group=='C',]$Height,dat.long[dat.long$Group=='D',]$Heig
 
 Notice here that only *B vs. C* is found to be significantly different at $\alpha=.008\bar{3}$ whereas using  Tukey's test, *A vs. B* and *C vs. D* were significant as well.
 
-## Stepdown: Bonferroni-Holm
+### Stepdown: Bonferroni-Holm
 
 We will look at one last correction that is a less conservative variation on bonferroni. Here, we run our six t-tests like we did above, and we sort our p-values from least to greatest:
 
@@ -506,7 +509,7 @@ Notice that using this procedure, 2 comparisons were found to be significantly d
 
 Also note that the Bonferonni and Bonferroni-Holm procedures and general and can be used for any set of hypothesis tests that one is conducting.
 
-##End
+####End
 
 I hope you have enjoyed this introduction to ANOVA! I wanted to talk about power analysis but I think I had better save this topic for the next ANOVA post, where we deal with multifactor designs like the two-way ANOVA and where we discuss interactions. Stay tuned!
 
