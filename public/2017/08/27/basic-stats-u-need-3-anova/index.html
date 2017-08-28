@@ -80,7 +80,7 @@
 
   <article class="article">
     
-    <span class="article-duration">21 min read</span>
+    <span class="article-duration">22 min read</span>
     
 
     <h1 class="article-title">Basic Stats U Need #3: ANOVA</h1>
@@ -121,6 +121,7 @@
 <p>If the hero of <a href="nathanielwoodward.com/2017/08/23/basic-stats-u-need-t-test/">our last post</a> was William “Student” Gosset, then the hero of this and the next few posts will be <a href="https://en.wikipedia.org/wiki/Ronald_Fisher">Sir Ronald Fisher</a>. After Student had derived the <em>t</em> distribution, he sent it to Fisher along with an historically ironic note: “I am sending you a copy of Student’s Tables as you are the only man that’s ever likely to use them!”</p>
 <p>We have Fisher to thank for the Analysis of Variance (ANOVA), a technique which generalizes the independent two-sample <em>t</em>-test to more than two groups (we also have him to thank for the term “variance” itself). Echoing remarks I made in the first post of this series, ANOVA is a superb teaching/learning tool for students of inferential statistics (despite being easily subsumed by the linear model framework). There are tons of blog posts about ANOVA, but I want to walk you through <em>the way I was taught</em> this concept because I thought it was extremely effective.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Let’s set the stage with a simple example first, with which we will illustate the computations required for conducting a one-way ANOVA.</p>
 <p>Let’s say you have developed 4 different fertilizers and you want to test whether they affect plant growth differently. You have at your disposal 20 genetically identical plants, so you randomly assign each plant to one of the four fertilizer conditions. You do this because there could still be initial differences among the plants (maybe some were sprouted on the edge of the container vs the middle, etc) and randomization spreads any systematic differences out across fertilizer conditions, so that the conditions are as similar in composition as possible before they receive the treatment. Besides the fertilizer treatment, everything else about the four conditions should be held constant (amount of water, sun, etc.) so that the only variable that could plausibly account for differential plant growth is the treatment itself. Thus 5 random plants get fertilizer A, 5 get B, 5 get C, and 5 get D. After growing the plants for a fixed period of time, we collect the outcome data. Let’s measure each plant’s height in centimeters (though yield might be more appropriate). These heights are given below</p>
+<center>
 <table>
 <thead>
 <tr class="header">
@@ -163,6 +164,7 @@
 </tr>
 </tbody>
 </table>
+</center>
 <p>OK then, so we want to test whether there is any difference in plant height among fertilizer groups. If we just had two groups, we could use a two-sample t-test. Considering only A and C for example (and assuming equal variances), we know that</p>
 <p><span class="math display">\[
 t=\frac{\bar{X}_A-\bar{X}_C}{\sqrt{s_p^2 \left(\frac{1}{n_A}+\frac{1}{n_C}\right)}} \text{      ,}
@@ -255,7 +257,8 @@ For groups (conditions, treatments, etc.), we therefore use the subscript <span 
 <span class="math inline">\(\bar{x}_{\bullet k}\)</span> : mean of group <em>k</em><br />
 <span class="math inline">\(\bar{x}_{\bullet \bullet}\)</span>: total (or “grand”) mean</p>
 </blockquote>
-<p>Just to be clear—because notation is super important!</p>
+Just to be clear—because notation is super important!
+<center>
 <table>
 <thead>
 <tr class="header">
@@ -304,6 +307,7 @@ For groups (conditions, treatments, etc.), we therefore use the subscript <span 
 </tr>
 </tbody>
 </table>
+</center>
 <p>In our example data, the number of groups is <span class="math inline">\(K=4\)</span> and the number of observations in each group is the same (<span class="math inline">\(n_1=n_2=...n_K=5\)</span>). The total number of observations across groups is given by <span class="math inline">\(N=\sum_{k=1}^Kn_k=n_1+n_2+...n_K\)</span></p>
 </div>
 </div>
@@ -335,7 +339,8 @@ SS_W=\sum_{k=1}^K\sum_{i=1}^{n_k}(x_{i k}-\bar{x}_{\bullet k})^2
 <p>These formulas may be daunting at first, and it can be very helpful to see an illustration of what each one represents. So without further ado,</p>
 <p><img src="../../../../post/2017-08-27-basic-stats-u-need-3-anova_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This plot is really important! It allows you to visualize the dispersion of the data in each of the three SS calculations. On the left, we have the Total deviations <span class="math inline">\((x_{ik}-\bar{x}_{\bullet \bullet})\)</span>: black dotted lines represent the deviations of each observation (large dots) from the grand mean (black bar); in the middle, we have Within-Group deviations <span class="math inline">\((x_{ik}-\bar{x}_{\bullet k})\)</span>: the deviations of each observation from their respective group mean (colored lines); on the right, we have Between-Group deviations <span class="math inline">\((x_{\bullet k}-\bar{x}_{\bullet \bullet})\)</span>: the deviations of each group mean from the grand mean <em>times the number of observations in each group</em>. To calculate the Total, Within-Group, and Between-Group Sums of Squares, you simply square each of the deviations in their respective plots above and then add them up, giving you three different sums.</p>
-<p>Let’s do this and then plot our totals; here’s our data again</p>
+Let’s do this and then plot our totals; here’s our data again
+<center>
 <table>
 <thead>
 <tr class="header">
@@ -394,23 +399,30 @@ SS_W=\sum_{k=1}^K\sum_{i=1}^{n_k}(x_{i k}-\bar{x}_{\bullet k})^2
 <td align="center"><span class="math inline">\(6\)</span></td>
 <td align="center"><span class="math inline">\(10\)</span></td>
 </tr>
-<tr class="even">
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"><span class="math inline">\(Grand \ Mean = 9\)</span></td>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(Grand \ Mean\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">9</td>
 </tr>
 </tbody>
 </table>
+</center>
 </div>
 <div id="calculations" class="section level2 tabset">
 <h2>Calculations</h2>
-<div id="calculations-1" class="section level3">
-<h3>Calculations:</h3>
-<p>Click the tabs to see the full sums-of-squares calculations</p>
-</div>
-<div id="total" class="section level3">
-<h3>Total</h3>
+<p>Click the button to show the full sums-of-squares calculations</p>
+<button onclick="myFunction()">
+Show/Hide
+</button>
+<div id="myDIV" class="toshow" style="display:none">
+<h3 id="total">Total</h3>
 <p>We will start by calculating the Total sums of squares</p>
 <p><span class="math display">\[
 \begin{align}
@@ -427,9 +439,7 @@ SS_T&amp;=\sum_{k=1}^{K}\sum_{i=1}^{n_k}(x_{ik}-\bar{x}_{\bullet \bullet})^2=\su
 &amp;=164
 \end{align}
 \]</span></p>
-</div>
-<div id="within" class="section level3">
-<h3>Within</h3>
+<h3 id="within">Within</h3>
 <p>Now for the Within-Group sums of squares. We need our group means for this, <span class="math inline">\(\bar{x}_{\bullet k}\)</span>. We can see from the table above that they are <span class="math inline">\(\bar{x}_{\bullet 1}=8\)</span> for group A, <span class="math inline">\(\bar{x}_{\bullet 2}=12\)</span> for group B, <span class="math inline">\(\bar{x}_{\bullet 3}=6\)</span> for group C, and <span class="math inline">\(\bar{x}_{\bullet 4}=10\)</span> for group D.</p>
 <p><span class="math display">\[
 \begin{align}
@@ -448,9 +458,7 @@ SS_W&amp;=\sum_{k=1}^4\sum_{i=1}^{5}(x_{i k}-\bar{x}_{\bullet k})^2 \\
 &amp;=64
 \end{align}
 \]</span></p>
-</div>
-<div id="between" class="section level3">
-<h3>Between</h3>
+<h3 id="between">Between</h3>
 <p>Since we know <span class="math inline">\(SS_T=SS_W+SS_B\)</span>, we see that <span class="math inline">\(SS_B=164-64=100\)</span>, but let’s show this quickly</p>
 <p><span class="math display">\[
 \begin{align}
@@ -702,6 +710,16 @@ bf_holm[order(bf_holm$Pvalue),]</code></pre>
 <div id="end" class="section level4">
 <h4>End</h4>
 <p>I hope you have enjoyed this introduction to ANOVA! I wanted to talk about power analysis but I think I had better save this topic for the next ANOVA post, where we deal with multifactor designs like the two-way ANOVA and where we discuss interactions. Stay tuned!</p>
+<script>
+function myFunction() {
+    var x = document.getElementById('myDIV');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
 </div>
 </div>
 </div>

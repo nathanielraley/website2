@@ -18,9 +18,6 @@ output:
     text-align:center;
 }
 </style>
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## One-Way ANOVA by way of Two-Sample T-Test
 
@@ -31,7 +28,7 @@ We have Fisher to thank for the Analysis of Variance (ANOVA), a technique which 
 Let's say you have developed 4 different fertilizers and you want to test whether they affect plant growth differently. You have at your disposal 20 genetically identical plants, so you randomly assign each plant to one of the four fertilizer conditions. You do this because there could still be initial differences among the plants (maybe some were sprouted on the edge of the container vs the middle, etc) and randomization spreads any systematic differences out across fertilizer conditions, so that the conditions are as similar in composition as possible before they receive the treatment. Besides the fertilizer treatment, everything else about the four conditions should be held constant (amount of water, sun, etc.) so that the only variable that could plausibly account for differential plant growth is the treatment itself. Thus 5 random plants get fertilizer A, 5 get B, 5 get C, and 5 get D. After growing the plants for a fixed period of time, we collect the outcome data. Let's measure each plant's height in centimeters (though yield might be more appropriate). These heights are given below
 
 
-
+<center>
 | A   |   B |   C |   D |
 |:---:|:---:|:---:|:---:|
 | 6   | 9   | 4   | 7   |
@@ -39,7 +36,7 @@ Let's say you have developed 4 different fertilizers and you want to test whethe
 | 8   | 12  | 6   | 10  |
 | 9   | 14  | 6   | 11  |
 | 10  | 15  | 8   | 13  |
-
+</center>
 
 OK then, so we want to test whether there is any difference in plant height among fertilizer groups. If we just had two groups, we could use a two-sample t-test. Considering only A and C for example (and assuming equal variances), we know that
 
@@ -123,7 +120,7 @@ For groups (conditions, treatments, etc.), we therefore use the subscript $k; \ 
 >$\bar{x}_{\bullet \bullet}$: total (or "grand") mean  
 
 Just to be clear---because notation is super important!
-
+<center>
 || A ($k=1$)  |   B ($k=2$) |   C ($k=3$) |   D ($k=4$) |
 |:---|:---:|:---:|:---:|:---:|
 |$i=1$| $x_{1,1}=6$   | $x_{1,2}=9$   | $x_{1,3}=4$   | $x_{1,4}=7$   |
@@ -131,7 +128,7 @@ Just to be clear---because notation is super important!
 |$i=3$| $x_{3,1}=8$   | $x_{3,2}=12$  | $x_{3,3}=6$   | $x_{3,4}=10$  |
 |$i=4$| $x_{4,1}=9$   | $x_{4,2}=14$  | $x_{4,3}=6$   | $x_{4,4}=11$  |
 |$i=5$| $x_{5,1}=10$  | $x_{5,2}=15$  | $x_{5,3}=8$   | $x_{5,4}=13$  |
-
+</center>
 
 In our example data, the number of groups is $K=4$ and the number of observations in each group is the same ($n_1=n_2=...n_K=5$). The total number of observations across groups is given by $N=\sum_{k=1}^Kn_k=n_1+n_2+...n_K$  
 
@@ -215,7 +212,7 @@ This plot is really important! It allows you to visualize the dispersion of the 
 To calculate the Total, Within-Group, and Between-Group Sums of Squares, you simply square each of the deviations  in their respective plots above and then add them up, giving you three different sums.
 
 Let's do this and then plot our totals; here's our data again
-
+<center>
 | A   |   B |   C |   D |
 |:---:|:---:|:---:|:---:|
 | 6   | 9   | 4   | 7   |
@@ -227,16 +224,24 @@ Let's do this and then plot our totals; here's our data again
 |$Mean_A$|$Mean_B$|$Mean_C$|$Mean_D$|
 |:---:|:---:|:---:|:---:|
 |$8$| $12$| $6$ | $10$ |
-| | | | $Grand \ Mean = 9$ |
 
+
+|$Grand \ Mean$ |
+|:--:|
+|9|
+</center>
 
 
 ## Calculations {.tabset}
 
-### Calculations:
-Click the tabs to see the full sums-of-squares calculations
+Click the button to show the full sums-of-squares calculations
+
+<button onclick="myFunction()">Show/Hide</button>
+
+<div id="myDIV" class="toshow" style="display:none">
 
 ### Total
+
 We will start by calculating the Total sums of squares
 
 $$
@@ -290,6 +295,7 @@ SS_B&=\sum_{k=1}^Kn_k\times (\bar{x}_{\bullet k}-\bar{x}_{\bullet \bullet})^2 = 
 \end{align}
 $$
 
+</div> 
 ## Sums of Squares Plot
 
 ```{R, echo=F,warning=F,fig.align='center',fig.width=7}
@@ -514,3 +520,15 @@ Also note that the Bonferonni and Bonferroni-Holm procedures and general and can
 I hope you have enjoyed this introduction to ANOVA! I wanted to talk about power analysis but I think I had better save this topic for the next ANOVA post, where we deal with multifactor designs like the two-way ANOVA and where we discuss interactions. Stay tuned!
 
 [^1]: Thanks Dr. Emmer, Professor Emeritus at UT Austin, In whose last-class-ever I learned so much!
+
+
+<script>
+function myFunction() {
+    var x = document.getElementById('myDIV');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
