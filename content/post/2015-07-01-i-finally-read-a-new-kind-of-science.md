@@ -6,6 +6,8 @@ link: https://nrwoodward.wordpress.com/2015/07/01/i-finally-read-a-new-kind-of-s
 slug: i-finally-read-a-new-kind-of-science
 title: I Finally Read "A New Kind of Science"
 wordpress_id: 23
+output:
+  blogdown::html_page
 ---
 
 This book made me think new thoughts; this is rare, so I am posting about it.  
