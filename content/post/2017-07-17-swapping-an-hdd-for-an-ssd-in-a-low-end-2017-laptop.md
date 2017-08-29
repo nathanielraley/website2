@@ -1,15 +1,12 @@
 ---
-author: nrwoodward
-comments: true
-date: 2017-07-17 18:37:00+00:00
-layout: post
-link: https://nrwoodward.wordpress.com/2017/07/17/swapping-an-hdd-for-an-ssd-in-a-low-end-2017-hp-laptop/
-slug: swapping-an-hdd-for-an-ssd-in-a-low-end-2017-hp-laptop
-title: Swapping an HDD for an SSD in a Low-End 2017 HP Laptop
-wordpress_id: 17
-output: html_document
----
+title: Swapping an HDD for an SSD in a Low-End 2017 Laptop
+author: Nathaniel Raley Woodward
+date: '2017-07-17'
+slug: swapping-an-hdd-for-an-ssd-in-a-low-end-2017-laptop
+categories: []
+tags: []
 
+---
 In less than two day's time, I was able to purchase my third computer from a perfect-craigslist-stranger (without issue!) and replace the hard disk with a solid state drive, and I wanted to take a minute to document the experience here; if you are interested only in a rough guide for SSD installation for a 2017 HP laptop, you are heartily encouraged to skip down several paragraphs.  
   
 The computer in question is an [HP 15-ba113cl ](https://support.hp.com/si-en/document/c05300932)that the original owner bought in February 2017 from our local Costco for around $400. It has an AMD (a first, for me) A10-9600P processor, 12GB DDR4 RAM, a 1TB HDD, and a touchscreen (another first). It came with Windows 10 Home and, horror of horrors, a heaping pile of HP bloatware. My wife's undergrad laptop was an HP and it was riddled with problems from the outset (including a failed sound card) and, three years or so in--once it realized it was safely outside the warranty window--it proceeded forthwith to give up the ghost. Ever since this harrowing  experience I have been extremely leery of the brand, and my wife still refuses to have anything to do with it (we have wisely turned away several free heirloom printers).  
@@ -37,9 +34,9 @@ So, back to the new HP. When I got the thing home and turned it on, it took over
 
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2017/07/f2f5d-file_007.jpeg?w=300)](https://nrwoodward.files.wordpress.com/2017/07/f2f5d-file_007.jpeg)
-
+</center>
   
 
 
@@ -65,37 +62,37 @@ Next, remove the optical drive. Then, take a thin plastic object to serve as a s
 
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2017/07/ae067-file_003.jpeg?w=300)](https://nrwoodward.files.wordpress.com/2017/07/ae067-file_003.jpeg)
-
+</center>
   
 Once you have freed it, remove the bottom and set it aside: you should see something like this  
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2017/07/a2acb-file_004.jpeg?w=300)](https://nrwoodward.files.wordpress.com/2017/07/a2acb-file_004.jpeg)
-
+</center>
   
 Needless to say, try your best to avoid getting dust, pet hair, etc. into the guts. Your HDD is (on this computer) in the bottom left-hand corner. It will be screwed into mounting brackets (or perhaps a rubber gasket), which will in turn be screwed onto the computer. Remove the screws that hold the drive to the computer and gently unplug the SATA connection. Set drive gently aside, perhaps in an anti-static bag.  
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2017/07/0bb70-file_002.jpeg?w=300)](https://nrwoodward.files.wordpress.com/2017/07/0bb70-file_002.jpeg)
-
+</center>
   
 Then--unless you have an SSD lying around--get on Amazon Prime Now, order an SSD (I recommend SanDisk products as you will see below, but there are many viable alternatives; I used [this particular drive](https://www.amazon.com/dp/B01F9G414U/ref=twister_B01FVDTA0G?_encoding=UTF8&psc=1)), and wait for free 2-hour delivery! Then unscrew the mounting brackets from your HDD and, noting their arrangement, reattach them in the same way to your new SSD.  
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2017/07/db107-file_001.jpeg?w=300)](https://nrwoodward.files.wordpress.com/2017/07/db107-file_001.jpeg)
-
+</center>
   
 Now plug in your SATA cable and remount the drive to the computer's HDD housing.  
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2017/07/516f4-file_000.jpeg?w=300)](https://nrwoodward.files.wordpress.com/2017/07/516f4-file_000.jpeg)
-
+</center>
   
 
 
@@ -104,28 +101,12 @@ Now plug in your SATA cable and remount the drive to the computer's HDD housing.
 The 1TB HDD that came stock with the laptop was actually a name brand (Western Digital blue) so it is probably not too bad. Here it is inside my little optical bay caddy (this is what I use to switch between computers for backups).  
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2017/07/d786f-file_000.jpeg?w=300)](https://nrwoodward.files.wordpress.com/2017/07/d786f-file_000.jpeg)
-
+</center>
   
 
 
 You can pick up a [caddy like this](https://www.amazon.com/Adapter-Optical-MacBook-SuperDrive-Replacement/dp/B01I15ZVKY/) for about $10, but make sure your computer is compatible with such a set-up (most modern laptops should be, but you never know).  
   
 Finally, the reason I'm plugging SanDisk is that I just had a 128 GB USB drive fart out on me after just over a year (and after very little use). It got irreparably locked into read-only, and try as a might to reset and reformat (and I spent over an hour in the attempt), no dice. But as it turns out, the thing has a 5 year warranty! I got on their website and submitted my issue and product information (including a screenshot of my online purchase confirmation); they promptly emailed me a paid USPS packing slip and told me to mail it in, and that I would receive a replacement. That's pretty good customer service for a bloody thumbdrive, what?  
-
-
-  
-
-
-  
-
-
-  
-
-
-  
-
-
-  
-

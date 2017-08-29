@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../js/bigfoot.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../css/bigfoot.css">
+<script type="text/javascript">
+  $.bigfoot(
+        {
+            numberResetSelector: "article",
+           
+           
+            hoverDelay: 250
+        }
+    );
+</script>
+ 
+<link rel="stylesheet" href="css/font-awesome.min.css">
+ 
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<title>Swapping an HDD for an SSD in a Low-End 2017 Laptop - Nathaniel Raley Woodward</title>
+<meta property="og:title" content="Swapping an HDD for an SSD in a Low-End 2017 Laptop - Nathaniel Raley Woodward">
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="100"
+         height="100"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="../../../../post/">Blog</a></li>
+    
+    <li><a href="../../../../teaching/">Teaching</a></li>
+    
+    <li><a href="../../../../cv.pdf">CV</a></li>
+    
+    <li><a href=""></a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">9 min read</span>
+    
+
+    <h1 class="article-title">Swapping an HDD for an SSD in a Low-End 2017 Laptop</h1>
+
+    
+    <span class="article-date">2017/07/17</span>
+    
+
+    <div class="article-content">
+      <p>In less than two day&rsquo;s time, I was able to purchase my third computer from a perfect-craigslist-stranger (without issue!) and replace the hard disk with a solid state drive, and I wanted to take a minute to document the experience here; if you are interested only in a rough guide for SSD installation for a 2017 HP laptop, you are heartily encouraged to skip down several paragraphs.</p>
+
+<p>The computer in question is an <a href="https://support.hp.com/si-en/document/c05300932">HP 15-ba113cl </a>that the original owner bought in February 2017 from our local Costco for around $400. It has an AMD (a first, for me) A10-9600P processor, 12GB DDR4 RAM, a 1TB HDD, and a touchscreen (another first). It came with Windows 10 Home and, horror of horrors, a heaping pile of HP bloatware. My wife&rsquo;s undergrad laptop was an HP and it was riddled with problems from the outset (including a failed sound card) and, three years or so in&ndash;once it realized it was safely outside the warranty window&ndash;it proceeded forthwith to give up the ghost. Ever since this harrowing  experience I have been extremely leery of the brand, and my wife still refuses to have anything to do with it (we have wisely turned away several free heirloom printers).</p>
+
+<p>Thus, I wouldn&rsquo;t have considered purchasing such a product unless the thing came at quite a deal, and this it did: I ended up getting a months-old computer (albeit very low-end) for $150. Now, our desktop computer used to get quite a bit of use, but it began its slow slide into senescence a couple years ago and now it operates at such an unbearable crawl that it&rsquo;s main purpose has become that of an external storage tower for our laptops. Its components date back to 2005 or so: I acquired it in 2007 from a guy in Portland who had built it, but the sole hard disk is well over 10 years old and has thus been liable to give out any minute for the past seven years or so (don&rsquo;t worry, we are not complete idiots and thus use other more modern forms of backup).</p>
+
+<p>My own personal laptop has been, and continues to be, a champion in spite of its age. It is a Lenovo ThinkPad T430s (2012) with a 3rd generation Intel i7 chip, 16GB DDR3 RAM, a 128GB SSD, and a 500GB HDD that I can swap out with an optical drive, an extra battery, etc. using a caddy (see end of post). I got it in October, 2013 from a local Austinite businessman and I have used it virtually every day since. It came with Windows 7 on the SSD; I kept it, but shrunk the partition and added a bigger one for Ubuntu LTS, which I use almost exclusively, only booting Windows to use very specific MS-only software. </p>
+
+<p>Initially I was going to replace the old desktop with a brand new low-end desktop <a href="https://www.amazon.com/dp/B071DM6TWM/">like so</a>, but, given that my laptop is now five years old and has a few portability issues as it is (bad battery, no camera, dim screen) while still remaining super powerful withal, it occurred to me that a more sensible way forward perhaps lies in making the ThinkPad the new &ldquo;home computer&rdquo; and desk-top successor: I could just hook it up to the big monitor and all would be well. Several considerations recommended this route: the ThinkPad has more than enough power to run the Adobe software that my wife uses (Lightroom, Illustrator), plus some of the 3D graphics stuff I&rsquo;ve been tinkering with of late. Furthermore, it has that <a href="https://en.wikipedia.org/wiki/Thinkpad_UltraBay">expansion bay</a> I mentioned, which makes swapping HDDs easy. Thus, I could use them for extra back-up storage, etc. This idea solidified when I found the cheap HP-15 with the 1TB HDD; I could take that sucker out, swap it for a SSD, and use it as needed for relatively long-term storage. </p>
+
+<p>So, back to the new HP. When I got the thing home and turned it on, it took over 60 seconds to fully boot up; then, all of the HP crapware and Windows 10 utilities proceeded to kick on, forcing me to wait still longer. Have you, dear reader, experienced the pain of booting an OS on an HDD after becoming well used to a snappy SDD? If you haven&rsquo;t, just know that it is unbearable. I imagine it&rsquo;s something akin to what business executives must feel when they arrive at the country club and trade their sports cars for golf carts. I suspected the perceived slow-down was the HDD, but just for fun I wanted to benchmark the computer so I could compare it to my ThinkPad. I created a Ubuntu LTS partition and installed the hardinfo benchmarking tool. See results below, and please pardon the lousy picture!</p>
+
+<p><center>
+<a href="https://nrwoodward.files.wordpress.com/2017/07/f2f5d-file_007.jpeg"><img src="https://nrwoodward.files.wordpress.com/2017/07/f2f5d-file_007.jpeg?w=300" alt="" /></a>
+</center></p>
+
+<p>Hardinfo generates a full system report, which includes putting your CPU through the paces with 6 different benchmarking tests: things like how long it takes you computer to perform various (mostly recursive and therefore single-threaded) computational tasks on integer and floating-point numbers (e.g., calculating the 42nd <a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a> [267914296], doing a <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform#Algorithms">Fast Fourier Transform</a>, or finding solutions to the <a href="http://groups.csail.mit.edu/cag/raw/benchmark/suites/nqueens/README.html">N-Queens</a> [placing n Queens on an n*n chessboard such that no two threaten each other, which I think bruteforces (n*n Choose n) possible solutions]). I can&rsquo;t find very much out about each of these specific benchmark tasks, but I don&rsquo;t care that much: feel free to have a look around <a href="https://github.com/lpereira/hardinfo/">their github page</a> for source, etc. The basic processor specs for the two contenders are as follows.</p>
+
+<p>The 2017 HP: <a href="http://cpuboss.com/cpu/AMD-A10-7th-Gen-A10-9600P">4x AMD A10-9600P</a> (2.4 GHz, up to 3.3 GHz, 2 MB L2 cache)</p>
+
+<p>The 2012 Lenovo: 2x <a href="http://cpuboss.com/cpu/Intel-Core-i7-3520M?q=Intel%20Core%20i7%203520M&amp;ts=1500312575919">Intel i7-3520M</a> (2.9 GHz, up to 3.6 Ghz, 1 MB L2 cache)</p>
+
+<p>Turns out that the 5-year-old ThinkPad outperforms every step of the way! Still though, not too different on the whole. The new machine should be perfectly capable of handling most any task that I would reasonably need it for. But that HDD had to go immediately. Here&rsquo;s how I got it out: first, locate your laptop&rsquo;s maintenance guide, which will serve as a crude roadmap (chances are you are voiding your warranty the minute you lay hands on a screwdriver, so be forewarned). The maintenance guide for this computer, for example, was found <a href="http://h10032.www1.hp.com/ctg/Manual/c05227786">here</a>, though the subsequent steps are probably general enough regardless of what kind of laptop you have.</p>
+
+<p>First, power the laptop down, unplug it, and remove the battery. Give it a few discretionary minutes to cool down. Turn it upside-down and remove all screws from the back (including the two under the rubber feet, which you must first peel off). On this particular computer, there should be 12 screws total: be delicate and try your best not to strip them.</p>
+
+<p>Next, remove the optical drive. Then, take a thin plastic object to serve as a shim (I used the lid of a ballpoint pen). Don&rsquo;t use a flathead screwdriver or anything metal, or else you will wind up with scratches all over your case. We are trying to remove the plastic bottom from the rest of the computer, so gently wedge the plastic shim between where the bottom connects to the keyboard surface. I found this easiest to do near where the optical drive had been, around the USB ports. This is delicate work, so take care you don&rsquo;t stress-fracture the piece of shit plastic case. Once you get your shim in there and get some purchase, work it all the way around the computer gently,_ doing the front first. _The case will effectively unzip: note the little four little rectangular snaps along the edge of the case in the left side of the picture below, where the optical drive used to be. These little snaps go all the way around, and it is these we are essaying to unzip.</p>
+
+<p><center>
+<a href="https://nrwoodward.files.wordpress.com/2017/07/ae067-file_003.jpeg"><img src="https://nrwoodward.files.wordpress.com/2017/07/ae067-file_003.jpeg?w=300" alt="" /></a>
+</center></p>
+
+<p>Once you have freed it, remove the bottom and set it aside: you should see something like this</p>
+
+<p><center>
+<a href="https://nrwoodward.files.wordpress.com/2017/07/a2acb-file_004.jpeg"><img src="https://nrwoodward.files.wordpress.com/2017/07/a2acb-file_004.jpeg?w=300" alt="" /></a>
+</center></p>
+
+<p>Needless to say, try your best to avoid getting dust, pet hair, etc. into the guts. Your HDD is (on this computer) in the bottom left-hand corner. It will be screwed into mounting brackets (or perhaps a rubber gasket), which will in turn be screwed onto the computer. Remove the screws that hold the drive to the computer and gently unplug the SATA connection. Set drive gently aside, perhaps in an anti-static bag.</p>
+
+<p><center>
+<a href="https://nrwoodward.files.wordpress.com/2017/07/0bb70-file_002.jpeg"><img src="https://nrwoodward.files.wordpress.com/2017/07/0bb70-file_002.jpeg?w=300" alt="" /></a>
+</center></p>
+
+<p>Then&ndash;unless you have an SSD lying around&ndash;get on Amazon Prime Now, order an SSD (I recommend SanDisk products as you will see below, but there are many viable alternatives; I used <a href="https://www.amazon.com/dp/B01F9G414U/ref=twister_B01FVDTA0G?_encoding=UTF8&amp;psc=1">this particular drive</a>), and wait for free 2-hour delivery! Then unscrew the mounting brackets from your HDD and, noting their arrangement, reattach them in the same way to your new SSD.</p>
+
+<p><center>
+<a href="https://nrwoodward.files.wordpress.com/2017/07/db107-file_001.jpeg"><img src="https://nrwoodward.files.wordpress.com/2017/07/db107-file_001.jpeg?w=300" alt="" /></a>
+</center></p>
+
+<p>Now plug in your SATA cable and remount the drive to the computer&rsquo;s HDD housing.</p>
+
+<p><center>
+<a href="https://nrwoodward.files.wordpress.com/2017/07/516f4-file_000.jpeg"><img src="https://nrwoodward.files.wordpress.com/2017/07/516f4-file_000.jpeg?w=300" alt="" /></a>
+</center></p>
+
+<p> And you&rsquo;re set! Put the case back on, snap all the little snaps back best as you can, and screw everything back into place (except for the optical drive screw: the left of the two screws in the middle row; clearly it must stay out until you reinsert your drive). Voila! The OS boots up in 20 seconds now, which is less than a third of the time it took the HDD.</p>
+
+<p>The 1TB HDD that came stock with the laptop was actually a name brand (Western Digital blue) so it is probably not too bad. Here it is inside my little optical bay caddy (this is what I use to switch between computers for backups).</p>
+
+<p><center>
+<a href="https://nrwoodward.files.wordpress.com/2017/07/d786f-file_000.jpeg"><img src="https://nrwoodward.files.wordpress.com/2017/07/d786f-file_000.jpeg?w=300" alt="" /></a>
+</center></p>
+
+<p>You can pick up a <a href="https://www.amazon.com/Adapter-Optical-MacBook-SuperDrive-Replacement/dp/B01I15ZVKY/">caddy like this</a> for about $10, but make sure your computer is compatible with such a set-up (most modern laptops should be, but you never know).</p>
+
+<p>Finally, the reason I&rsquo;m plugging SanDisk is that I just had a 128 GB USB drive fart out on me after just over a year (and after very little use). It got irreparably locked into read-only, and try as a might to reset and reformat (and I spent over an hour in the attempt), no dice. But as it turns out, the thing has a 5 year warranty! I got on their website and submitted my issue and product information (including a screenshot of my online purchase confirmation); they promptly emailed me a paid USPS packing slip and told me to mail it in, and that I would receive a replacement. That&rsquo;s pretty good customer service for a bloody thumbdrive, what?</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+       <img src="images/912.gif" width="200" style="padding:10px;">
+        <ul class="footer-links">
+           <li>
+           <a href="http://www.facebook.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          </li>
+          <li>
+           <a href="http://www.twitter.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          <li>
+           <a href="http://www.github.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-github" aria-hidden="true"> </i></a>
+          </li>
+          <li>
+             <a href="http://www.linkedin.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+          </li>
+           <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+<script src="../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
