@@ -196,10 +196,6 @@
   </url>
   
   <url>
-    <loc>/aboutabout/</loc>
-  </url>
-  
-  <url>
     <loc>/categories/</loc>
     <priority>0</priority>
   </url>
