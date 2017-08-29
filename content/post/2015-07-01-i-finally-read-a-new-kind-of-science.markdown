@@ -1,21 +1,19 @@
 ---
+title: I Finally Read "A New Kind of Science"
 author: Nathaniel Raley
 comments: true
 date: 2015-07-01
 link: https://nrwoodward.wordpress.com/2015/07/01/i-finally-read-a-new-kind-of-science/
 slug: i-finally-read-a-new-kind-of-science
-title: I Finally Read "A New Kind of Science"
 wordpress_id: 23
-output:
-  blogdown::html_page
 ---
 
 This book made me think new thoughts; this is rare, so I am posting about it.  
-**If you read nothing else in the post, [read the end](http://blog.nathanielraley.com/2015/07/thoughts-after-reading-new-kind-of.html#anchor). **  
+**If you read nothing else in the post, [read the end](http://blog.nathanielraley.com/2015/07/thoughts-after-reading-new-kind-of.html#anchor).**  
   
 "[A New Kind of Science](http://www.wolframscience.com/thebook.html)" is a 13-year-old book preceded, and regrettably often prejudged, by [its reputation](https://en.wikipedia.org/wiki/A_New_Kind_of_Science#Reception). Many of the criticisms that have come to define the work are valid, so let's get that part out in the open. The book can be read in its entirety [here](http://www.wolframscience.com/nksonline/toc.html); it is enormous, both physically (~1,200 pages) and in scope, which has led to a limited and specialized readership lodging many legitimate, though mostly technical, complaints. To make matters worse, Wolfram comes across as [rather smug and boastful](https://www.reddit.com/r/funny/comments/84rzx/hilarious_review_of_a_new_kind_of_science_by/), taking for granted the revolutionary impact of his work, staking claims to originality that are often incorrect, and failing to adequately cite his ideological predecessors in the main body of the text. These are legitimate concerns and egregious omissions to be sure.  
   
-However, the book itself was written to be accessible to anyone with basic knowledge of math/science, and I feel it gains _so much _for being simplistic and frankly written in this way. Furthermore, the biggest ideas in the book, even if not completely original or 100% convincing as-is, are still as beautiful and important as they are currently underappreciated. Even if he cannot claim unique ownership of them all, Wolfram has done an heroic job explicating these ideas for the lay reader and his book has vastly increased their popular visibility. But I fear that many may be missing out on a thoroughly enjoyable, philosophically insightful book simply on the basis of some  overreaching claims and some rather technical flaws; I get the sinking feeling it's going the way of Atlas Shrugged—a big book that's cool to dismiss without ever having read.  
+However, the book itself was written to be accessible to anyone with basic knowledge of math/science, and I feel it gains _so much_ for being simplistic and frankly written in this way. Furthermore, the biggest ideas in the book, even if not completely original or 100% convincing as-is, are still as beautiful and important as they are currently underappreciated. Even if he cannot claim unique ownership of them all, Wolfram has done an heroic job explicating these ideas for the lay reader and his book has vastly increased their popular visibility. But I fear that many may be missing out on a thoroughly enjoyable, philosophically insightful book simply on the basis of some  overreaching claims and some rather technical flaws; I get the sinking feeling it's going the way of Atlas Shrugged—a big book that's cool to dismiss without ever having read.  
   
 I'm not going to get into the specific criticisms; suffice it to say that [there are issues](http://web.cecs.pdx.edu/~mm/new-kind-of-science-review.pdf) with the book, though Wolfram has [gone to some trouble](http://blog.stephenwolfram.com/2012/05/its-been-10-years-whats-happened-with-a-new-kind-of-science/) to defend his positions. But this notorious reception, coupled the fact that the book weighs in at almost 6 pounds, had kept me and surely many others from ever giving it a proper chance. This post is not meant to be an apology, and neither is it intended to be a formal book review. Rather, I am going to show you several things that I took away from my reading of it that I feel _very grateful_ for, regardless of the extent to which they represent any sort of paradigm shift, or even anything new to human inquiry. Lots of these ideas were very new to me, and they were presented so well that I feel I have ultimately gained a new perspective on many issues, including life itself, which I have been trying sedulously for years to better understand.  
   
@@ -70,7 +68,7 @@ If you like looking at pictures like this one, you should definitely check out t
 
 ### Computational universality
 
-Now here's where things got really interesting for me. Unless you have studied computer science (which I honestly really haven't), you might be surprised to find out that certain combinations of rules, like those shown above, can result in systems that are capable of performing _any possible computation_ and emulating _any other system or computer program _(which I honestly kind of was). Indeed, the computer you are reading this on right now has this capability. Hell, your microwave probably has this capability; given enough memory, it could run any program or calculate any function provided the function is able to be computed at all.   
+Now here's where things got really interesting for me. Unless you have studied computer science (which I honestly really haven't), you might be surprised to find out that certain combinations of rules, like those shown above, can result in systems that are capable of performing _any possible computation_ and emulating _any other system or computer program_ (which I honestly kind of was). Indeed, the computer you are reading this on right now has this capability. Hell, your microwave probably has this capability; given enough memory, it could run any program or calculate any function provided the function is able to be computed at all.   
 
 
   
