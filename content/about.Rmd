@@ -2,9 +2,7 @@
 title: "About"
 author: "Nathaniel Raley"
 output:
-  blogdown::html_page:
-    toc: true
-    fig_caption: yes
+  blogdown::html_page
 ---
 
 ```{r setup, include=FALSE}
