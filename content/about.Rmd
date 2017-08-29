@@ -9,7 +9,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<center><img height="200"  src="ndr_head.jpg" style= margin-bottom: 0.5em;">
+<center><img height="200"  src="ndr_head.jpg" style="margin-right: 1%; margin-bottom: 0.5em;">
 <img height="200" src="jubes_on_beach.png" style="margin-right: 1%; margin-bottom: 0.5em;"></center>
 
 
