@@ -1,15 +1,14 @@
 ---
-author: nrwoodward
+title: Laudato Si Pope-pourri
+author: Nathaniel Raley
 comments: true
-date: 2015-06-21 19:46:00+00:00
-layout: post
+date: 2015-06-21
 link: https://nrwoodward.wordpress.com/2015/06/21/laudato-si-pope-pourri/
 slug: laudato-si-pope-pourri
-title: Laudato Si Pope-pourri
 wordpress_id: 24
 ---
 
-It's not everyday that I want to read something a Pope wrote. In fact, today, June 19, 2015 was the only day I have ever wanted that, if memory serves. Today I read Papa Francesca's second encyclical, entitled "[Laudato Si -- On Care For Our Common Home](http://w2.vatican.va/content/francesco/en/encyclicals/documents/papa-francesco_20150524_enciclica-laudato-si.html)". It was a unique experience to navigate to _w2.vatican.va, _download an essay the Pope just wrote about environmentalism, and then read it on my computer.   
+It's not everyday that I want to read something a Pope wrote. In fact, today, June 19, 2015 was the only day I have ever wanted that, if memory serves. Today I read Papa Francesca's second encyclical, entitled "[Laudato Si -- On Care For Our Common Home](http://w2.vatican.va/content/francesco/en/encyclicals/documents/papa-francesco_20150524_enciclica-laudato-si.html)". It was a unique experience to navigate to _w2.vatican.va,_ download an essay the Pope just wrote about environmentalism, and then read it on my computer.   
   
 I read it more as a curiosity than anything else, and though I found _much_ to disagree with, I was in strong accord with two of the Pope's main points as I have understood them: (1) that every living thing is valuable and all of nature is interdependent; and (2) that rampant consumerism/individualism is a soul-sucking trap that perverts nature, prizes inequity, ruins the environment, and leads millions of people to lead ultimately meaningless lives. These ideas are neither new nor original, and so I don't want to spend too much time on this post. However, I do want to share with you some of the passages I found most interesting in case you never get to read it. The Pope seems like a pretty decent human being!  
   

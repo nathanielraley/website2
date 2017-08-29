@@ -51,7 +51,7 @@ In August 2017, I migrated my blog and personal website from blogger/AWS to GitH
 <figcaption><font size="1">Three ways I usually feel inside watching or participating in social interactions.</font></figcaption>
 </center>
 
-Despite the impression you may have gotten from my prose style, I am extremely economical and I abominate wastes of any kind, especially those of time (the thing I value most highly) and money (which I have to sell my time to get).[^13]
+Despite the impression you may have gotten from my prose style,[^25] I am extremely economical and I abominate wastes of any kind, especially those of time (the thing I value most highly) and money (which I have to sell my time to get).[^13]
 
 > "Oh, I've plenty of time. My time is entirely my own." <br>
 > --Prince Myshkin 
@@ -103,6 +103,7 @@ I don't believe other animals, even other mammals, have anything like human cons
 [^22]: And despite their being "active" passtimes, I don't like "video games" much either, but if I did, I would like real-time strategy games or RPGs
 [^23]: “That authentic love and friendship are possible only between individuals who are independent and equal.” 
 [^24]: ...when Girl Talk released *Feed The Animals* and *All Day*, Lady Gaga was everywhere and everything, the New Pornographers had at least 3 amazing albums, Das Racist was still together...
+[^25]: For more on that, see: [http://www.nathanielraley.com/aboutabout](http://www.nathanielraley.com/aboutabout)
 [^17]: Candidates include old standards such as <br>
 * What is the meaning of life?
 * Why are we here?
