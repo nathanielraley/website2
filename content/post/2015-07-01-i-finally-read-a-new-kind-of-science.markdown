@@ -1,8 +1,7 @@
 ---
-author: nrwoodward
+author: Nathaniel Raley
 comments: true
-date: 2015-07-01 20:26:00+00:00
-layout: post
+date: 2015-07-01
 link: https://nrwoodward.wordpress.com/2015/07/01/i-finally-read-a-new-kind-of-science/
 slug: i-finally-read-a-new-kind-of-science
 title: I Finally Read "A New Kind of Science"
@@ -32,9 +31,9 @@ In this long last chapter, the main thesis of the book is driven home. It is as 
 He demonstrates how very simple programs can produce complexity and randomness; he argues that because simple programs must be ubiquitous in the natural world, they are responsible for the complexity and randomness we observe in natural systems. He shows how idealized model programs like cellular automata can mimic in shockingly exact detail the behavior of phenomena which science has only tenuously been able to describe: crystal growth (e.g., snowflakes), fluid turbulence, the path of a fracture when materials break, biological development, plant structures, pigmentation patterns...thus indicating that such simple processes likely underlie much of what we observe.  
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2015/07/cellularautomata_snail.png?w=228)](https://nrwoodward.files.wordpress.com/2015/07/cellularautomata_snail.png?w=228)
-
+</center>
   
 Indeed, he makes a case ([originally postulated by Konrad Zuse](https://en.wikipedia.org/wiki/Konrad_Zuse#Calculating_Space)) that the universe itself is fundamentally rule based, and essentially one big ongoing computation of which everything is a part. It gets a little hairy, but in [chapter 9](http://www.wolframscience.com/nksonline/chapter-9) Wolfram discusses how the concept of causal networks can be used to explain how  space, time, elementary particles, motion, gravity, relativity, and  quantum phenomena all arise. Indeed, he argues that causal networks can  represent everything that can be observed, and that all is defined in  terms of their connections. This is predicated on the belief that there are no continuous values in nature; that is to say, that nature is fundamentally discrete. There were a lot of intriguing  ideas here, but I cannot go into them all right now. There does seem to be a reasonable case to be made for some kind of of [digital physics](https://en.wikipedia.org/wiki/Digital_physics). I am way out of my league here though, so I'll stop. Check out that wikipedia article!  
   
@@ -42,9 +41,9 @@ Indeed, he makes a case ([originally postulated by Konrad Zuse](https://en.wikip
 [Cellular automata](http://www.wolframscience.com/reference/CAandNature.pdf) and other related easy-to-follow rule-based systems are used to demonstrate, or at least to hint at, most of these claims. If you haven't seen these before, check out that link: it takes you to Wolfram's own one-page summary of how these things work. In fact, I'm going to cut-and-paste most of it below. But here's a brief description: imagine of a row of cells that can be either black or white. You start with some initial combination of black and/or white cells in this row; to get the next row, you [apply a set of rules to the original cells](http://www.wolframscience.com/downloads/basicimages.html) which tells you what color cells in the next row should be based on the colors of the original cells above. The rules that determine the color of a new cell are based on the colors of three cells: the cell immediately above it and the cells to the immediate right and left of the one above it. Thus, the color of any given cell is affected only by itself and its immediate neighbors. Simple enough, but _those neighbors _are in turn governed by_ their neighbors, and those neighbors by their neighbors_, etc, so that the whole thing ends up being highly interconnected.  When you repeatedly apply a given rule and step back to observe the collective behavior of all the cells, large-scale patterns can emerge. You often get simple repetitive behavior (like the top picture below) or nested patterns (second picture below). However, sometimes you find behavior that is random, or some mixture of random noise with moving structures (last picture below).  
   
 
-
-[![](https://nrwoodward.files.wordpress.com/2015/07/cellularautomata.png?w=270)](https://nrwoodward.files.wordpress.com/2015/07/cellularautomata.png?w=270)
-
+<center>
+[![](https://nrwoodward.files.wordpress.com/2015/07/cellularautomata.png?w=500)](https://nrwoodward.files.wordpress.com/2015/07/cellularautomata.png?w=270)
+</center>
   
   
   
@@ -85,9 +84,9 @@ When studying the 256 rule-sets that generate the elementary cellular automata, 
 In general, this itself is not new knowledge; [von Neumann](https://en.wikipedia.org/wiki/John_von_Neumann) was the first to show that a cellular automaton could be a universal computer, and it was known that other simple devices could support universal computation. However, this was the simplest instantiation of universality yet discovered, and Wolfram uses this to argue that the phenomenon must indeed be quite more widespread than originally thought, and indeed very common in nature. While most basic sets of rules generate very simple behavior (like the first and second rules pictured above), past a certain threshold you get universality, where a system can emulate any other system by setting up the appropriate initial conditions, like rule 110:  
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2015/07/rule110big.jpg?w=265)](https://nrwoodward.files.wordpress.com/2015/07/rule110big.jpg?w=265)
-
+</center>
 How universality can actually be achieved with cellular automata in practice is [described with great clarity in the book](http://www.wolframscience.com/nksonline/section-11.4), but it would be too complicated to get into here. Pretty neat though! Wolfram goes on to show how universality is instantiated in Turing machines, cellular automata, register machines, and substitution systems, by showing how each one can be made to emulate the others by setting up appropriate initial conditions, despite great differences in their underlying structure.  
 
 
@@ -178,7 +177,6 @@ Here he poignantly discusses how "intelligence" and "life" are difficult to defi
 <blockquote>"And in fact I expect that in the end the only way we would unquestionably view a system as being an example of life is if we found that it shared many specific details with life on Earth."</blockquote>
 
 Discussing extraterrestrial intelligence, he introduced me to an idea that is probably a well-known science fiction trope, but one that genuinely surprised me. He talks about how earth is bombarded with radio signals from around our galaxy and beyond, but that these signals seem to be completely random noise, and thus they are assumed to be just side effects of some physical process. But, he notices, this very lack of regularities in the signal could actually be a sign of some kind of extraterrestrial intelligence: "For any such regularity represents in a sense a redundancy or inefficiency that can be removed by the sender and receiver both using appropriate data compression." If this doesn't make sense to you, then you will probably also enjoy his [section on data compression](http://www.wolframscience.com/nksonline/section-10.5) and reducibility. The whole book is really worth taking the time to read!  
-[](https://www.blogger.com/null)   
 
 
 #### 

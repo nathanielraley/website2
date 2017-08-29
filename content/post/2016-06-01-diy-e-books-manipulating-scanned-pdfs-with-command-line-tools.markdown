@@ -20,7 +20,9 @@ Let me now walk you through some free, mostly native command line tools for clea
 
 #### Code to Clean, Crop, Cut, Combine, & Compress scanned PDFs
 
-[https://gist.github.com/nathanielraley/29452787d5762670a1dac389479a72f8.js](https://gist.github.com/nathanielraley/29452787d5762670a1dac389479a72f8.js) We will go through the above code zusammen. At the risk of stating the obvious, I will use the convention "input_file.pdf" for the input file name  and "output_file.pdf" for the output file name; you would do well to change these accordingly.  
+<script src="https://gist.github.com/nathanielraley/29452787d5762670a1dac389479a72f8.js"></script>
+
+We will go through the above code zusammen. At the risk of stating the obvious, I will use the convention "input_file.pdf" for the input file name  and "output_file.pdf" for the output file name; you would do well to change these accordingly.  
   
 
 

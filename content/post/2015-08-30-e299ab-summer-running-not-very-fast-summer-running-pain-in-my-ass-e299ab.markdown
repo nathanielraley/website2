@@ -1,11 +1,10 @@
 ---
-author: nrwoodward
-comments: true
-date: 2015-08-30 01:07:00+00:00
-layout: post
-link: https://nrwoodward.wordpress.com/2015/08/30/%e2%99%ab-summer-running-not-very-fast-summer-running-pain-in-my-ass-%e2%99%ab/
-slug: '%e2%99%ab-summer-running-not-very-fast-summer-running-pain-in-my-ass-%e2%99%ab'
 title: '♫ Summer Running: Not Very Fast! / Summer Running: Pain in my Ass! ♫'
+author: Nathaniel Raley 
+comments: true
+date: 2015-08-30
+link: https://nrwoodward.wordpress.com/2015/08/30/%e2%99%ab-summer-running-not-very-fast-summer-running-pain-in-my-ass-%e2%99%ab/
+slug: 'summer-running-not-very-fast-summer-running-pain-in-my-ass'
 wordpress_id: 21
 ---
 
@@ -15,33 +14,38 @@ Every couple of days I force myself to go outside and run about 2-4 miles. I do 
 I started keeping track of this gruelling ordeal using an android app ([RunKeeper](https://en.wikipedia.org/wiki/RunKeeper)); it uses GPS and links up with Google fit and is a terrible invasion of my privacy that has probably somehow already sent my info to every extant insurance company and devastated my future premiums. Indeed, it's probably also incremented with each new symptom-related google  search ("knees hurt a lot", "gasp and wheeze", "how much sweating is normal" etc). Fact is, information pertaining to my health now exists in the ether, and with supply, demand, and end-user licensing agreements being what they are, someone savvy can get it if they want it badly enough; still though, like [blogger](https://en.wikipedia.org/wiki/Blogger_%28service%29), the app is awfully convenient. I tried a couple others (that didn't look as eager to sell your soul) and found them to be complete shit, functionally. Runkeeper is good at what it does; it currently operates with a freemium model, and evidently if you pay a little you get better stats. I used the basic free version and just manually entered everything into a spreadsheet-- it took less than a half-hour.  
   
 
-
+<center>
 [![](https://nrwoodward.files.wordpress.com/2015/08/df2c5-runhist.png?w=292)](https://nrwoodward.files.wordpress.com/2015/08/df2c5-runhist.png)
+</center>
 
 I started running in late March, but I didn't really seriously commit until June (see histogram). Since then, across 44 different running events, I have travelled **103.72 miles** and wasted **13 hours and 22 minutes** doing so. There are two basic routes I would run: a short route (~1.7 miles) and a long route (~3.4 miles).  
   
 So far, my average speed on the short run is **7:20/mile** (440 seconds) with a standard deviation of 26 seconds, while my average speed on the long route is **7:45/mile **(464 seconds) with a standard deviation of 20 seconds. On my fastest, I averaged 6:55/mile for 1.7 miles (update 8/30: new best time of 6:48/mile for 1.7 miles). On my slowest, I averaged 8:25/mile for 3.4 miles. Here's a graph showing my improvement over time.  
   
 
-
-[![](https://nrwoodward.files.wordpress.com/2015/08/e32f0-running.png?w=300)](https://nrwoodward.files.wordpress.com/2015/08/e32f0-running.png)
-
+<center>
+[![](https://nrwoodward.files.wordpress.com/2015/08/e32f0-running.png?w=400)](https://nrwoodward.files.wordpress.com/2015/08/e32f0-running.png)
+</center>
   
 Significant improvement over time, which was expected. A more interesting question is whether my improvement was greater for short runs or long runs.   
   
 Separate regression equations were fit for both long and short runs:  
+ 
+`$$
+AveragePace(Short)= 471.647 - 1.68*(RunOrder) \\
+AveragePace(Long)= 506.28 - 1.47*(RunOrder)
+$$`
+
+
+A quick test of differences between slopes would be [this](http://stats.stackexchange.com/questions/55501/test-a-significant-difference-between-two-slope-values):  `$Z = \frac{b1-b2}{\sqrt{(SE_b1)^2+(SE_b2)^2)}}$`
   
-_AveragePace(Short)= _471.647 - 1.68_*(RunOrder)__ _  
-_AveragePace(Long)= _506.28 - 1.47_*(RunOrder)_  
-  
-A quick test of differences between slopes would be [this](http://stats.stackexchange.com/questions/55501/test-a-significant-difference-between-two-slope-values):  
-Z = (b1-b2)/Sqrt((SEb1)^2 + (SEb2)^2)  
-  
-This gives:  
+This gives: 
+```
 > (-1.6882- -1.4735)/sqrt(.2348^2+.2595^2)  
 [1] -0.6135005  
 > pnorm(ans())  
 [1] 0.2697727  
+```
   
 So nope, slopes don't differ.  
   
@@ -49,9 +53,9 @@ R-squares were large (.63 and .74, respectively), indicating that a significant 
   
   
 
-
-[![](https://nrwoodward.files.wordpress.com/2015/08/29e23-dates_running.png?w=300)](https://nrwoodward.files.wordpress.com/2015/08/29e23-dates_running.png)
-
+<center>
+[![](https://nrwoodward.files.wordpress.com/2015/08/29e23-dates_running.png?w=600)](https://nrwoodward.files.wordpress.com/2015/08/29e23-dates_running.png)
+</center>
   
   
 I'm sure I look ridiculous when I run--I wear cut-off jeans, tattered old t-shirts, and my $15 Costco-brand running sneakers. But this is intentional! First, I like the feeling of getting extra use out of my holey old clothes by using them as a running costume. Second, they are positively indecent and wholly unwearable, even to sleep in--out on the block this is another incentive NOT to stop running, indeed not even to slow down!  
@@ -75,6 +79,7 @@ Honestly though, I feel like the amount of car exhaust I have to breathe on my r
   
   
 _Here's some R-code I used for this post:_  
+```
 > sd(data1$AvgPace)  
 [1] 26.28296  
 > sd(data2$AvgPace)  
@@ -143,3 +148,4 @@ Acf(res3)
 plot(res4,ylab="res (AvgPace - LONG)",main="residual autocorrelation (long runs)")  
 abline(0,0)  
 Acf(res4)
+```

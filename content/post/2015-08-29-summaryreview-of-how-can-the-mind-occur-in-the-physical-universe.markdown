@@ -1,8 +1,7 @@
 ---
-author: nrwoodward
+author: Nathaniel Raley
 comments: true
-date: 2015-08-29 02:52:00+00:00
-layout: post
+date: 2015-08-29 
 link: https://nrwoodward.wordpress.com/2015/08/29/summaryreview-of-how-can-the-mind-occur-in-the-physical-universe/
 slug: summaryreview-of-how-can-the-mind-occur-in-the-physical-universe
 title: Summary/Review of "How Can The Mind Occur in The Physical Universe?"
@@ -10,9 +9,8 @@ wordpress_id: 22
 ---
 
 <blockquote>"...There is this collection of ultimate scientific questions, and if you are lucky to get grabbed by one of these, that will just do you for the rest of your life. Why does the universe exist? When did it start? What’s the nature of life?...  
-The question for me is how can the human mind occur in the physical  universe. We now know that the world is governed by physics. We now  understand the way biology nestles comfortably within that. The issue is  how will the mind do that as well." </blockquote>
-
-<blockquote>_-Alan Newell, December 4, 1991_</blockquote>
+The question for me is how can the human mind occur in the physical  universe. We now know that the world is governed by physics. We now  understand the way biology nestles comfortably within that. The issue is  how will the mind do that as well." <br>
+-Alan Newell, December 4, 1991</blockquote>
 
 I found out about John R. Anderson almost immediately upon discovering intelligent tutoring systems a few years ago; he and his research group at Carnegie Mellon have blazed the way forward with these technologies. Their Cognitive Tutor, for example, is currently [#5 out of 39 interventions](http://ies.ed.gov/ncee/wwc/interventionreport.aspx?sid=87) in mathematics education, as evaluated by the US Department of Education's "[What Works Clearing House](http://ies.ed.gov/ncee/wwc/)". I learned that, notwithstanding these educational pursuits, his life's work had been more about developing a "cognitive architecture" -- a model of how the structure of the mind and its components work together to achieve human cognition. I learned that he called it [ACT-R](https://en.wikipedia.org/wiki/ACT-R) (for "adaptive control of thought - rational") and that it has been steadily undergoing refinements since it debuted in the early 70s. Anyway, given how amazed I was with his tutoring-systems research, I was naturally drawn to Anderson's 2007 book that surveys his life's work in attempting to answer the titular question via ACT-R.   
   
@@ -106,9 +104,9 @@ Where_ prior(i)_ is the base-level activation, or the prior odds that memory i w
   
   
 
-
-[![](https://nrwoodward.files.wordpress.com/2015/08/50ab1-actr_activations.png?w=300)](https://nrwoodward.files.wordpress.com/2015/08/50ab1-actr_activations.png)
-
+<center>
+[![](https://nrwoodward.files.wordpress.com/2015/08/50ab1-actr_activations.png?w=400)](https://nrwoodward.files.wordpress.com/2015/08/50ab1-actr_activations.png)
+</center>
   
 I'll give the basic ACT-R memory equations without going into them much further. The main point is that memory is responding to two statistical effects in the environment: (1) the more often a memory is retrieved, the more likely it is to be retrieved in the future. This produces a practice effect and is reflected in ACT-R's base-level activation. Secondly, (2) the more memories associated with a particular element, the worse a predictor the element is of any particular memory. This is reflected in the strengths of association in ACT-R, and produces the "fan" effect. The "fan" refers to the number of connections to a given element; increasing the sheer number of connections will decrease the strength of association between the element and any one of its connections. This is because when an element is associated with more memories, its appearance becomes a poorer predictor of any specific fact.  
   
