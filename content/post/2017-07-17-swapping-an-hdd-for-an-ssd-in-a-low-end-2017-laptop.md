@@ -8,7 +8,7 @@ tags: []
 output:
   blogdown:html
 ---
-In less than two day's <i>time</i>, I was able to purchase my third computer from a perfect-craigslist-stranger (without issue!) and replace the hard disk with a solid state drive, and I wanted to take a minute to document the experience here; if you are interested only in a rough guide for SSD installation for a 2017 HP laptop, you are heartily encouraged to skip down several paragraphs.  
+In less than two day's time, I was able to purchase my third computer from a perfect-craigslist-stranger (without issue!) and replace the hard disk with a solid state drive, and I wanted to take a minute to document the experience here; if you are interested only in a rough guide for SSD installation for a 2017 HP laptop, you are heartily encouraged to skip down several paragraphs.  
   
 The computer in question is an [HP 15-ba113cl ](https://support.hp.com/si-en/document/c05300932)that the original owner bought in February 2017 from our local Costco for around $400. It has an AMD (a first, for me) A10-9600P processor, 12GB DDR4 RAM, a 1TB HDD, and a touchscreen (another first). It came with Windows 10 Home and, horror of horrors, a heaping pile of HP bloatware. My wife's undergrad laptop was an HP and it was riddled with problems from the outset (including a failed sound card) and, three years or so in--once it realized it was safely outside the warranty window--it proceeded forthwith to give up the ghost. Ever since this harrowing  experience I have been extremely leery of the brand, and my wife still refuses to have anything to do with it (we have wisely turned away several free heirloom printers).  
 
