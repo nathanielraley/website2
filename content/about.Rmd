@@ -2,7 +2,8 @@
 title: "About"
 author: "Nathaniel Raley"
 output:
-  blogdown::html_page
+  blogdown::html_page:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}

@@ -18,9 +18,5 @@ $$%{\sqrt {n}}\left(\left({\frac {1}{n}}\sum _{i=1}^{n}X_{i}\right)-\mu \right)\
 
 
 ```{R echo=F}
-a1=.000319
-a2=.000000179
-m1=.704
-m2=.000145
-#plot(curve(m1*exp(-a1*x)+((m1*m2*(exp(-a2*x)-exp(-a1*x)))/(a1-a2)),ylim=c(0,1),xlim=c(0,100000)),ylim=c(0,1))
+
 ```

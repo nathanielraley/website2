@@ -6,10 +6,9 @@ output:
   blogdown::html_page
 ---
 
-##Second-order self-presentation: a conceit on conceitedness  
+###Second-order self-presentation: a conceit on conceitedness  
 
-I used to take great pleasure in writing these "About Me" minibios, primping my digital appearance for hours on end. In my misspent youth I agonized over a Xanga, a MySpace, a LiveJournal, a [Facebook](http://www.facebook.com/nathaniel.raley)... leaving behind a digital footprint so contrived you can see the pedicure. Social networking? Pshaw!  
-I just wanted a billboard for my posturing, and this was some prime ad space! Clearly, not much has changed: [nathanielraley.com](http://www.nathanielraley.com) is their rightful heir and ultimate legacy, here to uphold a long tradition of stilted fustian and [painstaking affectation](http://en.wikipedia.org/wiki/Impression_management).  
+I used to take great pleasure in writing these "About Me" minibios, primping my digital appearance for hours on end. In my misspent youth I agonized over a Xanga, a MySpace, a LiveJournal, a [Facebook](http://www.facebook.com/nathaniel.raley)... leaving behind a digital footprint so contrived you can see the pedicure. Social networking? Pshaw! I just wanted a billboard for my posturing, and this was some prime ad space! Clearly, not much has changed: [nathanielraley.com](http://www.nathanielraley.com) is their rightful heir and ultimate legacy, here to uphold a long tradition of stilted fustian and [painstaking affectation](http://en.wikipedia.org/wiki/Impression_management).  
 
 But wait, why do I confess this so freely? Sure, it anticipates criticism on that front and denies would-be critics their private smugness (<strike>"this guy's a superficial windbag and he doesn't even know it!"</strike>) Still though, it's definitely an odd gambit; everybody knows that there are strong incentives to keep your motives hidden from others.  
 
