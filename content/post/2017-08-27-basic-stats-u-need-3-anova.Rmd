@@ -10,14 +10,7 @@ output:
     toc: true
     toc_depth: 2
 ---
-<style type="text/css">
-.table {
-    margin-left:auto; 
-    margin-right:auto;
-    width: 60%;
-    text-align:center;
-}
-</style>
+
 
 ## One-Way ANOVA by way of Two-Sample T-Test
 
@@ -430,6 +423,57 @@ A common effect-size measure for ANOVA is the eta-squared ($\eta^2$), which is t
 Another common effect-size measure for ANOVA is cohen's $f^2$, which is calculating using $\eta^2$, $f^2=\frac{\eta^2}{1-\eta^2}$. We can see by looking that $f^2$ is the ratio of variance explained to the variance *not* explained. Here, we would have $.61/.39=1.56$.
 
 According to Cohen’s (1988) guidelines (which were meant only for the social sciences, are a bit out of date, and are certainly oversimplifications), $f^2 \ge 0.02, f^2 \ge 0.15,$ and $f^2 \ge 0.35$ represent small, medium, and large effect sizes, respectively. According to this, the effect of our treatment is huge.
+
+# Assumptions
+
+It is incumbent upon any user of a hypothesis-testing procedure to check the test's underlying assumptions if they want the conclusions they draw from it to be valid. The assumptions that must be met for an ANOVA are similar to those for a t-Test, namely independent, normality (of errors), and equal variance across groups.
+
+### Independence
+This one is pretty easy: a given observation should have no influence on any of the others. There are plenty of situations when this simplifying assumption doesn't hold (imagine if you measure the same person twice!) and we will deal with these situations in the next post. For now, one plant's height should give you no information about another plant's height beyond knowing what fertilizer treatment they were exposed to. We achieved this by randomizing which plants got which treatment: thus, on average, the only thing different about each group should be their treatment exposure.
+
+### Normality (of Errors)
+One easy way to check normality is to look at the distribution of data in each group: if these distributions are normal, then the errors (or residuals) will be normal. Fine, but what's a residual? We will show in the next post that ANOVA is a special case of regression, in which the concept of residuals plays a crucial role. ANOVA analyses tend to gloss over residuals, but let's take a minute to compute them. 
+
+A residual is what's left over after we account for the effect of our independent variables. In our example, once we account for the fertilizer treatment group mean $\bar{x}_{\bullet k}$, the residual is what's left over. ANOVA assumes that these Within-Group deviations $(x_{ik}-\bar{x}_{\bullet k})$ are normally distributed. Here's our data again:
+
+<center>
+| A   |   B |   C |   D |
+|:---:|:---:|:---:|:---:|
+| 6   | 9   | 4   | 7   |
+| 7   | 10  | 6   | 9   |
+| 8   | 12  | 6   | 10  |
+| 9   | 14  | 6   | 11  |
+| 10  | 15  | 8   | 13  |
+
+|$Mean_A$|$Mean_B$|$Mean_C$|$Mean_D$|
+|:---:|:---:|:---:|:---:|
+|$8$| $12$| $6$ | $10$ |
+</center>
+
+So, going down columns, our residuals $(x_{ik}-\bar{x}_{\bullet k})$ are $(6-8),(7-8),(8-8),...,(10-10),(11-10),(13-10)$.
+
+We can get these straight from our ANOVA object in R; typically, they are examined using a quantile-quantile plot (theoretical vs. observed data quantiles should be similar) or tested formally with the Shapiro-Wilk test (which tends to be overly harsh).
+
+```{R, fig.width=3, fig.align = "center"}
+round(anova1$residuals,4)
+{qqnorm(anova1$residuals); qqline(anova1$residuals)}
+shapiro.test(anova1$residuals)
+```
+
+In the S-W test, the null hypothesis is that the data are normally distributed: here, we fail to reject that null hypothesis, confirming what we see in our Q-Q plot (the quantiles of a normal distribution look similar to the quantiles of our observed data).
+
+### Equal Variance (Homoskedasticity)
+
+Fortunately, ANOVA is very robust to non-normality (provided the groups are roughly symmetrical and, if skewed, skewed the same way) and relatively robust to unequal variances (provided the sample size in each group is about the same). Looking at our box plots, we see that the spreads look a little different across the four groups. However, two standard procedures for testing the null hypothesis that group variances are equal (Bartlett's test and Levene's test) both fail to reject this assumption.
+
+```{R fig.width=5, fig.align = "center"}
+library(car)
+boxplot(dat.long$Height~dat.long$Group)
+bartlett.test(dat.long$Height~dat.long$Group)
+leveneTest(dat.long$Height~dat.long$Group)
+```
+
+
 
 # Post Hoc Tests
 

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../js/bigfoot.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../css/bigfoot.css">
+<script type="text/javascript">
+  $.bigfoot(
+        {
+            numberResetSelector: "article",
+           
+           
+            hoverDelay: 250
+        }
+    );
+</script>
+ 
+<link rel="stylesheet" href="css/font-awesome.min.css">
+ 
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<title>Hey, Eigenface! (DIY face recognition) - Nathaniel Raley Woodward</title>
+<meta property="og:title" content="Hey, Eigenface! (DIY face recognition) - Nathaniel Raley Woodward">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="100"
+         height="100"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="../../../../post/">Blog</a></li>
+    
+    <li><a href="../../../../teaching/">Teaching</a></li>
+    
+    <li><a href="../../../../cv.pdf">CV</a></li>
+    
+    <li><a href=""></a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">13 min read</span>
+    
+
+    <h1 class="article-title">Hey, Eigenface! (DIY face recognition)</h1>
+
+    
+    <span class="article-date">2014/02/15</span>
+    
+
+    <div class="article-content">
+      
+
+<p>I&rsquo;ve been recently acquainted with a statistical technique of amazing utility and versatility that has its roots in matrix decomposition, a basic&mdash;though profound&mdash;concept in linear algebra.</p>
+
+<p>For the purposes of this discussion, we&rsquo;re going to consider it a very elegant way of taking a large, confusing dataset with many variables and transforming it so that you can find patterns based on the correlations among the variables, thus allowing you to describe your data with fewer of them.</p>
+
+<p>Though it comes in several of flavors which go by various names, we&rsquo;ll call it Principal Component Analysis (PCA), and later I&rsquo;m going to show you how you can use it to implement a sort of computer vision/face recognition thing using either Matlab or GNU Octave.</p>
+
+<p>Before this, though, we need to be comfortable with two concepts: (co)variance and eigen-things. If you are already, SKIP TO PCA  or SKIP TO EIGENFACES (this is a very long post).</p>
+
+<hr />
+
+<h3 id="variance-covariance">Variance &amp; Covariance</h3>
+
+<p>Look at the two datasets below; both have a mean of 50, but different variances. Even if you are utterly unfamiliar with the concept, try to guess which has more variance (i.e., variability):</p>
+
+<p><code>$$
+\{48, 43, 52, 57, 50\} \ \ vs.\ \{10, 25, 90, 75, 50\}
+$$</code></p>
+
+<p>The numbers on the right are way more spread out from the mean, right? In fact, if you take each number&rsquo;s distance from the mean, square it, and average those values, you get the variance of the data. So, for the one on the left you have</p>
+
+<p><code>$$
+\begin{align}
+&amp;= (48-50)^2+(43-50)^2+(52-50)^2+(57-50)^2+(50-50)^2 \\
+&amp;= 4+49+4+49+0 \\
+&amp;= 106 \\
+\end{align}
+$$</code></p>
+
+<p>And on the right side you have</p>
+
+<p><code>$$
+\begin{align}
+&amp;= (10-50)^2+(25-50)^2+(90-50)^2+(75-50)^2+(50-50)^2 \\
+&amp;= 1600+625+1600+625+0 \\
+&amp;= 4450 \\
+\end{align}
+$$</code></p>
+
+<p>Now divide both by 5 to get the average squared deviation from the mean</p>
+
+<p><em>variance for left set</em> <code>$= 106/5 = 21.2$</code></p>
+
+<p><em>variance for right set</em> <code>$= 4450/5 = 890 $</code></p>
+
+<p>In general, the equation for calculating the variance of a <em>sample</em> of data is</p>
+
+<p><center>
+<img src="http://mathurl.com/mvyrst2.png" alt="" />
+</center></p>
+
+<p>Notice that here, the numerator is exactly what we did above, but the denominator is (<em>n-1</em>) instead of just <em>n</em>. In stat-speak, that&rsquo;s because, in our case, we aren&rsquo;t interested in estimating population variance from our sample; if we were, dividing by <em>(n-1)</em> would give a better (unbiased) estimate. In this example, we are effectively treating our sample as a population.</p>
+
+<hr />
+
+<h3 id="covariance">Covariance</h3>
+
+<p>It&rsquo;s helpful to start by thinking of variance this way, expanding the numerator</p>
+
+<p><center>
+<img src="http://mathurl.com/ns8jq6u.png" alt="" />
+</center></p>
+
+<p>Variance is only useful when we&rsquo;re dealing with one dimension; often, though, we want to know about relationships between the dimensions. Covariance tells us how much the dimensions vary together:</p>
+
+<p><center>
+<img src="http://mathurl.com/ou4ksx2.png" alt="" />
+</center></p>
+
+<p>Seen in this way, variance is just a special case of covariance, where you calculate the covariance of the dimension with itself.</p>
+
+<p>Below are two scatterplots illustrating a linear relationship between two variables; I have included the least-squares line of best fit for each  relationship. Even if you are utterly unfamiliar with the concept, guess  which relationship has more covariance (i.e., how much the variables change together):</p>
+
+<p><center>
+<img src="eigen1.png" alt="" />
+</center></p>
+
+<p>The plot on the left shows a much neater, tighter relationship, with changes in one variable corresponding closely to changes in the other (varying_ together; _heavier people also tend to be taller people); the one on the right, while still having positive covariance (more hours spent on homework tends to result in higher grades), doesn&rsquo;t look quite as tight. A negative covariance would mean that the variables do <em>not</em> change together; that increases in one are associated with decreases in the other.</p>
+
+<p>The covariance for height and weight is 92.03 and the covariance for homework and grades is 5.13; while we should be pretty convinced by this disparity that height &amp; weight vary together more closely than do homework &amp; grades, in order to confirm this the covariances should be standardized. To do this, we divide each covariance by the standard deviation of each of its variables, resulting in the correlation coefficient, Pearson&rsquo;s <em>r</em>. For height vs. weight, r = 0.77 and for grades vs. homework, r = 0.33, confirming our observations.</p>
+
+<h3 id="covariance-matrix">Covariance matrix</h3>
+
+<p>If you have three variables (x, y, z), a covariance matrix for your data is just a matrix with each cell being cov(row,column). It would look like this:</p>
+
+<p><center>
+<img src="http://mathurl.com/lzhabq5.png" alt="" />
+</center></p>
+
+<p>You can see that the diagonal consists of the variance of each variable because, as you can see from the formula above, cov(x,x)=var(x). Also note that a covariance matrix is redundant, because cov(x,y)=cov(y,x). I&rsquo;ll make it look more matrix-y for you:</p>
+
+<p><center>
+<img src="http://mathurl.com/l8d6lkj.png" alt="" />
+</center></p>
+
+<p>These will be crucial later, so keep them in mind.</p>
+
+<hr />
+
+<h2 id="eigenvectors-and-eigenvalues">Eigenvectors and eigenvalues</h2>
+
+<p>In German &ldquo;eigen&rdquo; means &ldquo;self-&rdquo; or &ldquo;unique to&rdquo;, giving us some initial clues&mdash;we&rsquo;ve got a vector that is unique to <em>something</em> and a value that is unique to <em>something</em>. That <em>something</em> is a square matrix (same # of rows &amp; cols). An vector <em>v</em> is an eigenvector for a square matrix <em>M</em> if, when multiplied by <em>M</em>, it yields a vector that is an integer multiple of <em>v</em>. That is,</p>
+
+<p><code>$Mv=xv$</code>, where <em>x</em> is any integer.</p>
+
+<p>An example should make this clear. Say we have the following square matrix; we want to find the vector [a b] such that x is an integer.</p>
+
+<p><center>
+<img src="http://mathurl.com/la7vogv.png" alt="" />
+</center></p>
+
+<p>Any such vector [a b] we call an eigenvector of this matrix, and any such integer x an eigenvalue.</p>
+
+<p><center>
+<img src="http://mathurl.com/l9lzlb7.png" alt="" />
+</center></p>
+
+<p>Here, [1 2] is an eigenvector and 6 is an eigenvalue of our matrix. These aren&rsquo;t easy to come by, and solving for them by hand is usually infeasible. An <code>$n \times n$</code> matrix will have <em>n</em> eigenvalues. In this case, 1 is the other, and an example of an eigenvector is [1 -3]. See?</p>
+
+<p><a href="http://mathurl.com/km6a639.png"><img src="http://mathurl.com/km6a639.png" alt="" /></a></p>
+
+<p>OK, that&rsquo;s probably enough to &ldquo;get&rdquo; PCA; just remember covariance matrices and eigenvectors, and you&rsquo;re set.</p>
+
+<hr />
+
+<h3 id="principal-component-analysis">Principal Component Analysis</h3>
+
+<p>PCA was independently proposed by Karl Pearson (of correlation fame) and Harold Hotelling in the early 1900s. It is used to turn a set of possibly correlated variables into a smaller set of uncorrelated variables, the idea being that a high-dimensional dataset is often described by correlated variables and therefore only a few meaningful dimensions account for most of the information. PCA  finds the directions with the greatest variance in the data, which are called principal components.</p>
+
+<p>Here&rsquo;s a overview/recipe for PCA:</p>
+
+<ol>
+<li>collect data for many dimensions (i.e, variables)<br /></li>
+<li>subtract the mean from each data dimension (normalize it)<br /></li>
+<li>calculate the covariance matrix<br /></li>
+<li>calculate the eigenvectors and eigenvalues of the covariance matrix<br /></li>
+<li>decide which dimensions to keep based on eigenvalue<br /></li>
+<li>get new data by multiplying transposed eigenvector with transposed data<br />
+<br /></li>
+</ol>
+
+<p>You wont always get good results when you reduce the dimensionality of your data, especially if it&rsquo;s just to get a 2D/3D graph; sometimes there is just no simpler underlying structure.</p>
+
+<p>I&rsquo;ll walk you through one using data from a class I&rsquo;m taking; for now, I&rsquo;m just going to use R so I can provide some visualizations. There are three dimensions here (grades, parents education, and homework); note that this is lame/inappropriate data for this sort of technique, but it&rsquo;ll suffice for illustration.</p>
+
+<p>Here&rsquo;s the data:</p>
+
+<pre><code class="language-R">&gt; str(data2) 
+'data.frame':     100 obs. of 3 variables:  
+$ grades: num 78 79 79 89 82 77 88 70 86 80 ... 
+$ pared : num 13 14 13 13 16 13 13 13 15 14 ...  
+$ hwork : num 2 6 1 5 3 4 5 3 5 5 ... 
+#let's graph it, too
+  
+&gt; library(scatterplot3d)
+&gt; s3d&lt;-scatterplot3d(new$pared,new$hwork,new$grades, pch=16, xlab=&quot;Parent's Education&quot;, ylab=&quot;Homework (Hours/Day)&quot;, zlab=&quot;Grade in Class&quot;, type=&quot;h&quot;) 
+#regress grades on parent education and home work
+&gt; model &lt;- lm(grades~pared+hwork) 
+&gt; s3d$plane(model) #here I just fit the regression plane
+</code></pre>
+
+<p><center>
+<img src="https://nrwoodward.files.wordpress.com/2014/02/b476a-screenshotfrom2014-02-14164252.png" width=650px>
+</center></p>
+
+<p>The OLS best-fitting plane is shown; it minimizes the squared deviations of actual Grades from Grades predicted from Parent&rsquo;s Education and Homework (Hours/Day).</p>
+
+<p>Now we&rsquo;ve got to subtract the mean from each datum:</p>
+
+<pre><code class="language-R">   
+&gt; new&lt;-scale(data2,scale=F) 
+&gt; head(new) 
+    grades pared hwork  
+[1,] -2.47 -1.03 -3.09  
+[2,] -1.47 -0.03 0.91 
+[3,] -1.47 -1.03 -4.09  
+[4,]  8.53 -1.03 -0.09  
+[5,]  1.53 1.97 -2.09  
+[6,] -3.47 -1.03 -1.09  
+</code></pre>
+
+<p>&hellip;and calculate the covariance matrix</p>
+
+<pre><code class="language-R">&gt; cm&lt;-cov(new)
+&gt; cm
+       grades    pared    hwork
+grades 58.110202 4.329192 5.128990 
+pared  4.329192  3.726364 1.098283 
+hwork  5.128990  1.098283 4.224141 
+</code></pre>
+
+<p>&hellip;and calculate the eigenstuff for the covariance matrix</p>
+
+<pre><code class="language-R">&gt; eigs&lt;-eigen(cm) 
+&gt; eigs 
+$values 
+[1] 58.946803 4.265718 2.848187
+$vectors
+     [,1]        [,2]       [,3]
+[1,] 0.99232104  0.1235818  0.005147218 
+[2,] 0.07967798 -0.6068504 -0.790812257 
+[3,] 0.09460639 -0.7851498  0.612037156 
+
+</code></pre>
+
+<p>&hellip;turns out the princomp function does this all for you! As a sanity check,  lets confirm our eigenguys&hellip;</p>
+
+<pre><code class="language-R">
+ &gt; pc&lt;-princomp(new, scores=TRUE) 
+ &gt; pc$loadings 
+ 
+ Loadings: 
+        Comp.1 Comp.2 Comp.3 
+ grades 0.992  0.124      
+ pared        -0.607 -0.791 
+ hwork        -0.785  0.612  
+ 
+</code></pre>
+
+<p>Great, everything looks good!</p>
+
+<p>Now check to see which components to keep</p>
+
+<pre><code class="language-R">&gt; summary(pc) 
+Importance of components:  
+                       Comp.1    Comp.2    Comp.3  
+Standard deviation     7.6391973 2.05500866 1.67919764  
+Proportion of Variance 0.8923126 0.06457269 0.04311468  
+Cumulative Proportion  0.8923126 0.95688532 1.00000000  
+
+</code></pre>
+
+<p>A single eigenvector accounts for ~90% of the variance in the data! We&rsquo;ll keep the others around, just to see what happens, but at this point you might eliminate weaker components.</p>
+
+<p>Transform the original data on the basis of the principal components</p>
+
+<pre><code class="language-R">#multiply transpose of eigenvectors by transpose of original, normalized data 
+ &gt; scores &lt;- t(eigs$vectors) %*% t(new)   
+ &gt; 
+ &gt; head(scores) 
+       grades    pared      hwork  
+ [1,] -2.825435  2.7459217 -1.0893718 
+ [2,] -1.375010 -0.8779460  0.5731118  
+ [3,] -1.927720  3.6546532 -1.6962618  
+ [4,]  8.373916  1.7498719  0.8033591  
+ [5,]  1.477489  0.6345479 -2.8291826 
+ [6,] -3.628543  1.0520404  0.1295553  
+
+</code></pre>
+
+<p>Let&rsquo;s visualize our eigenvectors by overlaying them on the transformed data, using the <code>rgl</code> package</p>
+
+<pre><code class="language-R">&gt; library(rgl)
+&gt; plot3d(pc$scores)  
+&gt; text3d(6*pc$loadings,texts=colnames(pc$scores),col=&quot;red&quot;) 
+&gt; coords &lt;- NULL  
+&gt; for (i in 1:nrow(pc$loadings)) {  
++  coords &lt;- rbind(coords, rbind(c(0,0,0),pc$loadings[i,1:3])) 
++ } 
+&gt; lines3d(6*coords, col=&quot;red&quot;, lwd=4)  &lt;br&gt;&lt;/br&gt;&lt;/code&gt;
+</code></pre>
+
+<p><center>
+<img src="https://nrwoodward.files.wordpress.com/2014/02/463c2-screenshotfrom2014-02-15103129.png" alt="" />
+</center></p>
+
+<p>This is a still from the interactive plot which is much more convincing, so run it yourself! The eigenvectors are the axes of the transformed data, thus providing a better characterization.</p>
+
+<p>In summary, we have transformed our data so that it is expressed in terms of the patterns between them (lines that best describe the relationships among the variables); essentially, we have classified our data points as combinations of the contributions from all three lines, which can be thought of as representing the best possible coordinate system for the data: the greatest variance of some projection of the data comes lies on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, etc.</p>
+
+<hr />
+
+<h2 id="eigenfaces">Eigenfaces</h2>
+
+<p>Many face-recognition techniques treat the pixels of a each face-picture as a vector of values; this one does <a href="pca">PCA</a> on many such vectors to abstract characteristic features which can then be used to classify new faces.</p>
+
+<p>Think of an image as a matrix of pixels; let&rsquo;s restrict our attention to grayscale for clarity. Each pixel in a grayscale image is assigned an intensity value from 0 to 255, where &ldquo;0&rdquo; is completely black and &ldquo;255&rdquo; is completely white. The pictures I am using are 92px by 112px, meaning that there are 92 pixels along each of 112 rows, or equivalently, 112px in each of 92 columns. So, each image comprises a total of 112 * 92 = 10,304 pixels. You can think of each face as a point in a space of 10,304 dimensions! Or rather, you can&rsquo;t very easily think of this, but that&rsquo;s exactly what we&rsquo;ve got!</p>
+
+<p>How can we use this information to compute similarities and differences between two pictures? PCA! Take each &ldquo;row&rdquo; of pixels in each image and concatenate them to make a single vector of pixel values, like this:</p>
+
+<p><code>$$ pixelVector =&lt;px1, px2, ... ,px93, px94, ... ,px10302, px10304&gt;$$</code></p>
+
+<p>&hellip;where each <code>$px$</code> is a single pixel with a grayscale intensity value ranging from 0 to 225. At this point, we have a vector full of numbers&hellip; a single dimension. Now, the idea is you take a bunch of these image vectors (made from different images), slap them all into a matrix, normalize them, generate a covariance matrix, find the eigenvectors/values for the matrix, and use these values to measure the difference between a new image and the originals. If the distance is small enough (per some threshold value), then a match condition is satisfied!</p>
+
+<p>I&rsquo;ll show you how all of this works in GNU Octave, but the code should work in Matlab too. In Octave, you need to have the images package installed.</p>
+
+<p>First, we need a &ldquo;training set&rdquo; of small grayscale images, all the same size. Many computer vision databases exist, with many such sets to choose from. I&rsquo;m using 200 images from the <a href="http://www.cl.cam.ac.uk/research/dtg/attarchive/facedatabase.html">AT&amp;T face database</a> (20 subjects, 10 images each).</p>
+
+<p>Here&rsquo;s an example image from the training set, a grayscale image 92 pixels wide by 112 pixels tall (I&rsquo;ve got no idea who this guy is):</p>
+
+<p><center>
+<img src="https://nrwoodward.files.wordpress.com/2014/02/c3719-example.png" alt="" />
+</center></p>
+
+<p>First, we have to read in <em>all 200</em> of these images. I have adapted the procedure  from this <a href="http://www.mathworks.com/matlabcentral/fileexchange/38268-eigen-face-recognition">Matlab source code,</a> which was really great and required only modest modification: here&rsquo;s <a href="http://www.nathanielraley.com/eigenfaces.txt">the exact code I ended up using</a> in Octave v3.8</p>
+
+<p>We then take the mean of all of the image vectors, which results in the following image vector:</p>
+
+<p><center>
+<img src="https://nrwoodward.files.wordpress.com/2014/02/c894d-mean.png" alt="" />
+</center></p>
+
+<p>Good! Now we subtract this mean image from each image in our training-set and compute the covariance matrix exactly as shown in the discussion above on PCA. The clincher is that for any distribution of data with <em>n</em> variables, we can describe them with a basis of eigenvectors, and because these are necessarily orthogonal, the variables will be uncorrelated.</p>
+
+<p>Below are the eigenfaces*, and boy are they ghastly! Think of them as the pixel representation of each eigenvector formed from the covariance matrix of all images; these faces represent the most similar parts of some faces, and the most dramatic differences between others.</p>
+
+<p><center><br />
+<img src="https://nrwoodward.files.wordpress.com/2014/02/4cc2e-eigenfaces.png" alt="" />
+</center>
+<em>*BTW, I think the first one was mistakenly replaced by the mean image in this picture</em>.</p>
+
+<p>Now that we have facespace, how do we go about recognizing a new face?  The recognition procedure is as follows: once we have projected every sample image into  the eigenface subspace, we have a bunch of points in a 20 dimensional space. When given a new image (a new picture of someone in the training set), all we need do is project it into face space and find the smallest distance between the new point and each of the  projections of the sample images: of the people pictured in the training set, this gives us the one that best matches the input picture.</p>
+
+<p>I kept one image of each individual out of the training set for a confirmatory test of our eigenfaces. Here&rsquo;s the first and second input image alongside the image reconstructed from their</p>
+
+<p><center>
+<img src="https://nrwoodward.files.wordpress.com/2014/02/72d1b-inputface.png" alt="" /></p>
+
+<p><img src="https://nrwoodward.files.wordpress.com/2014/02/32e4e-input2.png" alt="" /></p>
+
+<p><img src="https://nrwoodward.files.wordpress.com/2014/02/72d1b-inputface.png" alt="" /></p>
+
+<p></center></p>
+
+<p>These graphs show the distance of each input image to each person on the training set (along the x-axis, 1-20); both matched! The first input image had the shortest distance to other images of that person, and so did the second (see the red dot in the figure below)!</p>
+
+<p><center>
+<img src="https://nrwoodward.files.wordpress.com/2014/02/ba2e5-12dist.png" alt="" />
+</center></p>
+
+<p>I decided to try a picture of myself that was already in black and white, to see if it could reconstruct it; with a large enough data set, it could produce a perfect reconstruction, much in the way that Fourier transforms/decompositions work.</p>
+
+<p><center>
+<img src="https://nrwoodward.files.wordpress.com/2014/02/ac899-meinput.png" alt="" />
+</center></p>
+
+<p>Not good at all, really, is it? I probably screwed something up&hellip; this is one of my first forays into GNU Octave and I&rsquo;m just fumbling my way through someone else&rsquo;s Matlab code. Still, we were able to positively classify two untrained images! That&rsquo;s not too bad for a first go.</p>
+
+<p>What could this technique be used for, practically? It&rsquo;s actually <a href="http://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;cad=rja&amp;ved=0CCcQFjAA&amp;url=http%3A%2F%2Fwww.cs.ucsb.edu%2F~mturk%2FPapers%2Fmturk-CVPR91.pdf&amp;ei=W8r_UoXMJ6XayAHz3YDYBg&amp;usg=AFQjCNFtnl7qU4TEAjdwSIWdNYNvqLSPEg&amp;sig2=wpUgPleNvELlK1QSJzvaAQ">pretty old</a>, and has been largely supplanted by newer, more accurate recognition methods. One immediate use for eigenfaces would be to implement a face-recognition password system for your computer, <a href="http://techcrunch.com/2011/05/18/cornell-students-show-off-a-diy-eigenface-access-system/">like these guys did</a>. You can also use it for face detection, not just recognition.</p>
+
+<p>Phew, I&rsquo;m totally spent: this took me forever! I apologize if I have egregiously misrepresented or oversimplified any of the mathematics involved.
+If you&rsquo;re interested in this technique, here&rsquo;s a list of webpages I consulted while writing this post:</p>
+
+<p><a href="http://www.bytefish.de/pdf/facerec_octave.pdf">http://www.bytefish.de/pdf/facerec_octave.pdf</a><br />
+<a href="http://jmcspot.com/Eigenface/Default">http://jmcspot.com/Eigenface/Default</a><br />
+<a href="https://en.wikipedia.org/wiki/Eigenface">https://en.wikipedia.org/wiki/Eigenface</a><br />
+<a href="http://www.pages.drexel.edu/~sis26/Eigenface%20Tutorial.htm">http://www.pages.drexel.edu/~sis26/Eigenface%20Tutorial.htm</a><br />
+<a href="http://jeremykun.com/2011/07/27/eigenfaces/">http://jeremykun.com/2011/07/27/eigenfaces/</a><br />
+<a href="http://codeformatter.blogspot.com/">http://codeformatter.blogspot.com/</a></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+       <img src="images/912.gif" width="200" style="padding:5px;"><br>
+       <p>&copy; Nathaniel Raley Woodward 2017</p>
+        <ul class="footer-links">
+           <li>
+           <a href="http://www.facebook.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-facebook"></i></a>
+          </li>
+          <li>
+           <a href="http://www.twitter.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li>
+           <a href="http://www.github.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-github"> </i></a>
+          </li>
+          <li>
+             <a href="http://www.linkedin.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-linkedin-square"></i></a>
+          </li>
+           <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss"></i></a>
+            </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

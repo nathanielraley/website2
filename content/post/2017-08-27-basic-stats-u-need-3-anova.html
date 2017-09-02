@@ -26,18 +26,11 @@ output:
 <li><a href="#doing-a-one-way-anova-in-r">Doing a One-Way ANOVA in R</a></li>
 </ul></li>
 <li><a href="#effect-size">Effect Size</a></li>
+<li><a href="#assumptions">Assumptions</a></li>
 <li><a href="#post-hoc-tests">Post Hoc Tests</a></li>
 </ul>
 </div>
 
-<style type="text/css">
-.table {
-    margin-left:auto; 
-    margin-right:auto;
-    width: 60%;
-    text-align:center;
-}
-</style>
 <div id="one-way-anova-by-way-of-two-sample-t-test" class="section level2">
 <h2>One-Way ANOVA by way of Two-Sample T-Test</h2>
 <p>If the hero of <a href="nathanielwoodward.com/2017/08/23/basic-stats-u-need-t-test/">our last post</a> was William “Student” Gosset, then the hero of this and the next few posts will be <a href="https://en.wikipedia.org/wiki/Ronald_Fisher">Sir Ronald Fisher</a>. After Student had derived the <em>t</em> distribution, he sent it to Fisher along with an historically ironic note: “I am sending you a copy of Student’s Tables as you are the only man that’s ever likely to use them!”</p>
@@ -541,6 +534,113 @@ summary(anova1)</code></pre>
 <p>A common effect-size measure for ANOVA is the eta-squared (<span class="math inline">\(\eta^2\)</span>), which is the ratio of the <span class="math inline">\(SS_B\)</span> to the <span class="math inline">\(SS_T\)</span>, <span class="math inline">\(\eta^2=\frac{SS_B}{SS_T}\)</span>. In our example above, we have <span class="math inline">\(\eta^2=\frac{100}{164}=.61\)</span> This is a measure of the variance of the dependent variable explained by the treatment in our sample. If you are familiar with regression output, it is equivalent to the R^2.</p>
 <p>Another common effect-size measure for ANOVA is cohen’s <span class="math inline">\(f^2\)</span>, which is calculating using <span class="math inline">\(\eta^2\)</span>, <span class="math inline">\(f^2=\frac{\eta^2}{1-\eta^2}\)</span>. We can see by looking that <span class="math inline">\(f^2\)</span> is the ratio of variance explained to the variance <em>not</em> explained. Here, we would have <span class="math inline">\(.61/.39=1.56\)</span>.</p>
 <p>According to Cohen’s (1988) guidelines (which were meant only for the social sciences, are a bit out of date, and are certainly oversimplifications), <span class="math inline">\(f^2 \ge 0.02, f^2 \ge 0.15,\)</span> and <span class="math inline">\(f^2 \ge 0.35\)</span> represent small, medium, and large effect sizes, respectively. According to this, the effect of our treatment is huge.</p>
+</div>
+<div id="assumptions" class="section level1">
+<h1>Assumptions</h1>
+<p>It is incumbent upon any user of a hypothesis-testing procedure to check the test’s underlying assumptions if they want the conclusions they draw from it to be valid. The assumptions that must be met for an ANOVA are similar to those for a t-Test, namely independent, normality (of errors), and equal variance across groups.</p>
+<div id="independence" class="section level3">
+<h3>Independence</h3>
+<p>This one is pretty easy: a given observation should have no influence on any of the others. There are plenty of situations when this simplifying assumption doesn’t hold (imagine if you measure the same person twice!) and we will deal with these situations in the next post. For now, one plant’s height should give you no information about another plant’s height beyond knowing what fertilizer treatment they were exposed to. We achieved this by randomizing which plants got which treatment: thus, on average, the only thing different about each group should be their treatment exposure.</p>
+</div>
+<div id="normality-of-errors" class="section level3">
+<h3>Normality (of Errors)</h3>
+<p>One easy way to check normality is to look at the distribution of data in each group: if these distributions are normal, then the errors (or residuals) will be normal. Fine, but what’s a residual? We will show in the next post that ANOVA is a special case of regression, in which the concept of residuals plays a crucial role. ANOVA analyses tend to gloss over residuals, but let’s take a minute to compute them.</p>
+<p>A residual is what’s left over after we account for the effect of our independent variables. In our example, once we account for the fertilizer treatment group mean <span class="math inline">\(\bar{x}_{\bullet k}\)</span>, the residual is what’s left over. ANOVA assumes that these Within-Group deviations <span class="math inline">\((x_{ik}-\bar{x}_{\bullet k})\)</span> are normally distributed. Here’s our data again:</p>
+<center>
+<table>
+<thead>
+<tr class="header">
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">C</th>
+<th align="center">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">9</td>
+<td align="center">4</td>
+<td align="center">7</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">10</td>
+<td align="center">6</td>
+<td align="center">9</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">12</td>
+<td align="center">6</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">14</td>
+<td align="center">6</td>
+<td align="center">11</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">15</td>
+<td align="center">8</td>
+<td align="center">13</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(Mean_A\)</span></th>
+<th align="center"><span class="math inline">\(Mean_B\)</span></th>
+<th align="center"><span class="math inline">\(Mean_C\)</span></th>
+<th align="center"><span class="math inline">\(Mean_D\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(8\)</span></td>
+<td align="center"><span class="math inline">\(12\)</span></td>
+<td align="center"><span class="math inline">\(6\)</span></td>
+<td align="center"><span class="math inline">\(10\)</span></td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>So, going down columns, our residuals <span class="math inline">\((x_{ik}-\bar{x}_{\bullet k})\)</span> are <span class="math inline">\((6-8),(7-8),(8-8),...,(10-10),(11-10),(13-10)\)</span>.</p>
+<p>We can get these straight from our ANOVA object in R; typically, they are examined using a quantile-quantile plot (theoretical vs. observed data quantiles should be similar) or tested formally with the Shapiro-Wilk test (which tends to be overly harsh).</p>
+<pre class="r"><code>round(anova1$residuals,4)</code></pre>
+<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
+## -2 -1  0  1  2 -3 -2  0  2  3 -2  0  0  0  2 -3 -1  0  1  3</code></pre>
+<pre class="r"><code>{qqnorm(anova1$residuals); qqline(anova1$residuals)}</code></pre>
+<p><img src="/post/2017-08-27-basic-stats-u-need-3-anova_files/figure-html/unnamed-chunk-11-1.png" width="288" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>shapiro.test(anova1$residuals)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  anova1$residuals
+## W = 0.94361, p-value = 0.2804</code></pre>
+<p>In the S-W test, the null hypothesis is that the data are normally distributed: here, we fail to reject that null hypothesis, confirming what we see in our Q-Q plot (the quantiles of a normal distribution look similar to the quantiles of our observed data).</p>
+</div>
+<div id="equal-variance-homoskedasticity" class="section level3">
+<h3>Equal Variance (Homoskedasticity)</h3>
+<p>Fortunately, ANOVA is very robust to non-normality (provided the groups are roughly symmetrical and, if skewed, skewed the same way) and relatively robust to unequal variances (provided the sample size in each group is about the same). Looking at our box plots, we see that the spreads look a little different across the four groups. However, two standard procedures for testing the null hypothesis that group variances are equal (Bartlett’s test and Levene’s test) both fail to reject this assumption.</p>
+<pre class="r"><code>library(car)
+boxplot(dat.long$Height~dat.long$Group)</code></pre>
+<p><img src="/post/2017-08-27-basic-stats-u-need-3-anova_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>bartlett.test(dat.long$Height~dat.long$Group)</code></pre>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  dat.long$Height by dat.long$Group
+## Bartlett&#39;s K-squared = 1.6465, df = 3, p-value = 0.6489</code></pre>
+<pre class="r"><code>leveneTest(dat.long$Height~dat.long$Group)</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  1.0256 0.4075
+##       16</code></pre>
+</div>
 </div>
 <div id="post-hoc-tests" class="section level1">
 <h1>Post Hoc Tests</h1>

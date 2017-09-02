@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../js/bigfoot.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../css/bigfoot.css">
+<script type="text/javascript">
+  $.bigfoot(
+        {
+            numberResetSelector: "article",
+           
+           
+            hoverDelay: 250
+        }
+    );
+</script>
+ 
+<link rel="stylesheet" href="css/font-awesome.min.css">
+ 
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<title>&#34;The Greatest Equation of All Time&#34; - Nathaniel Raley Woodward</title>
+<meta property="og:title" content="&#34;The Greatest Equation of All Time&#34; - Nathaniel Raley Woodward">
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="100"
+         height="100"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="../../../../post/">Blog</a></li>
+    
+    <li><a href="../../../../teaching/">Teaching</a></li>
+    
+    <li><a href="../../../../cv.pdf">CV</a></li>
+    
+    <li><a href=""></a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">6 min read</span>
+    
+
+    <h1 class="article-title">&#34;The Greatest Equation of All Time&#34;</h1>
+
+    
+    <span class="article-date">2014/12/19</span>
+    
+
+    <div class="article-content">
+      <p>Sorry to have been so long away from the blog! The purpose of this post is to give some intuition for <a href="https://en.wikipedia.org/wiki/Euler%27s_identity">Euler&rsquo;s identity</a> (&ldquo;the most beautiful theorem in mathematics&rdquo;) to those who haven&rsquo;t seen it before or to those for whom it is meaningless because they lack the math background.</p>
+
+<p>This was never introduced to me in any class, and unless you majored in math or physics the same is probably true for you. I wanted not only to call your attention to this equation, but also to derive it, the derivation of which is equally marvellous. Walking through it with a pencil was perhaps my first real taste of what I imagine mathematicians live and breathe for; my present aim is to give you a taste!</p>
+
+<p>Well, here it is:</p>
+
+<p><a href="http://mathurl.com/m9kp87b.png"><img src="http://mathurl.com/m9kp87b.png" alt="" /></a></p>
+
+<p>It&rsquo;s pretty astounding when you look at it for the first time&hellip; it seems a ridiculous assertion! (However, <a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss">Gauss</a> is supposed to have said that if  this was not immediately apparent to you on being told it, you would  never be a first-class mathematician.) He also had a <a href="https://twitter.com/NathanielRaley/status/476851163917086720">really cool signature</a>, so he is probably right.</p>
+
+<p>Really though? Are we talking about <code>$e \ (2.71828...)$</code>, like from continuously compounded interest? You mean <code>$\pi \ (3.14159...)$</code>, like a circle&rsquo;s circumference-to-radius ratio? And the imaginary number <em>i</em>, the square root of -1, that we talked about for like a week in high school and then never actually used for anything? Yep, those are the ones: <em>e</em>, _π, <em>and</em> i_. Dust off your old TI-8x, punch this badboy in, and see what output you get. The batteries are probably dead so I&rsquo;ll spare you the trouble:</p>
+
+<p><img src="https://nrwoodward.files.wordpress.com/2014/12/1fac1-eulers-bmp.jpg" alt="" /></p>
+
+<p>Though I am mainly interested in showing you a way to get to this shocking identity, I will need thereby to talk a bit about <a href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series</a> approximations. If you don&rsquo;t know much about this technique, think of using a sum of polynomials to approximate the shape of function at a given point. If you don&rsquo;t know much about polynomials and functions, think of adding together easy-to-compute things (<code>$x, x^2, x^3,_ ...$</code>) to approximate hard-to-compute things (<code>$e^x, \sin(x), \ln(x),...$</code>). This is actually how your calculator computes with things like <code>$e, \pi, etc.$</code> </p>
+
+<p>But this isn&rsquo;t a post about Taylor series approximations, so I&rsquo;ll cut down on the details. If you already understand how to use Taylor series approximations, you could <a href="https://www.blogger.com/blogger.g?blogID=5101073883978186322#main1">skip to the derivation</a>. If you don&rsquo;t, it is super useful and cool, so check it out! First things first: if you want to approximate the shape of a function <code>$f(x)$</code> using an easier-to-work-with polynomial like a power series (i.e., <code>$a + bx + cx^2 + dx^3 ...$</code> where <code>$a, b, c, d$</code>,&hellip; are constants), you can do it like this:</p>
+
+<p><img src="http://mathurl.com/qdvnje8.png" alt="" /></p>
+
+<p>where <code>$f^{(n)}(0)$</code> represents the nth derivative of function <code>$f(x)$</code>, evaluated at x=0 (this gives us the shape around x=0).<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup> Really cool! Because if we can keep taking derivatives, we can get an almost perfect approximation of <code>$f(x)$</code> using polynomials instead. Don&rsquo;t worry, I&rsquo;m not going to ask you to do any calculus (though you might want a helpful refresher on derivatives<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup>). I&rsquo;ll just show you the results.</p>
+
+<p>To follow the derivation, you just need the following 3 results: the derivative of <code>$sin(x)$</code> is <code>$cos(x)$</code>, the derivative of <code>$cos(x)$</code> is <code>$-sin(x)$</code>, and the derivative of <code>$e^x$</code> is itself, just <code>$e^x$</code>.</p>
+
+<p>Let&rsquo;s do <code>$sin(x)$</code> first, because I&rsquo;ve got some pretty pictures of it!</p>
+
+<p><img src="https://nrwoodward.files.wordpress.com/2014/12/8829e-sin1-bmp.jpg" alt="" /></p>
+
+<p>We want to approximate this function using a Taylor series polynomial. Let us do so by taking the first term of that big summation formula above. Approximating with only the first term, we have</p>
+
+<p><img src="http://mathurl.com/qhry9wm.png" alt="" /></p>
+
+<p>So using only 1 term, our approximation is the line y=x</p>
+
+<p><img src="https://nrwoodward.files.wordpress.com/2014/12/5b340-sin2-bmp.jpg" alt="" /></p>
+
+<p>Not a very satisfying approximation, is it? What about 2 terms?</p>
+
+<p><img src="http://mathurl.com/npqtl28.png" alt="" /></p>
+
+<p>If we plot <code>$x - \frac{x^3}{3!}$</code>, we get</p>
+
+<p><img src="https://nrwoodward.files.wordpress.com/2014/12/e6b5f-sin3-bmp.jpg" alt="" /></p>
+
+<p>Hey wow, that&rsquo;s a lot better! The polynomial <code>$x - \frac{x^3}{3!}$</code> seems to pretty exactly mimic the curve for <code>$sin(x)$</code>, at least around x=0. Let&rsquo;s add another term.</p>
+
+<p><img src="http://mathurl.com/pysq8a4.png" alt="" /></p>
+
+<p>Now our approximation is <code>$y = x - \frac{x^3}{3!} + \frac{x^5}{5!}$</code> which looks like this:</p>
+
+<p><img src="https://nrwoodward.files.wordpress.com/2014/12/903b0-sin4-bmp.jpg" alt="" /></p>
+
+<p>Even better! You can see that by adding more terms of the Taylor polynomial, we get a closer approximation of the original function. Here&rsquo;s a couple more terms just to illustrate:</p>
+
+<p><img src="http://mathurl.com/ll5kobw.png" alt="" /></p>
+
+<p>And plotting both,</p>
+
+<p><img src="https://nrwoodward.files.wordpress.com/2014/12/f4376-sin5-bmp.jpg" alt="" /></p>
+
+<p>Now the polynomial approximation is virtually indistinguishable from <code>$sin(x)$</code>, at least at from <code>$x=-\pi \ to  \ x=\pi$</code>. Here&rsquo;s a more &ldquo;moving&rdquo; display of this (<a href="http://mathforum.org/mathimages/index.php/Taylor_Series">credit</a>). Notice how adding more and more terms gets us an ever-better approximation of <code>$sin(x)$</code>.</p>
+
+<p><a href="https://nrwoodward.files.wordpress.com/2014/12/3c2df-taylorsin.gif"><img src="https://nrwoodward.files.wordpress.com/2014/12/3c2df-taylorsin.gif" alt="" /></a></p>
+
+<p>Here&rsquo;s an even easier example! (We are going to need this result too.)</p>
+
+<p><img src="http://mathurl.com/k837vkd.png" alt="" /></p>
+
+<p>So we have Taylor series approximations for <code>$sin(x)$</code> and for <code>$e^x$</code>. Now all we need is one for <code>$cos(x)$</code> and we will have all of the ingredients we need! It is just like <code>$sin(x)$</code> except all of the <em>opposite</em> terms cancel out! I&rsquo;ll leave this as an exercise to the reader and just give you the result:</p>
+
+<p><img src="http://mathurl.com/olv67tg.png" alt="" /></p>
+
+<p>Take a minute to look these over. Strange, isn&rsquo;t it? If it weren&rsquo;t for those negative signs, it looks like simply adding <code>$sin(x)$</code> and <code>$cos(x)$</code> would give us <code>$e^x$</code>&hellip; Hmmm.</p>
+
+<p>We are now in a position to make some magic happen, but one more thing remains to be done. Now&rsquo;s the time to recall your imaginary number <em>i</em>, which is equal to <code>$\sqrt{-1}$</code>. Since <code>$i=\sqrt{-1}$</code>, we know <code>$i^2 = -1$</code>. For higher powers of <em>i</em>, we have the following pattern:</p>
+
+<p><img src="http://mathurl.com/oq6xvb4.png" alt="" /></p>
+
+<p>The pattern <code>$i, -1, -i, 1,...$</code> repeats itself as you take ever higher powers of i. Notice that the signs are switching too! You should be excited about this. Now we&rsquo;re ready for the main event!</p>
+
+<p><img src="http://mathurl.com/mc3y8l3.png" alt="" />
+YEAH! WOOHOO! At least, that&rsquo;s how I felt when I first saw it.</p>
+
+<p>And it&rsquo;s not just superficially beautiful either. Before we plugged in <code>$\pi$</code>, we saw that <code>$e^{ix}=\cos(x) + i\times \sin(x)$</code>. This formula has many important applications, including being crucial to <a href="https://en.wikipedia.org/wiki/Fourier_series">Fourier analysis</a>. For an excellent introduction, check <a href="http://betterexplained.com/articles/an-interactive-guide-to-the-fourier-transform/">this out</a>.</p>
+
+<p>Well, I hope that if the derivation didn&rsquo;t leave you reeling in perfect wonderment, you were at least given something to think about! Thanks for reading!</p>
+
+<hr />
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Technically, this is a Maclaurin series.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2"><strong>Quick derivatives refresher</strong> It may be helpful to think of the derivative of a function f(x)&mdash;symbolized as d/dx f(x) or f&rsquo;(x)&mdash;as a machine that gives of the slopes of tangent lines anywhere along the original function: if you plug x=3 into f&rsquo;(x), what you get out is the slope of a line tangent to the original function f(x) at x=3. Since slope is just rise-over-run, the rate at which a function is increasing or decreasing, the derivative gives as the rate at which the original function is increasing or decreasing at a single point. If f(x) is the parabola x2, then its derivative f&rsquo;(x) is 2x. At x=0, the very bottom of the parabola, we get f&rsquo;(0)=2(0)=0, which tells us the line tangent to x2 at the point x=0 has zero slope (it&rsquo;s just a horizontal line). At x=1, the parabola has started to increase; the rate it is increasing at that point (the slope of the line tangent to that point) is f&rsquo;(1)=2(1)=2; so now we have a line that goes up 2 for every 1 it goes over. At f&rsquo;(2)=2(2)=4, a line that goes up 4 for every 1 it goes over. This agrees with our intuition when we look at a parabola; it is accelerating upward at an ever increasing rate.<br />
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+       <img src="images/912.gif" width="200" style="padding:5px;"><br>
+       <p>&copy; Nathaniel Raley Woodward 2017</p>
+        <ul class="footer-links">
+           <li>
+           <a href="http://www.facebook.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-facebook"></i></a>
+          </li>
+          <li>
+           <a href="http://www.twitter.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li>
+           <a href="http://www.github.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-github"> </i></a>
+          </li>
+          <li>
+             <a href="http://www.linkedin.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-linkedin-square"></i></a>
+          </li>
+           <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss"></i></a>
+            </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+<script src="../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

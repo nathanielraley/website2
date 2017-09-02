@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../js/bigfoot.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../css/bigfoot.css">
+<script type="text/javascript">
+  $.bigfoot(
+        {
+            numberResetSelector: "article",
+           
+           
+            hoverDelay: 250
+        }
+    );
+</script>
+ 
+<link rel="stylesheet" href="css/font-awesome.min.css">
+ 
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<title>Typing Speed and the Woes of 1-β - Nathaniel Raley Woodward</title>
+<meta property="og:title" content="Typing Speed and the Woes of 1-β - Nathaniel Raley Woodward">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="100"
+         height="100"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="../../../../post/">Blog</a></li>
+    
+    <li><a href="../../../../teaching/">Teaching</a></li>
+    
+    <li><a href="../../../../cv.pdf">CV</a></li>
+    
+    <li><a href=""></a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">4 min read</span>
+    
+
+    <h1 class="article-title">Typing Speed and the Woes of 1-β</h1>
+
+    
+    <span class="article-date">2013/12/11</span>
+    
+
+    <div class="article-content">
+      <p>My six-year-old macbook (a black one, before the <em>pro</em>) is still operational, but it has burned through (<em>literally</em>) several batteries, and, unless I pay apple the <a href="http://store.apple.com/us/product/MA561LL/A/rechargeable-battery-13-inch-macbook-white">$129.00</a> they want for a new one, it is going to remain about as portable as your average desktop PC. That&rsquo;s fine for around-the-house applications, but when your academic adviser (who is <em>retiring this year</em>) asks, &ldquo;Where&rsquo;s your computer!&rdquo; every time you have a meeting with her, you know it&rsquo;s about time to get a new, backpack-friendly means of computing.</p>
+
+<p>So I did! Sometime in late October I became the proud owner of a Lenovo ThinkPad T-430s (Intel i7 (3rd Gen, 2.9 GHz) processor, 16 GB of RAM and a 128 GB SSD, with an expansion bay for which I have a 500 GB HDD, an additional battery, and a DVD Multi drive) This was another high-dollar craigslist transaction (iPod, TI-89, electric guitar&hellip;) that went off without a hitch.</p>
+
+<p>Anyway, it&rsquo;s supposed to have this improved ThinkPad keyboard, and reviews I had read online while I was shopping around suggested that it might help to increase one&rsquo;s typing speed. Around the same time, someone on Facebook posted something about <a href="http://play.typeracer.com/">play.typeracer.com</a>, which assigns random text for you to type, calculates your WPM, and keeps a log of all the data from your past &ldquo;races&rdquo;. It&rsquo;s great fun!</p>
+
+<p>I created two accounts&mdash;one for the laptop, one for desktop (control)&mdash;and alternated playing &ldquo;races&rdquo; on each. I did about five on each keyboard in a sitting, over six sittings, giving me 30 games completed on each.<br />
+Subjectively, I couldn&rsquo;t tell much. I seemed to be getting similar speeds regardless of which keyboard I was using.</p>
+
+<p>With this data, I generated some graphs and ran two t-tests. Though &ldquo;single-subject&rdquo; designs are not common, I figured that it would be statistically similar to a &ldquo;within-subjects&rdquo; anova or a repeated-measures t-test. Given this, I figured that a sample size of ~30 per group would be sufficient.</p>
+
+<p><center>
+<img src="typing1.png" alt="" /><br />
+</center></p>
+
+<pre><code class="language-R">boxplot(desktop, laptop, data=data, main=&quot;Typing Speed Data&quot;, xlab=&quot;Desktop (left) vs. Laptop (right)&quot;, ylab=&quot;Words per Minute (GPM)&quot;, col=&quot;lightblue&quot;)
+</code></pre>
+
+<p>Above are boxplots for the data. Notice the means appear to be roughly equal (laptop mean 84.4, desktop mean 85.2), but that there&rsquo;s a lot more variation on the desktop keyboard. Below shows the scores on the desktop keyboard (blue) vs. the laptop keyboard (red) over time (should be 30 games, I typoed).</p>
+
+<p><center>
+<img src="typing2.png" alt="" />**<br />
+</center></p>
+
+<pre><code class="language-R">g_range&lt;- range(70, desktop, laptop)  
+plot(desktop, type=&quot;o&quot;, col=&quot;blue&quot;, ylim=g_range, axes=FALSE, ann=FALSE)  
+axis(1, at=1:29)  
+axis(2, at=65:110)  
+box()  
+lines(laptop, type=&quot;o&quot;, pch=22, lty=2, col=&quot;red&quot;)  
+title(main=&quot;GWM over time for different keyboards&quot;)  
+title(xlab=&quot;Typing games played (1-29)&quot;)  
+title(ylab=&quot;Words per minute (WPM)&quot;)  
+legend(1, g_range[2], c(&quot;desktop&quot;,&quot;laptop&quot;),cex=0.8,col=c(&quot;blue&quot;,&quot;red&quot;),pch=21:22, lty=1:2);&lt;/blockquote&gt;
+</code></pre>
+
+<p>The t-test results showed no difference between the means. My desktop scores and laptop scores are not two independent groups (because both samples were collected on one individual: me), so I used a repeated measures t-test <code>t.test(laptop, desktop, paired=T)</code> and got <code>t = -0.3929, df = 29, p-value = 0.6973</code>.</p>
+
+<p>But to really know for sure, I wanted an estimate of the power of this test. Power, for those unfamiliar, is the probability of detecting differences between the groups <em>given that there are actually differences</em>. It is defined as one minus the probability of a type II error (failing to reject the the null hypothesis given that it is false), and can be calculated using estimates of the effect size and the sample size. A standard measure of effect size is Cohen&rsquo;s d which can be calculated by the following:</p>
+
+<p> <img src="https://upload.wikimedia.org/math/2/0/4/2045806e02033c842754c503c467d1ad.png" alt="d = \frac{\bar{x}_1 - \bar{x}_2}{s}." /> where <strong>s</strong> is equal to <img src="https://upload.wikimedia.org/math/3/f/5/3f50622dfd31584dcbe0e2c39b600b62.png" alt="s = \sqrt{\frac{(n_1-1)s^2_1 + (n_2-1)s^2_2}{n_1+n_2-2}}" />(from<a href="https://en.wikipedia.org/wiki/Effect_size#Cohen.27s_d"> wikipedia</a>)</p>
+
+<p>It&rsquo;s essentially a measure of the the difference between group means in terms of a pooled standard deviation. You can define function in R that will calculate this for you:</p>
+
+<pre><code class="language-R">cohens_d &lt;- function(x, y){
+lx &lt;- length(x)- 1
+ly &lt;- length(y)- 1
+md &lt;- abs(mean(x) - mean(y)) ## mean difference (numerator)
+csd &lt;- lx * var(x) + ly * var(y)
+csd &lt;- csd/(lx + ly)
+csd &lt;- sqrt(csd) ## common sd computation
+cd &lt;- md/csd ## cohen's d
+}
+</code></pre>
+
+<pre><code class="language-R">res&lt;-cohens_d(desktop, laptop)
+res
+&gt; [1] 0.09792157
+</code></pre>
+
+<p>That&rsquo;s a vanishingly small effect size! Power is going to be abysmal! You can calculate the power using the pwr package.</p>
+
+<pre><code class="language-R">library(pwr)
+pwr.t.test(30, d=.09792157, type=&quot;paired&quot;)
+</code></pre>
+
+<p>This yields an observed power of 0.0813, or 8% chance of detecting a difference between the groups, given that one exists! The sample size needs to be much bigger for such a small effect. To see exactly how big, I can use the pwr package again, inputting the desired power (80% is widely considered acceptable), and letting it provide me with the sample size needed.</p>
+
+<pre><code class="language-R">pwr.t.test( d=.09792157, type=&quot;paired&quot;, power=.8)
+</code></pre>
+
+<p>n = 820!!! I would need 820 trials per keyboard for the test to be powerful enough to detect differences of that effect size. And even if we were to show that the effect was <em>statistically</em> significant, the effect is so small as to be not <em>practically</em> significant. Well, I  suppose I won&rsquo;t be continuing this project any time soon. I&rsquo;m satisfied to know that my average WPM is 84.78 with a standard deviation of 7.77.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+       <img src="images/912.gif" width="200" style="padding:5px;"><br>
+       <p>&copy; Nathaniel Raley Woodward 2017</p>
+        <ul class="footer-links">
+           <li>
+           <a href="http://www.facebook.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-facebook"></i></a>
+          </li>
+          <li>
+           <a href="http://www.twitter.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li>
+           <a href="http://www.github.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-github"> </i></a>
+          </li>
+          <li>
+             <a href="http://www.linkedin.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-linkedin-square"></i></a>
+          </li>
+           <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss"></i></a>
+            </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
