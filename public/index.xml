@@ -6,10 +6,19 @@
     <description>Recent content in Home on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Sep 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Validity in Research</title>
+      <link>/2017/09/04/statistical-validity/</link>
+      <pubDate>Mon, 04 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/09/04/statistical-validity/</guid>
+      <description>What is an Experiment? Research in a Perfect World What is Validity? Internal Validity Threats to Internal Validity Random Assignment  External Validity Threats to External Validity  Construct Validity Threats to Construct Validity  Statistical Validity Threats to Statistical Validity: Power! Ways to Increase Power    In this post I reboot a page I had written for my old website back in 2013. It is based almost entirely on the excellent text by Shadish, Cook, and Campbell (2002).</description>
+    </item>
     
     <item>
       <title>Basic Stats U Need #3: ANOVA</title>
@@ -401,7 +410,10 @@ If you use the &amp;ldquo;highlighter&amp;rdquo; function in a .pdf reader, you 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/teaching/</guid>
-      <description></description>
+      <description>This page is under construction!
+For now, here are twenty-five heuristics for promoting learning.
+From: Winne &amp;amp; Nesbit (2010). The Psychology of Academic Achievement. Ann.. Rev. of Psych., 61(1), 653–678 
+   Heuristic Description    Contiguity effects Ideas to be associated should be presented contiguously in space and time  Perceptual-motor grounding Concepts benefit from being grounded in perceptual motor experiences, particularly at early stages of learning  Dual code and multimedia effects Materials presented in verbal, visual, and multimedia form richer representations than a single medium  Testing effect Testing enhances learning, particularly when the tests are alligned with important content  Spacing effect Spaced schedules of studying and testing produce better long-term retention than a single study session or test  Exam expectations Students benefit more form repeated testing when they expect a final exam  Generation effects Learning is enhanced when learners produce answers compared to having them recognize answers  Organization effects Outlining, integrating, and synthesizing information produces better learning than rereading materials or other more passive strategies  Coherence effect Materials and multimedia should explicitly link related ideas and minimize distsracting irrelevant material  Stories and example cases Stories and example cases tend to be remembered better than didactic facts and abstract principles  Multiple examples An understanding of an abstract concept improves with multiple and varied examples  Feedback effects Students benefit from feedback on their performance in a learning task, but the timing of the feedback can depend on the task  Negative suggestion effects Learning wrong information can be reduced when feedback is immediate  Desirable difficulties Challenges make learning and retrieval effortful and thereby have posotive effects on long-term retention  Manageable cognitive load The information presented to the learner should not overload working memory  Segmentation principle A complex lesson should be broken down into manageable subparts  Explanation effects Students benefit more from constructing deep coherent explanations (mental models) of the material than memorizing shallow isolated facts  Deep questions Students benefit more from asking and answering deep questions that elicit explanations (e.</description>
     </item>
     
   </channel>
