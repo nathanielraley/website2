@@ -54,7 +54,7 @@ s10<-sample(pop.height,10,replace=T)
 mean(s10);sd(s10)
 ```
 
-Well---becoming omnicient for a moment---we can see that this mean is quite a bit closer to the population mean:$\mid \bar{X_10}-\mu\mid=$ `r round(abs(pop.mean-mean(s10)),3)`  versus $\mid \bar{X_1}-\mu\mid=$ `r round(abs(pop.mean-s1),3)`. Are we guaranteed to get closer and closer to the population mean as we measure more and more people? 
+Well---becoming omnicient for a moment---we can see that this mean is quite a bit closer to the population mean:$\mid \bar{X}_{10}-\mu\mid=$ `r round(abs(pop.mean-mean(s10)),3)`  versus $\mid \bar{X}_1-\mu\mid=$ `r round(abs(pop.mean-s1),3)`. Are we guaranteed to get closer and closer to the population mean as we measure more and more people? 
 
 ```{r}
 ss<-vector()
