@@ -14,7 +14,7 @@ output:
 
 ## One-Way ANOVA by way of Two-Sample T-Test
 
-If the hero of [our last post](nathanielwoodward.com/2017/08/23/basic-stats-u-need-t-test/) was William "Student" Gosset, then the hero of this and the next few posts will be [Sir Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher). After Student had derived the *t* distribution, he sent it to Fisher along with an historically ironic note: "I am sending you a copy of Student's Tables as you are the only man that's ever likely to use them!"
+If the hero of [our last post](http://www.nathanielwoodward.com/2017/08/23/basic-stats-u-need-t-test/) was William "Student" Gosset, then the hero of this and the next few posts will be [Sir Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher). After Student had derived the *t* distribution, he sent it to Fisher along with an historically ironic note: "I am sending you a copy of Student's Tables as you are the only man that's ever likely to use them!"
 
 We have Fisher to thank for the Analysis of Variance (ANOVA), a technique which generalizes the independent two-sample *t*-test to more than two groups (we also have him to thank for the term "variance" itself). Echoing remarks I made in the first post of this series, ANOVA is a superb teaching/learning tool for students of inferential statistics (despite being easily subsumed by the linear model framework). There are tons of blog posts about ANOVA, but I want to walk you through *the way I was taught* this concept because I thought it was extremely effective.[^1] Let's set the stage with a simple example first, with which we will illustate the computations required for conducting a one-way ANOVA.
 
