@@ -142,12 +142,12 @@ Of course, you don't have to do it by group because addition is a commutative op
 $$
 SS_T=\sum_{i=1}^{N}(x_{ik}-\bar{x}_{\bullet \bullet})^2
 $$
-However, it will be important to think in terms of individuals within groups, so we will keep the earlier equation. The SS_T gives us the total squared deviations from the mean, and it may actually look familiar to you: in fact, it is the numerator of several variance calculations. For example, recall the the sample variance can be calculated by
+However, it will be important to think in terms of individuals within groups, so we will keep the earlier equation. The $SS_T$ gives us the total squared deviations from the mean, and it may actually look familiar to you: in fact, it is the numerator of several variance calculations. For example, recall the the sample variance can be calculated by
 $$
 s^2=\frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n-1}
 $$
 
-This should hint that we will ultimately be dealing with variances ...but hold that thought! Now we begin the important business of taking our SS_T and spliting it into a component that represents random variability *within each group* ($SS_W$) and a component that represents variability between the groups themselves ($SS_B$). It will be important to notice immediately that $SS_T=SS_B+SS_W$. 
+This should hint that we will ultimately be dealing with variances ...but hold that thought! Now we begin the important business of taking our $SS_T$ and spliting it into a component that represents random variability *within each group* ($SS_W$) and a component that represents variability between the groups themselves ($SS_B$). It will be important to notice immediately that $SS_T=SS_B+SS_W$. 
 
 Let's have a look at the **Between-Groups Sum of Squares ($SS_B$)** first
 
@@ -330,9 +330,9 @@ OK great, so we have our sums of squares: How do we perform the ANOVA with them?
 
 |Source of Variation| SS | df | MS | F | 
 |:---|:---:|:---:|:---:|:---:|
-|Between Groups | $SS_B$ | $K-1$ | $MS_B=\frac{SS_B}{K-1}$ | $\frac{MS_B}{MS_W}$|
-|Within Groups | $SS_W$ | $N-K$ | $MS_W=\frac{SS_W}{N-K}$||
-|Total | $SS_T$ | $N-1$ | ||
+|Between Groups | $SS_B=\sum_{k=1}^K n_k \times(\bar{x}_{\bullet k}-\bar{x}_{\bullet \bullet})^2$ | $K-1$ | $MS_B=\frac{SS_B}{K-1}$ | $\frac{MS_B}{MS_W}$|
+|Within Groups | $SS_W=\sum_{k=1}^K\sum_{i=1}^{n_k}(x_{i k}-\bar{x}_{\bullet k})^2$ | $N-K$ | $MS_W=\frac{SS_W}{N-K}$||
+|Total | $SS_T=\sum_{k=1}^{K}\sum_{i=1}^{n_k}(x_{ik}-\bar{x}_{\bullet \bullet})^2$ | $N-1$ | ||
 
 See those [degrees of freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(statistics)) (df) in the third column? You can think of those as the sample size corrected for the number of *necessary interrelationships* in the calculation. Remember how, when you calculate the sample variance $\frac{\sum_i^n(x_i-\bar{x})^2}{n-1}$, you divide by *n-1* instead of *n*? This is because in the numerator there aren't really *n* independent things being added up: They are constrained by the sample mean! For example, say you want the sample variance of $x={1,2,3}$. Well, $\bar{x}=2$ so your $s^2$ numerator is $(1-2)^2+(2-2)^2+(3-2)^2$, but you also know that $3=n\bar{x}-1-2$, so you don't even need to use 3! You can just as easly write $(1-2)^2+(2-2)^2+\left((n\bar{x}-1-2)-2\right)^2$ which becomes $(1-2)^2+(2-2)^2+\left((6-1-2)-2\right)^2$, so you don't even need to know that $x_3=3$.  
 If we consider the sums of squares calculations above, we see that the total sums of squares only has one *necessary relationship* among the $N$ components: the grand mean $\bar{X}_{\bullet \bullet}$. Thus, the denominator of this variance calculation is just like the sample variance $N-1$. Since this isn't a "variance" in the strict sense, we divide a sum-of-squares by its degrees-of-freedom, we refer to this quotient as the Mean Squared (MS), because it represents the "mean" of the components of the sum-of-squares.
@@ -377,7 +377,7 @@ We saw above that the Mean Squares are found by dividing the Sums of Squares by 
 |Within Groups | 64 | 16  | $\frac{SS_W}{N-K}=\frac{64}{16}$||
 |Total      |  164| 19   | |||
 
-Our F-statistic of interest is the ratio of the between-group variability (MS_B) to the within-group variability (MS_W), $F=\frac{MS_B}{MS_W}$. (Note that any Mean Square statistic follows a chi-squared distribution, so the F-distribution gives the distribution of the ratio of two chi-squared random variables.) To see if our statistic is unusually large under the null hypothesis of no group differences (that is, to see if the between-group variance is larger than expected relative to the random within-group noise), we look at the probability of observing an F-statistic at least as large as this one under the null hypothesis. Note that the F distribution depends on two parameters: the numerator degrees of freedom ($K-1=3$) and the denominator degrees of freedom ($N-K=16$), so our test statistic follows the distribution $F_{(3,16)}$:
+Our F-statistic of interest is the ratio of the between-group variability ($MS_B$) to the within-group variability ($MS_W$), $F=\frac{MS_B}{MS_W}$. (Note that any Mean Square statistic follows a chi-squared distribution, so the F-distribution gives the distribution of the ratio of two chi-squared random variables.) To see if our statistic is unusually large under the null hypothesis of no group differences (that is, to see if the between-group variance is larger than expected relative to the random within-group noise), we look at the probability of observing an F-statistic at least as large as this one under the null hypothesis. Note that the F distribution depends on two parameters: the numerator degrees of freedom ($K-1=3$) and the denominator degrees of freedom ($N-K=16$), so our test statistic follows the distribution $F_{(3,16)}$:
 
 ```{R}
 F.stat<-(100/12)
