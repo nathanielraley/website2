@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Sep 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Basic Stats U Need #4: Correlation &amp; Regression</title>
+      <link>/2018/05/09/basic-stats-u-need-4-correlation-and-regression/</link>
+      <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/05/09/basic-stats-u-need-4-correlation-and-regression/</guid>
+      <description>.table { margin-left:auto; margin-right:auto; width: 60%; text-align:center; }  Correlation People are often interested in how different variables are related to each other. In general, a correlation is just a relationship or association between two variables. If one variable gives you information about the other, then they are correlated (dependent, associated). More commonly, we talk about two variables having a linear relationship. To understand linear relationships, it helps to have a good grasp of variance and covariance.</description>
+    </item>
     
     <item>
       <title>Validity in Research</title>
