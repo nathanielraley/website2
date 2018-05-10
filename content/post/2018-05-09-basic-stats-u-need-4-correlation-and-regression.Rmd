@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = TRUE, message=F,warning=F,error=T,fig.align = "cent
 ```
 
 
-##Correlation
+#Correlation
 People are often interested in how different variables are related to each other. In general, a correlation is just a relationship or association between two variables. If one variable gives you information about the other, then they are correlated (dependent, associated). More commonly, we talk about two variables having a linear relationship. To understand linear relationships, it helps to have a good grasp of variance and covariance.
 
 Variance is a number that quantifies how spread out a variable's values are from their mean on average. We subtract the mean $\bar{x}$ from each each observation $x_i$, then we square each of these devations, and then average them up, to get the sample's variance. (We divide by $n-1$ rather than $n$ because we are assuming we have a sample of data from a larger population: see [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)). Also, the standard deviation is just the square root of the variance: if the variance is the average squared deviation, the standard deviation represents the average deviation (though there are other, less common measures of this like [average absolute deviation](https://en.wikipedia.org/wiki/Average_absolute_deviation)).
@@ -120,63 +120,31 @@ We have hit upon the formula for Pearson's correlation coefficient ($r$) for mea
 ```{R fig.width=5,fig.height=1, message=F,warnings=F}
 library(cowplot)
 
-samples = 10
-r = -1
-d1 = as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
-r=-.5
-d2= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
-r=0
-d3= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
-r=.5
-d4= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
-r=1
+samples = 10; r = -1
+d1 = as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE));r=-.5
+d2= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE));r=0
+d3= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE));r=.5
+d4= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE));r=1
 d5= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
 
 names(d1)<-names(d2)<-names(d3)<-names(d4)<-names(d5)<-c("X","Y")
 
-p1<-ggplot(d1,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
-      axis.title.y=element_blank())+ggtitle("r = -1")
-
-p2<-ggplot(d2,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
-      axis.title.y=element_blank())+ggtitle("r = -0.5")
-
-p3<-ggplot(d3,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
+p1<-ggplot(d1,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),
+      axis.ticks=element_blank(),axis.title.x=element_blank(),axis.title.y=element_blank())+ggtitle("r = -1")
+p2<-ggplot(d2,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks=element_blank(),axis.title.x=element_blank(),axis.title.y=element_blank())+ggtitle("r = -0.5")
+p3<-ggplot(d3,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks=element_blank(),axis.title.x=element_blank(),
       axis.title.y=element_blank())+ggtitle("r = 0")
-
-p4<-ggplot(d4,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
-      axis.title.y=element_blank())+ggtitle("r = 0.5")
-
-p5<-ggplot(d5,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
-      axis.title.y=element_blank())+ggtitle("r = 1")
+p4<-ggplot(d4,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks=element_blank(),axis.title.x=element_blank(),axis.title.y=element_blank())+ggtitle("r = 0.5")
+p5<-ggplot(d5,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks=element_blank(),axis.title.x=element_blank(),axis.title.y=element_blank())+ggtitle("r = 1")
 
 plot_grid(p1,p2,p3,p4,p5,nrow=1)
-
 theme_set(theme_grey())
 
 ```
 
 
-## Correlation Demonstration!
+
+## Correlation demonstration!
 
 Let's approach the correlation $r$ again, but from a slightly different angle. I want to demonstrate a helpful way to visualize the calculation. 
 
@@ -369,8 +337,7 @@ $$
 In this case, it was a perfect prediction! But when it is not perfect prediction, we need to calculate a slope coefficient for Zx
 
 
-
-#########################################
+# Regression
 
 Correlation and regression are fundamental to modern statistics. 
 
@@ -557,7 +524,15 @@ b_1\\
 \end{aligned}
 $$
 
-$$ \text{Now }\hat b = (X'X)^{-1}X'Y \text{, so...} \\
+
+
+$$ 
+\text{Now }\hat b = (X'X)^{-1}X'Y \text{, so...} \\
+$$
+Click button to expand the calculation: <button onclick="myFunction()">Show/Hide</button>
+
+<div id="myDIV" class="toshow" style="display:none">
+$$
 X'X=\begin{bmatrix}{}
 1 & 1 &1\\
 2 & 5 & 12\\
@@ -667,7 +642,9 @@ X'Y=\begin{bmatrix}
 \end{bmatrix}
 $$
 
-So the intercept is 10.09 and the slope is 0.35. 
+</div>
+
+So we found that the intercept estimate is 10.09 and the slope estimate is 0.35. 
 Let's check this result by conducting a regression on the same data:
 
 ```{R fig.width=3, fig.height=3}
@@ -769,6 +746,9 @@ ggplot(ests,aes(x=value))+geom_histogram(bins=30)+facet_grid(~key,scales="free_x
 
 Notice how the mean of each distribution is equal to the population value ($b_0=1, b_1=2, \sigma=1$).
 
+
+# Normal-errors assumption and homoskedasticity
+
 But let's not get ahead of ourselves! Back to this for a moment:
 
 $$
@@ -785,12 +765,9 @@ This means that we are modeling $y$ as a random variable that is normally distri
 
 We can see this below. For a given (range of) $x$, the $y$ should be normally distributed, $N(\mu=b_0+b_1x,\sigma^2=1)$. We plot the observed density (red) and the theoretical density (blue).
 
-The top plot includes all 1000 observations; the bottom is for a sample of 50.
+Plot of density of y given x; plot includes entire "population" of 1000:
 
 ```{R}
-
-#https://stackoverflow.com/questions/31794876/ggplot2-how-to-curve-small-gaussian-densities-on-a-regression-line
-
 dat<-data.frame(x,y)
 
 breaks <- seq(min(dat$x), max(dat$x), len=8)
@@ -821,6 +798,11 @@ ggplot(dat, aes(x, y)) +
   geom_vline(xintercept=breaks, lty=2)
 
 
+```
+
+Plot of density of y given x for a sample of 50 data points:
+
+```{R}
 dat<-data.frame(x,y)
 dat<-dat[sample(size=50,nrow(dat),replace=F),]
 
@@ -852,6 +834,31 @@ ggplot(dat, aes(x, y)) +
   geom_vline(xintercept=breaks, lty=2)
 ```
 
+Notice that in the sample, the empirical densities are not exactly normal with constant variance (we wouldn't expect them to be; this is just a small sample). However, we can example a plot of residuals vs. fitted-values (or vs. $x$) to see if the scatter looks random. We can also formally test for heteroskedasticity
+
+```{R fig.width=3, fig.height=3}
+samp.lm<-lm(data=dat,y~x)
+
+dat$fvs<-samp.lm$fitted.values
+dat$res<-samp.lm$residuals
+
+ggplot(dat, aes(fvs,res))+geom_point()+geom_hline(yintercept=0)
+
+       
+library(lmtest)
+lmtest::bptest(samp.lm)
+```
+
+In the Breusch-Pagan test, the null hypothesis is that variance is constant. Thus, if $p<.05$ we have reason to suspect that the heteroskedasticity assumption might be violated. Also, if our residual plot shows any thickening/widening, or really any observable pattern, this is another way of diagnosing issues with nonconstant variance.
+
+To see if our residuals are normally distributed, we can compare quantiles of their distribution to expanded quantiles under a normal distribution. If we plot them against each-other, their match would be indicated by all points falling on a straight line (with deviations from the line indicating non-normality). There are also hypothesis tests, such as the Shapiro-Wilk test, that assess the extent of deviation from normality. Here again, the null hypothesis is that the observed distribution matches a normal distribution.
+
+```{R fig.width=3, fig.height=3}
+plot(samp.lm, which=c(2))
+
+shapiro.test(dat$res)
+```
+
 This normal-errors assumption implies that at each $x$ the scatter of $y$ around the regression line is Normal. The equal-variances assumption implies that the variance of $y$ is constant for all $x$ (i.e., "homoskedasticity"). As we can see above (comparing empirical to theoretical distributions of $y|x$), they will never hold *exactly* for any finite sample, but we can test them.
 
 
@@ -862,6 +869,7 @@ The normal-errors assumption allows us to construct normal-theory confidence int
 Because $\hat b_0$ and $\hat b_1$ are statistics, they have a sampling distribution! In fact, we have already seen them (above), when we repeatedly estimated the coefficients based on samples of 50.
 
 We can get empirical 95% confidence intervals by finding the quantiles that cut off the bottom 2.5% and the top 2.5% of each distribution:
+
 
 ```{R}
 library(tidyr)
@@ -875,6 +883,7 @@ betas95<-data.frame(est.int=betas[!(is.na(cut(betas[,1],breaks=cutoff95[,1]))),1
 cutoff95<-gather(data.frame(cutoff95))
 ggplot(ests,aes(x=value))+geom_histogram(bins=30)+facet_grid(~key,scales="free_x")+geom_vline(data=cutoff95,aes(xintercept=value),color="red",lty=3)
 ```
+
 
 These are empirical confidence intervals (the middle 95% of the sampling distribution of each parameter). 
 
@@ -1049,7 +1058,7 @@ $$
 In our specific case, $\hat b_0$ is `r round(b0,4)` and our standard error is `r  se_b0`, and our 95% confidence interval for the intercept is `r b0+c(qt(.025,48)*se_b0,qt(.975,48)*se_b0)`
 
 
-## Confidence and Prediction intervals for a given X
+## Confidence (and prediction) intervals for a given X
 
 This focus on individual coefficients is very useful, but it can't tell us two things: how confident we are in the value of an outcome $y$ for a given $x$, and what value of $y$ we would predict if we observed another $x$.
 
@@ -1071,6 +1080,7 @@ Again, I will not bore you with the derivation of the standard error (it is simi
 
 Let's calculate the 95% CI for three values of $x_k: min(x),0, \text{ and } \bar x$. The mean of the $x$s in our data was `r mean(samp$x)` and the smallest $x$ in our data was `r min(samp$x)`
 
+
 ```{R}
 preds<-predict(samp.lm, newdata=data.frame(x=c(min(samp$x),0,mean(samp$x))),interval='confidence')
 
@@ -1080,6 +1090,7 @@ print(paste("95% CI for yhat when x=0:      ","[",round(preds[2,2],3),",",round(
 
 print(paste("95% CI for yhat when x=mean(x):","[",round(preds[3,2],3),",",round(preds[3,3],3),"]"))
 ```
+
 
 We can see this better if we plot these (in red) along with the full 95% confidence bands (in gray) on the regression line and zoom in.
 
@@ -1110,6 +1121,7 @@ Again, the only different between a 95% confidence interval and a 95% prediction
 
 Here is the prediction interval for the same values of $x_k$ as above:
 
+
 ```{R}
 preds<-predict(samp.lm, newdata=data.frame(x=c(min(samp$x),0,mean(samp$x))),interval='prediction')
 
@@ -1119,6 +1131,7 @@ print(paste("95% CI for y (obs) when x=0:      ","[",round(preds[2,2],3),",",rou
 
 print(paste("95% CI for y (obs) when x=mean(x):","[",round(preds[3,2],3),",",round(preds[3,3],3),"]"))
 ```
+
 
 Let's plot both the prediction and the confidence interval for our data:
 
@@ -1582,7 +1595,7 @@ t(coryx)%*%coef(lm(scale(y)~scale(x)))[2:3]
 
 
 
-## Semipartial and Partial Correlations
+# Semipartial and Partial Correlations
 
 The $R^2$ value is extremely informative, but you might want to know how much of the variability in $y$ is due to $x_1$, holding $x_2$ constant. This is known as a **semi-partial** (or "part" but *not* "partial") correlation. We will represent this as $r_{y(x_1 | x_2)}$. This is the correlation between $x_1$ and $y$ with the effect of $x_2$ removed from $x_1$ (but *not* from $y_1$).
 
@@ -1687,7 +1700,7 @@ pr_1=r_{y|x_2,x_1|x_2}&=\frac{r_{y,x_1}-r_{y,x_2}r_{x_1,x_2}}{\sqrt{1-r^2_{x_1,x
 \end{aligned}
 $$
 
-# Increments to $R^2$ when adding predictors
+## Increments to $R^2$ when adding predictors
 
 It is important to realize that you can build $R^2$ from semipartial correlations. You may have noticed this already, but take a look:
 
@@ -1823,7 +1836,7 @@ VIF=\frac{1}{tolerance}=\frac{1}{.053}=18.87
 $$
 Here, this VIF for predictor $x_3$ is very high. Common cut-offs for problematic variables are 5 (conservative) or 10 (liberal).
 
-## Regression assumptions
+# Regression assumptions
 
 I have already mentioned all of the assumptions of linear regression in this post, but I will bring them all in once place here!
 
@@ -1837,7 +1850,7 @@ I have already mentioned all of the assumptions of linear regression in this pos
 
 
 
-## Partial correlations: the residuals approach
+# Partial correlations
 
 Finding the partial correlation from residuals is easy: we do just as we did for semipartials, except we also have to remove the effect of $x_2$ from $y$. The full procedure is as follows: regress $y$ on $x_2$ and save the residuals $\epsilon_{y|x_2}$; regress $x_1$ on $x_2$ and save the residuals $\epsilon_{x_1|x_2}$. Finally, compute the correlation between both sets of residuals (i.e., $r_{\epsilon_{y|x_2},\epsilon_{x_1|x_2}}$).
 
@@ -1918,3 +1931,13 @@ summary(lm(y~x1+x2))
 
 ```
 
+<script>
+function myFunction() {
+    var x = document.getElementById('myDIV');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>

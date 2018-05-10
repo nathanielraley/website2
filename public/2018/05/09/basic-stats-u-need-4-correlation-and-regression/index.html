@@ -80,7 +80,7 @@
 
   <article class="article">
     
-    <span class="article-duration">52 min read</span>
+    <span class="article-duration">54 min read</span>
     
 
     <h1 class="article-title">Basic Stats U Need #4: Correlation &amp; Regression</h1>
@@ -92,23 +92,28 @@
     <div class="article-content">
       <div id="TOC">
 <ul>
-<li><a href="#correlation">Correlation</a></li>
-<li><a href="#correlation-demonstration">Correlation Demonstration!</a></li>
+<li><a href="#correlation">Correlation</a><ul>
+<li><a href="#correlation-demonstration">Correlation demonstration!</a></li>
+</ul></li>
+<li><a href="#regression">Regression</a><ul>
 <li><a href="#deriving-regression-coefficients">Deriving regression coefficients!</a></li>
 <li><a href="#why-normally-distributed-errors">Why normally distributed errors?</a></li>
+</ul></li>
+<li><a href="#normal-errors-assumption-and-homoskedasticity">Normal-errors assumption and homoskedasticity</a><ul>
 <li><a href="#sampling-distributions-of-coefficient-estimates">Sampling distributions of coefficient estimates</a></li>
-<li><a href="#confidence-and-prediction-intervals-for-a-given-x">Confidence and Prediction intervals for a given X</a></li>
+<li><a href="#confidence-and-prediction-intervals-for-a-given-x">Confidence (and prediction) intervals for a given X</a></li>
 <li><a href="#whats-the-relationship-between-correlation-and-regression">What’s the relationship between correlation and regression?</a></li>
 <li><a href="#multiple-regression-multiple-predictors">Multiple regression: multiple predictors</a></li>
 <li><a href="#multiple-r-and-r2">Multiple <span class="math inline">\(R\)</span> and <span class="math inline">\(R^2\)</span></a></li>
 <li><a href="#r2-in-one-bang-using-correlation-matricies"><span class="math inline">\(R^2\)</span> in one bang using correlation matricies</a></li>
-<li><a href="#semipartial-and-partial-correlations">Semipartial and Partial Correlations</a></li>
-<li><a href="#semipartial-correlations-the-residuals-approach">Semipartial correlations: the residuals approach</a></li>
-<li><a href="#increments-to-r2-when-adding-predictors">Increments to <span class="math inline">\(R^2\)</span> when adding predictors</a><ul>
-<li><a href="#multicollinearity">Multicollinearity</a></li>
-<li><a href="#regression-assumptions">Regression assumptions</a></li>
-<li><a href="#partial-correlations-the-residuals-approach">Partial correlations: the residuals approach</a></li>
 </ul></li>
+<li><a href="#semipartial-and-partial-correlations">Semipartial and Partial Correlations</a><ul>
+<li><a href="#semipartial-correlations-the-residuals-approach">Semipartial correlations: the residuals approach</a></li>
+<li><a href="#increments-to-r2-when-adding-predictors">Increments to <span class="math inline">\(R^2\)</span> when adding predictors</a></li>
+<li><a href="#multicollinearity">Multicollinearity</a></li>
+</ul></li>
+<li><a href="#regression-assumptions">Regression assumptions</a></li>
+<li><a href="#partial-correlations">Partial correlations</a></li>
 </ul>
 </div>
 
@@ -120,8 +125,8 @@
     text-align:center;
 }
 </style>
-<div id="correlation" class="section level2">
-<h2>Correlation</h2>
+<div id="correlation" class="section level1">
+<h1>Correlation</h1>
 <p>People are often interested in how different variables are related to each other. In general, a correlation is just a relationship or association between two variables. If one variable gives you information about the other, then they are correlated (dependent, associated). More commonly, we talk about two variables having a linear relationship. To understand linear relationships, it helps to have a good grasp of variance and covariance.</p>
 <p>Variance is a number that quantifies how spread out a variable’s values are from their mean on average. We subtract the mean <span class="math inline">\(\bar{x}\)</span> from each each observation <span class="math inline">\(x_i\)</span>, then we square each of these devations, and then average them up, to get the sample’s variance. (We divide by <span class="math inline">\(n-1\)</span> rather than <span class="math inline">\(n\)</span> because we are assuming we have a sample of data from a larger population: see <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a>). Also, the standard deviation is just the square root of the variance: if the variance is the average squared deviation, the standard deviation represents the average deviation (though there are other, less common measures of this like <a href="https://en.wikipedia.org/wiki/Average_absolute_deviation">average absolute deviation</a>).</p>
 <p><span class="math display">\[
@@ -227,61 +232,28 @@ r=\sum_i\frac{Z_{X}Z_{Y}}{n-1}=\frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{sd_Xsd_Y(n-
 <p>We have hit upon the formula for Pearson’s correlation coefficient (<span class="math inline">\(r\)</span>) for measuring the strength of a linear association between two variables. Taking the covariance of two standardized variables will always yield <span class="math inline">\(r\)</span>. In this case, <span class="math inline">\(r=1\)</span> indicating a perfect linear direct relationship between the variables. This is the maximum value of <span class="math inline">\(r\)</span> (the minimum value is -1, indicating a perfectly linear inverse relationship). Also, <span class="math inline">\(r=0\)</span> means no relationship (i.e., random noise). Observe the scatterplots, and their respective correlations, below:</p>
 <pre class="r"><code>library(cowplot)
 
-samples = 10
-r = -1
-d1 = as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
-r=-.5
-d2= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
-r=0
-d3= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
-r=.5
-d4= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
-r=1
+samples = 10; r = -1
+d1 = as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE));r=-.5
+d2= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE));r=0
+d3= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE));r=.5
+d4= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE));r=1
 d5= as.data.frame(mvrnorm(n=samples, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
 
 names(d1)&lt;-names(d2)&lt;-names(d3)&lt;-names(d4)&lt;-names(d5)&lt;-c(&quot;X&quot;,&quot;Y&quot;)
 
-p1&lt;-ggplot(d1,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
-      axis.title.y=element_blank())+ggtitle(&quot;r = -1&quot;)
-
-p2&lt;-ggplot(d2,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
-      axis.title.y=element_blank())+ggtitle(&quot;r = -0.5&quot;)
-
-p3&lt;-ggplot(d3,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
+p1&lt;-ggplot(d1,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),
+      axis.ticks=element_blank(),axis.title.x=element_blank(),axis.title.y=element_blank())+ggtitle(&quot;r = -1&quot;)
+p2&lt;-ggplot(d2,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks=element_blank(),axis.title.x=element_blank(),axis.title.y=element_blank())+ggtitle(&quot;r = -0.5&quot;)
+p3&lt;-ggplot(d3,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks=element_blank(),axis.title.x=element_blank(),
       axis.title.y=element_blank())+ggtitle(&quot;r = 0&quot;)
-
-p4&lt;-ggplot(d4,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
-      axis.title.y=element_blank())+ggtitle(&quot;r = 0.5&quot;)
-
-p5&lt;-ggplot(d5,aes(X,Y))+geom_point()+theme(
-      axis.text.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks=element_blank(),
-      axis.title.x=element_blank(),
-      axis.title.y=element_blank())+ggtitle(&quot;r = 1&quot;)
+p4&lt;-ggplot(d4,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks=element_blank(),axis.title.x=element_blank(),axis.title.y=element_blank())+ggtitle(&quot;r = 0.5&quot;)
+p5&lt;-ggplot(d5,aes(X,Y))+geom_point()+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks=element_blank(),axis.title.x=element_blank(),axis.title.y=element_blank())+ggtitle(&quot;r = 1&quot;)
 
 plot_grid(p1,p2,p3,p4,p5,nrow=1)</code></pre>
 <p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>theme_set(theme_grey())</code></pre>
-</div>
 <div id="correlation-demonstration" class="section level2">
-<h2>Correlation Demonstration!</h2>
+<h2>Correlation demonstration!</h2>
 <p>Let’s approach the correlation <span class="math inline">\(r\)</span> again, but from a slightly different angle. I want to demonstrate a helpful way to visualize the calculation.</p>
 <p>As before, divide the scatterplot into quadrants (whose axes intersect at the mean of each variable, in this case 0). Now, for each point (i.e., for each pair of variables) find how far it is away from the x-axis and the y-axis.</p>
 <pre class="r"><code>data&lt;-data.frame(scale(data))
@@ -488,8 +460,10 @@ ggplot(data1,aes(X,Y))+geom_point()+geom_hline(yintercept=0)+geom_vline(xinterce
 Zy=Zx \longrightarrow \frac{\hat{y}-\bar{y}}{sd_y}=\frac{x-\bar{x}}{sd_x}
 \]</span></p>
 <p>In this case, it was a perfect prediction! But when it is not perfect prediction, we need to calculate a slope coefficient for Zx</p>
-<div id="section" class="section level41">
-<p></p>
+</div>
+</div>
+<div id="regression" class="section level1">
+<h1>Regression</h1>
 <p>Correlation and regression are fundamental to modern statistics.</p>
 <p>Regression techniques are useful when you want to model an <strong>outcome variable</strong> <span class="math inline">\(y\)</span> as a function of (or in relationship to) <strong>predictor variables</strong> <span class="math inline">\(x_1, x_2,...\)</span>. Specifically, regression is useful when you want</p>
 <p><span class="math display">\[
@@ -501,8 +475,6 @@ y=f(x_1,x_2,...)
 y=b_0+b_1x_1+b_2x_2+...+\epsilon
 \]</span></p>
 <p>We are interested in modeling the mean of our response variable <span class="math inline">\(y\)</span> given some predictors <span class="math inline">\(x_1, x_2,...\)</span>. Right now, think of regression as a function which gives us the expected value of <span class="math inline">\(y\)</span> (<span class="math inline">\(\hat y\)</span>) for a given value of <span class="math inline">\(x\)</span>. The value <span class="math inline">\(\hat y\)</span> is the predicted value, which will lie on the straight line that runs right through the middle of our scatterplot. Notice that some of the data will be above the predicted line and some will be below it: our <span class="math inline">\(\hat y\)</span>s will not perfectly match our <span class="math inline">\(y\)</span>. The distances between the predicted (or “fitted”) values <span class="math inline">\(\hat y\)</span> and the actual values <span class="math inline">\(y\)</span> are called residuals (<span class="math inline">\(\epsilon=y-\hat y\)</span>). The residuals end up being very important conceptually: they represent the variability in <span class="math inline">\(y\)</span> that is left after accounting for the best-fitting linear combination of your predictor(s) <span class="math inline">\(x\)</span> (i.e., <span class="math inline">\(\hat y\)</span>).</p>
-</div>
-</div>
 <div id="deriving-regression-coefficients" class="section level2">
 <h2>Deriving regression coefficients!</h2>
 <p>Let’s keep it basic, because doing so will allow us to do something amazing using pretty basic math.</p>
@@ -633,7 +605,14 @@ b_1\\
 \end{bmatrix}
 \end{aligned}
 \]</span></p>
-<p><span class="math display">\[ \text{Now }\hat b = (X&#39;X)^{-1}X&#39;Y \text{, so...} \\
+<span class="math display">\[ 
+\text{Now }\hat b = (X&#39;X)^{-1}X&#39;Y \text{, so...} \\
+\]</span> Click button to expand the calculation:
+<button onclick="myFunction()">
+Show/Hide
+</button>
+<div id="myDIV" class="toshow" style="display:none">
+<p><span class="math display">\[
 X&#39;X=\begin{bmatrix}{}
 1 &amp; 1 &amp;1\\
 2 &amp; 5 &amp; 12\\
@@ -739,7 +718,8 @@ X&#39;Y=\begin{bmatrix}
 0.3544\\
 \end{bmatrix}
 \]</span></p>
-<p>So the intercept is 10.09 and the slope is 0.35. Let’s check this result by conducting a regression on the same data:</p>
+</div>
+<p>So we found that the intercept estimate is 10.09 and the slope estimate is 0.35. Let’s check this result by conducting a regression on the same data:</p>
 <pre class="r"><code>lm(c(10,13,14)~c(2,5,12))</code></pre>
 <pre><code>## 
 ## Call:
@@ -795,22 +775,22 @@ sum1</code></pre>
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.32199 -0.63627 -0.02708  0.57082  2.65196 
+## -2.80260 -0.73719 -0.08072  0.94106  1.88093 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.88874    0.13493   6.586 3.17e-08 ***
-## x            2.08186    0.04613  45.133  &lt; 2e-16 ***
+## (Intercept)  0.90446    0.16139   5.604    1e-06 ***
+## x            1.89388    0.06051  31.297   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.9442 on 48 degrees of freedom
-## Multiple R-squared:  0.977,  Adjusted R-squared:  0.9765 
-## F-statistic:  2037 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.135 on 48 degrees of freedom
+## Multiple R-squared:  0.9533, Adjusted R-squared:  0.9523 
+## F-statistic: 979.5 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre class="r"><code>beta&lt;-coef(sum1)[1:2,1]
 
 qplot(x,y)+geom_abline(intercept=1,slope=2,color=&quot;white&quot;)+geom_abline(intercept=beta[1],slope=beta[2],color=&quot;gray50&quot;)</code></pre>
-<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /> We generated the data to have <span class="math inline">\(\epsilon\sim N(\mu=0,\sigma^2=1)\)</span>. Notice that the coefficient estimate for <span class="math inline">\(x\)</span>, (<span class="math inline">\(\hat b_1=\)</span> 2.08) is very close to the actual value (<span class="math inline">\(b_1=2\)</span>), and the coefficient estimate for the intercept (<span class="math inline">\(\hat b_0=\)</span> 0.89) is close to it’s actual value (<span class="math inline">\(b_0=1\)</span>). Notice also that the <em>residual standard error</em> is also close to 1. This is the standard deviation of the residuals (<span class="math inline">\(\epsilon=y-\hat y\)</span>) and thus it is an estimate of <span class="math inline">\(\sigma\)</span> above.</p>
+<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /> We generated the data to have <span class="math inline">\(\epsilon\sim N(\mu=0,\sigma^2=1)\)</span>. Notice that the coefficient estimate for <span class="math inline">\(x\)</span>, (<span class="math inline">\(\hat b_1=\)</span> 1.89) is very close to the actual value (<span class="math inline">\(b_1=2\)</span>), and the coefficient estimate for the intercept (<span class="math inline">\(\hat b_0=\)</span> 0.9) is close to it’s actual value (<span class="math inline">\(b_0=1\)</span>). Notice also that the <em>residual standard error</em> is also close to 1. This is the standard deviation of the residuals (<span class="math inline">\(\epsilon=y-\hat y\)</span>) and thus it is an estimate of <span class="math inline">\(\sigma\)</span> above.</p>
 <p>If we repeat this 1000 times (i.e., based on new random samples of 50), we get 1000 different estimates of the slope <span class="math inline">\(\hat b_1\)</span></p>
 <pre class="r"><code>#betas&lt;-NULL
 #sigma2&lt;-NULL
@@ -839,6 +819,10 @@ ests&lt;-gather(data.frame(ests,sigma2))
 ggplot(ests,aes(x=value))+geom_histogram(bins=30)+facet_grid(~key,scales=&quot;free_x&quot;)</code></pre>
 <p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Notice how the mean of each distribution is equal to the population value (<span class="math inline">\(b_0=1, b_1=2, \sigma=1\)</span>).</p>
+</div>
+</div>
+<div id="normal-errors-assumption-and-homoskedasticity" class="section level1">
+<h1>Normal-errors assumption and homoskedasticity</h1>
 <p>But let’s not get ahead of ourselves! Back to this for a moment:</p>
 <p><span class="math display">\[
 y_i=b_0 +b_1 x_i+\epsilon_i,  \phantom{xxxxx} \epsilon_i\sim N(0,\sigma^2)\\
@@ -849,10 +833,8 @@ y_i \sim N(b_0 +b_1 x_i,\sigma^2)\\
 \]</span></p>
 <p>This means that we are modeling <span class="math inline">\(y\)</span> as a random variable that is normally distributed, with a mean that depends on <span class="math inline">\(x\)</span>. Thus, given <span class="math inline">\(x\)</span>, y has a distribution with a mean of <span class="math inline">\(b_0+b_1 x\)</span> and a standard deviation of <span class="math inline">\(\sigma\)</span>. Our predicted value <span class="math inline">\(\hat y\)</span> is the conditional mean of <span class="math inline">\(y_i\)</span> given <span class="math inline">\(x\)</span>.</p>
 <p>We can see this below. For a given (range of) <span class="math inline">\(x\)</span>, the <span class="math inline">\(y\)</span> should be normally distributed, <span class="math inline">\(N(\mu=b_0+b_1x,\sigma^2=1)\)</span>. We plot the observed density (red) and the theoretical density (blue).</p>
-<p>The top plot includes all 1000 observations; the bottom is for a sample of 50.</p>
-<pre class="r"><code>#https://stackoverflow.com/questions/31794876/ggplot2-how-to-curve-small-gaussian-densities-on-a-regression-line
-
-dat&lt;-data.frame(x,y)
+<p>Plot of density of y given x; plot includes entire “population” of 1000:</p>
+<pre class="r"><code>dat&lt;-data.frame(x,y)
 
 breaks &lt;- seq(min(dat$x), max(dat$x), len=8)
 dat$section &lt;- cut(dat$x, breaks)
@@ -881,6 +863,7 @@ ggplot(dat, aes(x, y)) +
   theme_bw() + theme(legend.position=&quot;none&quot;)+
   geom_vline(xintercept=breaks, lty=2)</code></pre>
 <p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot of density of y given x for a sample of 50 data points:</p>
 <pre class="r"><code>dat&lt;-data.frame(x,y)
 dat&lt;-dat[sample(size=50,nrow(dat),replace=F),]
 
@@ -910,9 +893,33 @@ ggplot(dat, aes(x, y)) +
   geom_path(data=dens, aes(x, y, group=interaction(section,type), color=type), lwd=1)+
   theme_bw() + theme(legend.position=&quot;none&quot;)+
   geom_vline(xintercept=breaks, lty=2)</code></pre>
-<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Notice that in the sample, the empirical densities are not exactly normal with constant variance (we wouldn’t expect them to be; this is just a small sample). However, we can example a plot of residuals vs. fitted-values (or vs. <span class="math inline">\(x\)</span>) to see if the scatter looks random. We can also formally test for heteroskedasticity</p>
+<pre class="r"><code>samp.lm&lt;-lm(data=dat,y~x)
+
+dat$fvs&lt;-samp.lm$fitted.values
+dat$res&lt;-samp.lm$residuals
+
+ggplot(dat, aes(fvs,res))+geom_point()+geom_hline(yintercept=0)</code></pre>
+<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-27-1.png" width="288" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(lmtest)
+lmtest::bptest(samp.lm)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  samp.lm
+## BP = 7.6181, df = 1, p-value = 0.005778</code></pre>
+<p>In the Breusch-Pagan test, the null hypothesis is that variance is constant. Thus, if <span class="math inline">\(p&lt;.05\)</span> we have reason to suspect that the heteroskedasticity assumption might be violated. Also, if our residual plot shows any thickening/widening, or really any observable pattern, this is another way of diagnosing issues with nonconstant variance.</p>
+<p>To see if our residuals are normally distributed, we can compare quantiles of their distribution to expanded quantiles under a normal distribution. If we plot them against each-other, their match would be indicated by all points falling on a straight line (with deviations from the line indicating non-normality). There are also hypothesis tests, such as the Shapiro-Wilk test, that assess the extent of deviation from normality. Here again, the null hypothesis is that the observed distribution matches a normal distribution.</p>
+<pre class="r"><code>plot(samp.lm, which=c(2))</code></pre>
+<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-28-1.png" width="288" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>shapiro.test(dat$res)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  dat$res
+## W = 0.9876, p-value = 0.8751</code></pre>
 <p>This normal-errors assumption implies that at each <span class="math inline">\(x\)</span> the scatter of <span class="math inline">\(y\)</span> around the regression line is Normal. The equal-variances assumption implies that the variance of <span class="math inline">\(y\)</span> is constant for all <span class="math inline">\(x\)</span> (i.e., “homoskedasticity”). As we can see above (comparing empirical to theoretical distributions of <span class="math inline">\(y|x\)</span>), they will never hold <em>exactly</em> for any finite sample, but we can test them.</p>
-</div>
 <div id="sampling-distributions-of-coefficient-estimates" class="section level2">
 <h2>Sampling distributions of coefficient estimates</h2>
 <p>The normal-errors assumption allows us to construct normal-theory confidence intervals and to conduct hypothesis tests for each parameter estimate.</p>
@@ -924,13 +931,13 @@ cutoff95&lt;-apply(data.frame(betas,sigma2),2,function(x)quantile(x,probs=c(.025
 colnames(cutoff95)&lt;-c(&quot;Est.Intercept&quot;,&quot;Est.Slope&quot;,&quot;Est.Var&quot;)
 cutoff95</code></pre>
 <pre><code>##       Est.Intercept Est.Slope   Est.Var
-## 2.5%      0.6912968  1.883473 0.6483004
-## 97.5%     1.2343117  2.083389 1.4409098</code></pre>
+## 2.5%      0.7702692  1.896345 0.6340749
+## 97.5%     1.3084277  2.095798 1.3722810</code></pre>
 <pre class="r"><code>betas95&lt;-data.frame(est.int=betas[!(is.na(cut(betas[,1],breaks=cutoff95[,1]))),1],est.slope=betas[!(is.na(cut(betas[,2],breaks=cutoff95[,2]))),2],est.sigma2=sigma2[!(is.na(cut(sigma2,breaks=cutoff95[,3])))])
 
 cutoff95&lt;-gather(data.frame(cutoff95))
 ggplot(ests,aes(x=value))+geom_histogram(bins=30)+facet_grid(~key,scales=&quot;free_x&quot;)+geom_vline(data=cutoff95,aes(xintercept=value),color=&quot;red&quot;,lty=3)</code></pre>
-<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>These are empirical confidence intervals (the middle 95% of the sampling distribution of each parameter).</p>
 <p>But how can we get this from just a sample of the observed data?</p>
 <p>We know that the (least squares) best estimate of <span class="math inline">\(b_1\)</span> is <span class="math inline">\(\hat b_1=\frac{\sum(x_i-\bar x_i)(y_i-\bar y_i)}{\sum(x_i-\bar x_i)^2}\)</span>.</p>
@@ -985,7 +992,7 @@ ggplot(b1,aes(x=value))+geom_histogram(bins=30)+geom_text(aes(x=1.9, y=75),label
 <p>Notice that the estimate of the variance depends on the actual sample values. Interestingly, we get pretty close to the empirical value based on one sample of size 50:</p>
 <pre class="r"><code>x_samp=sample(x,size=50)
 sqrt(1/sum((x_samp-mean(x_samp))^2))</code></pre>
-<pre><code>## [1] 0.05273668</code></pre>
+<pre><code>## [1] 0.04829033</code></pre>
 <p>Pretend all we observe are 50 observations. We can construct normal theory confidence intervals and conduct t-tests of the null hypothesis that <span class="math inline">\(\hat b_1\)</span> is zero. First we estimate <span class="math inline">\(\hat b_1\)</span> and <span class="math inline">\(s^2/\sum(x-\bar x)^2\)</span>. This means we have to estimate <span class="math inline">\(s^2=\frac{\sum(y_i-\hat y_i)^2}{n-2}\)</span>. Finally, we will conduct a t-test (<span class="math inline">\(df=n-2\)</span>) and also construct a 95% CI for our estimate, <span class="math display">\[
 \hat b_1 \pm t^*_{(\alpha=.975,\ df=48)} \times \frac{s^2}{\sum(x-\bar x)^2}
 \]</span></p>
@@ -997,9 +1004,9 @@ b1&lt;-with(samp, sum((x-mean(x))*(y-mean(y)))/sum((x-mean(x))^2))
 b0&lt;-with(samp, mean(y)-b1*mean(x))
 
 paste(&quot;b0:&quot;,round(b0,4))</code></pre>
-<pre><code>## [1] &quot;b0: 0.9334&quot;</code></pre>
+<pre><code>## [1] &quot;b0: 1.3802&quot;</code></pre>
 <pre class="r"><code>paste(&quot;b1:&quot;,round(b1,4))</code></pre>
-<pre><code>## [1] &quot;b1: 1.8868&quot;</code></pre>
+<pre><code>## [1] &quot;b1: 1.985&quot;</code></pre>
 <p>Here is our estimated variance <span class="math inline">\(s^2\)</span>:</p>
 <pre class="r"><code>#residuals
 e&lt;-samp$y-(b0+b1*samp$x)
@@ -1008,29 +1015,29 @@ e&lt;-samp$y-(b0+b1*samp$x)
 s2&lt;-sum(e^2)/(50-2)
 
 s2</code></pre>
-<pre><code>## [1] 0.926493</code></pre>
+<pre><code>## [1] 0.9040296</code></pre>
 <p>Here is our standard error (standard deviation of the sampling distribution for <span class="math inline">\(\hat b_1\)</span>):</p>
 <pre class="r"><code>#standard deviation of the sampling distribution (standard error)
 se_b1&lt;-with(samp, sqrt(s2/sum((x-mean(x))^2)))
 se_b1</code></pre>
-<pre><code>## [1] 0.04885058</code></pre>
+<pre><code>## [1] 0.04590818</code></pre>
 <pre class="r"><code>#for the slope too: see below
 se_b0&lt;-with(samp,sqrt(s2*((1/50)+(mean(x)^2/sum((x-mean(x))^2)))))</code></pre>
 <p>Let’s combine these to form a 95% confidence interval. We will use a critical <span class="math inline">\(t^*_{(48)}=2.0106\)</span> value that cuts off 2.5% in either tail.</p>
 <pre class="r"><code>#95% CI:
 b1+c(qt(.025,48)*se_b1,qt(.975,48)*se_b1)</code></pre>
-<pre><code>## [1] 1.788563 1.985004</code></pre>
-<p>Thus, there’s a 95% chance that the true <span class="math inline">\(b_1\)</span> is captured by the interval [1.789, 1.985]</p>
+<pre><code>## [1] 1.892722 2.077331</code></pre>
+<p>Thus, there’s a 95% chance that the true <span class="math inline">\(b_1\)</span> is captured by the interval [1.893, 2.077]</p>
 <p>Equivalently, we could test the null hypothesis of no effect <span class="math inline">\(H_0: b_1=0\)</span> versus the alternative hypothesis <span class="math inline">\(H_A: b_1\ne 0\)</span>:</p>
 <p>First we find the test statistic and the p-value (below):</p>
 <pre class="r"><code># t test (H0: b1=0)
 t=(b1-0)/se_b1
 t</code></pre>
-<pre><code>## [1] 38.62356</code></pre>
+<pre><code>## [1] 43.23906</code></pre>
 <pre class="r"><code># pvalue
 2*(1-pt(t,df = 48))</code></pre>
 <pre><code>## [1] 0</code></pre>
-<p>So <span class="math inline">\(t=\)</span> 38.6235628, <span class="math inline">\(p=\)</span> 0. Let’s confirm with R.</p>
+<p>So <span class="math inline">\(t=\)</span> 43.2390604, <span class="math inline">\(p=\)</span> 0. Let’s confirm with R.</p>
 <pre class="r"><code>#confirm with R
 samp.lm&lt;-lm(y~x, data=samp)
 summary(samp.lm)</code></pre>
@@ -1039,19 +1046,19 @@ summary(samp.lm)</code></pre>
 ## lm(formula = y ~ x, data = samp)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -1.7328 -0.7490 -0.1192  0.7402  2.3397 
+##      Min       1Q   Median       3Q      Max 
+## -2.08756 -0.57176  0.08657  0.57385  2.17896 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.93337    0.13614   6.856 1.22e-08 ***
-## x            1.88678    0.04885  38.624  &lt; 2e-16 ***
+## (Intercept)  1.38016    0.13446   10.26 1.07e-13 ***
+## x            1.98503    0.04591   43.24  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.9625 on 48 degrees of freedom
-## Multiple R-squared:  0.9688, Adjusted R-squared:  0.9682 
-## F-statistic:  1492 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 0.9508 on 48 degrees of freedom
+## Multiple R-squared:  0.975,  Adjusted R-squared:  0.9744 
+## F-statistic:  1870 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>In much the same fashion, you can also construct 95% confidence intervals and conduct hypotheses tests for the intercept <span class="math inline">\(b_0\)</span>.</p>
 <p>However, the standard deviation of the sampling distribution of <span class="math inline">\(b_0\)</span> (i.e., the standard error) is different! We wont walk through the derivation, but it is very similar to that above for <span class="math inline">\(b_1\)</span>. You wind up with this for the variance:</p>
 <p><span class="math display">\[
@@ -1065,14 +1072,14 @@ s.e.(b_0)=\frac{s}{\sqrt{n}}\sqrt{1+\frac{\bar x^2}{\sum(x_i-\bar x)^2/n}}
 <p>So a 95% confidence interval for <span class="math inline">\(b_0\)</span> looks like</p>
 <p><span class="math display">\[
 \hat b_0 \pm t^*_{(n-2)}*s.e.(b_0)
-\]</span> In our specific case, <span class="math inline">\(\hat b_0\)</span> is 0.9334 and our standard error is 0.1361438, and our 95% confidence interval for the intercept is 0.659633, 1.2071039</p>
+\]</span> In our specific case, <span class="math inline">\(\hat b_0\)</span> is 1.3802 and our standard error is 0.1344647, and our 95% confidence interval for the intercept is 1.1098055, 1.6505244</p>
 </div>
 <div id="confidence-and-prediction-intervals-for-a-given-x" class="section level2">
-<h2>Confidence and Prediction intervals for a given X</h2>
+<h2>Confidence (and prediction) intervals for a given X</h2>
 <p>This focus on individual coefficients is very useful, but it can’t tell us two things: how confident we are in the value of an outcome <span class="math inline">\(y\)</span> for a given <span class="math inline">\(x\)</span>, and what value of <span class="math inline">\(y\)</span> we would predict if we observed another <span class="math inline">\(x\)</span>.</p>
 <p>Here’s our sample of size 50 with the regression line overlayed.</p>
 <pre class="r"><code>ggplot(samp,aes(x,y))+geom_point()+geom_smooth(method=lm,color=&#39;gray50&#39;)</code></pre>
-<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The gray band around the regression line is the 95% confidence interval for <span class="math inline">\(\hat y\)</span> for a given value of <span class="math inline">\(x\)</span>. You can think of it as a range that captures the true regression 95% of the time! It is a band because the interval changes depending on which <span class="math inline">\(x\)</span> you consider. It is narrowest at the point (<span class="math inline">\(\bar x, \bar y\)</span>) and widest at the edges of the data. This confidence interval, for a given value of the predictor <span class="math inline">\(x_k\)</span>, is defined as</p>
 <p><span class="math display">\[
 \hat y_k\pm t^*_{(n-2)} \sqrt{s^2\left(\frac{1}{n}+\frac{(x_k- \bar x)^2}{\sum(x_i-\bar x)^2} \right)},\\
@@ -1080,15 +1087,15 @@ where\ (as\ before),\\
 s^2=\frac{\sum (y_i-\hat y)^2}{n-2}
 \]</span></p>
 <p>Again, I will not bore you with the derivation of the standard error (it is similar to how we did the slope above). Notice that the standard error is a function of the specific value of <span class="math inline">\(x_k\)</span> that is chosen (the numerator of the second term). Notice that this numerator <span class="math inline">\((x_k-\bar x)^2\)</span> will be zero when we choose <span class="math inline">\(x_k=\bar x\)</span>, and that the further away <span class="math inline">\(x_k\)</span> is from the the mean, the larger the numerator becomes. This fact accounts for the wider confidence interval at the ends of the range of <span class="math inline">\(x\)</span> and the narrowest interval at the mean of x.</p>
-<p>Let’s calculate the 95% CI for three values of <span class="math inline">\(x_k: min(x),0, \text{ and } \bar x\)</span>. The mean of the <span class="math inline">\(x\)</span>s in our data was -0.047 and the smallest <span class="math inline">\(x\)</span> in our data was -4.45</p>
+<p>Let’s calculate the 95% CI for three values of <span class="math inline">\(x_k: min(x),0, \text{ and } \bar x\)</span>. The mean of the <span class="math inline">\(x\)</span>s in our data was 0.009 and the smallest <span class="math inline">\(x\)</span> in our data was -4.93</p>
 <pre class="r"><code>preds&lt;-predict(samp.lm, newdata=data.frame(x=c(min(samp$x),0,mean(samp$x))),interval=&#39;confidence&#39;)
 
 print(paste(&quot;95% CI for yhat when x=min(x): &quot;,&quot;[&quot;,round(preds[1,2],3),&quot;,&quot;,round(preds[1,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for yhat when x=min(x):  [ -7.975 , -6.951 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for yhat when x=min(x):  [ -8.936 , -7.876 ]&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;95% CI for yhat when x=0:      &quot;,&quot;[&quot;,round(preds[2,2],3),&quot;,&quot;,round(preds[2,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for yhat when x=0:       [ 0.66 , 1.207 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for yhat when x=0:       [ 1.11 , 1.651 ]&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;95% CI for yhat when x=mean(x):&quot;,&quot;[&quot;,round(preds[3,2],3),&quot;,&quot;,round(preds[3,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for yhat when x=mean(x): [ 0.571 , 1.118 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for yhat when x=mean(x): [ 1.128 , 1.668 ]&quot;</code></pre>
 <p>We can see this better if we plot these (in red) along with the full 95% confidence bands (in gray) on the regression line and zoom in.</p>
 <pre class="r"><code>ggplot(samp,aes(x,y))+geom_point()+geom_smooth(method=lm,size=.5,color=&quot;black&quot;,fill=&#39;gray50&#39;)+
 #  scale_x_continuous(limits=c(min(x),mean(x)+1))+
@@ -1097,7 +1104,7 @@ print(paste(&quot;95% CI for yhat when x=min(x): &quot;,&quot;[&quot;,round(pred
   geom_segment(aes(x=0,xend=0,y=preds[2,2],yend=preds[2,3]),color=&quot;red&quot;)+
   geom_segment(aes(x=mean(x),xend=mean(x),y=preds[3,2],yend=preds[3,3]),color=&quot;red&quot;)+
    coord_cartesian(ylim=c(min(y),4),xlim=c(min(x),mean(x)+.5))</code></pre>
-<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Notice that the 95% CI for <span class="math inline">\(\hat y\)</span> when <span class="math inline">\(x=0\)</span> is the exact same as the 95% CI for <span class="math inline">\(\hat b_0\)</span>! To see this, just plug <span class="math inline">\(x_k=0\)</span> into the formula for the standard error above and compare it with the intercept standard error! They will be identical!</p>
 <div id="prediction-interval" class="section level3">
 <h3>Prediction interval</h3>
@@ -1112,11 +1119,11 @@ s^2=\frac{\sum (y_i-\hat y)^2}{n-2}
 <pre class="r"><code>preds&lt;-predict(samp.lm, newdata=data.frame(x=c(min(samp$x),0,mean(samp$x))),interval=&#39;prediction&#39;)
 
 print(paste(&quot;95% CI for y (obs) when x=min(x): &quot;,&quot;[&quot;,round(preds[1,2],3),&quot;,&quot;,round(preds[1,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for y (obs) when x=min(x):  [ -9.465 , -5.461 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for y (obs) when x=min(x):  [ -10.39 , -6.422 ]&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;95% CI for y (obs) when x=0:      &quot;,&quot;[&quot;,round(preds[2,2],3),&quot;,&quot;,round(preds[2,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for y (obs) when x=0:       [ -1.021 , 2.888 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for y (obs) when x=0:       [ -0.551 , 3.311 ]&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;95% CI for y (obs) when x=mean(x):&quot;,&quot;[&quot;,round(preds[3,2],3),&quot;,&quot;,round(preds[3,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for y (obs) when x=mean(x): [ -1.11 , 2.799 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for y (obs) when x=mean(x): [ -0.533 , 3.329 ]&quot;</code></pre>
 <p>Let’s plot both the prediction and the confidence interval for our data:</p>
 <pre class="r"><code>pred.int&lt;-data.frame(predict(samp.lm,                       newdata=data.frame(x=samp$x),interval=&#39;prediction&#39;))
 
@@ -1125,7 +1132,7 @@ conf.int&lt;-data.frame(predict(samp.lm,                       newdata=data.fram
 ggplot(samp,aes(x,y))+geom_point()+geom_smooth(method=&quot;lm&quot;,size=.5,color=&quot;black&quot;)+
     geom_ribbon(inherit.aes=F,data=conf.int,aes(x=samp$x,ymin=lwr,ymax=upr),fill=&quot;red&quot;,alpha=.3)+
     geom_ribbon(inherit.aes=F,data=pred.int,aes(x=samp$x,ymin=lwr,ymax=upr),fill=&quot;blue&quot;,alpha=.3)</code></pre>
-<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Notice also that the 95% prediction interval captures all but approximately 2-3 observations, which makes sense because we have <span class="math inline">\(N=50\)</span>, since 5% of the time our 95% CI wont contain <span class="math inline">\(y\)</span>, <span class="math inline">\(.05*50=2.5\)</span>!</p>
 </div>
 </div>
@@ -1485,8 +1492,9 @@ t(coryx)%*%coef(lm(scale(y)~scale(x)))[2:3]</code></pre>
 ## [1,] 0.9289415</code></pre>
 <pre class="r"><code>#perfect!</code></pre>
 </div>
-<div id="semipartial-and-partial-correlations" class="section level2">
-<h2>Semipartial and Partial Correlations</h2>
+</div>
+<div id="semipartial-and-partial-correlations" class="section level1">
+<h1>Semipartial and Partial Correlations</h1>
 <p>The <span class="math inline">\(R^2\)</span> value is extremely informative, but you might want to know how much of the variability in <span class="math inline">\(y\)</span> is due to <span class="math inline">\(x_1\)</span>, holding <span class="math inline">\(x_2\)</span> constant. This is known as a <strong>semi-partial</strong> (or “part” but <em>not</em> “partial”) correlation. We will represent this as <span class="math inline">\(r_{y(x_1 | x_2)}\)</span>. This is the correlation between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y\)</span> with the effect of <span class="math inline">\(x_2\)</span> removed from <span class="math inline">\(x_1\)</span> (but <em>not</em> from <span class="math inline">\(y_1\)</span>).</p>
 <p>On the other hand, we could remove the effect of <span class="math inline">\(x_2\)</span> from both <span class="math inline">\(y\)</span> and <span class="math inline">\(x_1\)</span> before we calculate the correlation. This would result in the <strong>partial</strong> correlation of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y\)</span>, which we will denote <span class="math inline">\(r_{y,x_1|x_2}\)</span>.</p>
 <p>The difference between semi-partial and partial correlations can be difficult to see at first, so let’s look at this helpful venn diagram:</p>
@@ -1531,7 +1539,6 @@ sr_1=r_{y,x_1|x_2}&amp;=\frac{r_{y,x_1}-r_{y,x_2}r_{x_1,x_2}}{\sqrt{1-r^2_{x_1,x
 (&amp;=\sqrt{.0666})
 \end{aligned}
 \]</span></p>
-</div>
 <div id="semipartial-correlations-the-residuals-approach" class="section level2">
 <h2>Semipartial correlations: the residuals approach</h2>
 <p>If you thought that semipartial correlations were confusing, this might help conceptually.</p>
@@ -1565,8 +1572,8 @@ pr_1=r_{y|x_2,x_1|x_2}&amp;=\frac{r_{y,x_1}-r_{y,x_2}r_{x_1,x_2}}{\sqrt{1-r^2_{x
 \end{aligned}
 \]</span></p>
 </div>
-<div id="increments-to-r2-when-adding-predictors" class="section level1">
-<h1>Increments to <span class="math inline">\(R^2\)</span> when adding predictors</h1>
+<div id="increments-to-r2-when-adding-predictors" class="section level2">
+<h2>Increments to <span class="math inline">\(R^2\)</span> when adding predictors</h2>
 <p>It is important to realize that you can build <span class="math inline">\(R^2\)</span> from semipartial correlations. You may have noticed this already, but take a look:</p>
 <p><span class="math display">\[
 R^2=r^2_{y,x_1}+r^2_{y,x_2|x_1}+r^2_{x_3|x_1,x2}+...
@@ -1648,6 +1655,7 @@ r^2_{y,x_1|x_2,x_3}&amp;=R^2_{y.123}-R^2_{y.23}\\
 \]</span> This means that when <span class="math inline">\(x_1\)</span> is added to a model that already contains <span class="math inline">\(x_2\)</span> and <span class="math inline">\(x_3\)</span>, the increase in <span class="math inline">\(R^2\)</span> is very small: it explains just 0.5% of the additional variability!</p>
 <p>But we saw earlier that when <span class="math inline">\(x_1\)</span> is the only predictor in the model, <span class="math inline">\(R^2=r^2_{y,x_1}=.7405\)</span>. With no other predictors in the model, <span class="math inline">\(x_1\)</span> accounts for almost 75% of the variability in <span class="math inline">\(y\)</span>!</p>
 <p>This is because the predictors are highly intercorrelated: they share a lot of variance!</p>
+</div>
 <div id="multicollinearity" class="section level2">
 <h2>Multicollinearity</h2>
 <p>Multicollinearity is observed when a given predictor can be predicted from the others very accurately. For example, using the data above, the <span class="math inline">\(R^2\)</span> from the model predicting <span class="math inline">\(x_3\)</span> from <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> (call it <span class="math inline">\(r^2_{x_3.12}\)</span>) is</p>
@@ -1659,8 +1667,9 @@ r^2_{y,x_1|x_2,x_3}&amp;=R^2_{y.123}-R^2_{y.23}\\
 VIF=\frac{1}{tolerance}=\frac{1}{.053}=18.87
 \]</span> Here, this VIF for predictor <span class="math inline">\(x_3\)</span> is very high. Common cut-offs for problematic variables are 5 (conservative) or 10 (liberal).</p>
 </div>
-<div id="regression-assumptions" class="section level2">
-<h2>Regression assumptions</h2>
+</div>
+<div id="regression-assumptions" class="section level1">
+<h1>Regression assumptions</h1>
 <p>I have already mentioned all of the assumptions of linear regression in this post, but I will bring them all in once place here!</p>
 <ul>
 <li>Linear relationship</li>
@@ -1671,8 +1680,8 @@ VIF=\frac{1}{tolerance}=\frac{1}{.053}=18.87
 <li>No severe multicolinearity (e.g., <span class="math inline">\(VIF&gt;5\)</span>)</li>
 </ul>
 </div>
-<div id="partial-correlations-the-residuals-approach" class="section level2">
-<h2>Partial correlations: the residuals approach</h2>
+<div id="partial-correlations" class="section level1">
+<h1>Partial correlations</h1>
 <p>Finding the partial correlation from residuals is easy: we do just as we did for semipartials, except we also have to remove the effect of <span class="math inline">\(x_2\)</span> from <span class="math inline">\(y\)</span>. The full procedure is as follows: regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x_2\)</span> and save the residuals <span class="math inline">\(\epsilon_{y|x_2}\)</span>; regress <span class="math inline">\(x_1\)</span> on <span class="math inline">\(x_2\)</span> and save the residuals <span class="math inline">\(\epsilon_{x_1|x_2}\)</span>. Finally, compute the correlation between both sets of residuals (i.e., <span class="math inline">\(r_{\epsilon_{y|x_2},\epsilon_{x_1|x_2}}\)</span>).</p>
 <pre class="r"><code>res_x1.x2&lt;-lm(x[,1]~x[,2])$res
 res_y.x2&lt;-lm(y~x[,2])$res
@@ -1682,7 +1691,16 @@ cor(res_x1.x2,res_y.x2)</code></pre>
 <p>Thus, we can say that <span class="math inline">\(pr^2_1=.6958^2=48.4\%\)</span> of the variance in <span class="math inline">\(y\)</span> is uniquely associated with <span class="math inline">\(x_1\)</span>.</p>
 <p>Let’s say <span class="math inline">\(y\)</span> is a vector of <span class="math inline">\(i\)</span> people’s scores on an survey measuring attitude toward abortion, <span class="math inline">\(x1\)</span> is a vector of political ideology scores, and <span class="math inline">\(x2\)</span> is a vector of religiosity scores. Clearly the outcome would be correlated with each of the variables in isolation, but what if we want to model <span class="math inline">\(y\)</span> as a function of both? Regression allows us to assess the unique relationship between a predictor and an outcome variable conditional on other predictors.</p>
 <p>For example, the relationship between political views (x) and abortion attitudes (y) may appear strong, but if removing the effect of religiosity (z) from both leaves little or no variation in common (i.e., the partial correlation <span class="math inline">\(r_{y,x|z}\)</span> is near zero; see below), then the influence of <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> is likely spurious, since it no longer exists given <span class="math inline">\(z\)</span>. Another way to think about the relationship of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> “controlling for” <span class="math inline">\(z\)</span> is to look at the relationship of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> only in groups that have the same value for <span class="math inline">\(z\)</span></p>
-</div>
+<script>
+function myFunction() {
+    var x = document.getElementById('myDIV');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
 </div>
 
     </div>
