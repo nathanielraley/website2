@@ -8,6 +8,10 @@ tags:
   - linear regression
   - regression
   - correlation
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 2
 ---
 <style type="text/css">
 .table {

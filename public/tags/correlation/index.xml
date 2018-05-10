@@ -17,7 +17,7 @@
       <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/2018/05/09/basic-stats-u-need-4-correlation-and-regression/</guid>
-      <description>.table { margin-left:auto; margin-right:auto; width: 60%; text-align:center; }  Correlation People are often interested in how different variables are related to each other. In general, a correlation is just a relationship or association between two variables. If one variable gives you information about the other, then they are correlated (dependent, associated). More commonly, we talk about two variables having a linear relationship. To understand linear relationships, it helps to have a good grasp of variance and covariance.</description>
+      <description>Correlation Correlation Demonstration! Deriving regression coefficients! Why normally distributed errors? Sampling distributions of coefficient estimates Confidence and Prediction intervals for a given X What’s the relationship between correlation and regression? Multiple regression: multiple predictors Multiple \(R\) and \(R^2\) \(R^2\) in one bang using correlation matricies Semipartial and Partial Correlations Semipartial correlations: the residuals approach Increments to \(R^2\) when adding predictors Multicollinearity Regression assumptions Partial correlations: the residuals approach    .</description>
     </item>
     
   </channel>
