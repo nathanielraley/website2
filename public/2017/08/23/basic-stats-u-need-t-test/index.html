@@ -20,7 +20,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Hugo 0.26" />
+<meta name="generator" content="Hugo 0.53" />
 
 
 <title>Basic Stats U Need #2: T-Test - Nathaniel Raley Woodward</title>
@@ -90,7 +90,10 @@
     
 
     <div class="article-content">
-      <div id="part-2-the-t-distribution" class="section level2">
+      
+
+
+<div id="part-2-the-t-distribution" class="section level2">
 <h2>Part 2: the t-Distribution</h2>
 <p>We saw in <a href="http://www.nathanielwoodward.com/2017/08/08/basic-stats-u-need-z-scores/">the previous post</a> that if X is a random variable and the population distribution of X is normal with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span> (variance <span class="math inline">\(\sigma^2\)</span>), then the distribution of the sample mean <span class="math inline">\(\bar{X}\)</span> for samples of a given size <span class="math inline">\(n\)</span> is normal, with mean <span class="math inline">\(\mu\)</span> and standard deviation of <span class="math inline">\(\frac{\sigma}{\sqrt{n}}\)</span>, which we can write <span class="math inline">\(\bar{X}_n \sim N(\mu,\frac{\sigma}{\sqrt{n}})\)</span>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> More exciting, we saw that by the Central Limit Theorem, the sampling distribution will be normal <em>regardless of the original population distribution</em> if the sample size is large enough.</p>
 <p>Recall that a Z-score is computed <span class="math inline">\(Z=\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\)</span> If you haven’t seen this before, realize that we are just rescaling our sampling distribution from the previous post, <span class="math inline">\(\bar{X} \sim N(\mu,\frac{\sigma}{\sqrt{n}})\)</span>, in order to preserve all of the information while setting the mean to 0 and the standard deviation to 1. Another way to think of it is that, instead of dealing in terms of the sample mean <span class="math inline">\(\bar{X}\)</span>, we want to deal in terms of the distances of the sample mean from the population mean <span class="math inline">\(\bar{X}-\mu\)</span> in units of standard deviation <span class="math inline">\(\sigma\)</span>, and we can do that by transforming <span class="math inline">\(\bar{X} \sim N(\mu,\sigma^2/n)\)</span> into <span class="math inline">\(Z=\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\)</span>.</p>

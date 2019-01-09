@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Enemy Tank Problem</title>
+      <link>/2019/01/07/enemy-tank-problem/</link>
+      <pubDate>Mon, 07 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/01/07/enemy-tank-problem/</guid>
+      <description>Enemy Tank Problem: Estimating Population Size  In wartime, it is advantageous to know how well-equipped your adversary is. Ideally, you would like to have full knowledge of their armory: exactly how many tanks, planes, and ships they have that are currently battle-ready.
+Unfortunately, there is no good way to get this information. Imagine, however, that you have managed to capture \(k\) tanks from the enemy. Furthermore, each enemy tank has a serial number stamped on it.</description>
+    </item>
     
     <item>
       <title>Basic Stats U Need #4: Correlation &amp; Regression</title>
