@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 11 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sample Means and Shrinkage Estimators</title>
+      <link>/2019/01/11/sample-means-and-shrinkage-estimators/</link>
+      <pubDate>Fri, 11 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/01/11/sample-means-and-shrinkage-estimators/</guid>
+      <description>Why do we use sample means? The sample mean, \(\bar x = \frac 1 N\sum x_i\), is a workhorse of modern statistics. For example, t tests compare two sample means to judge if groups are likely different at the population level, and ANOVAs compare sample means of more groups to achieve something similar. But does \(\bar x\) actually deserve the great stature is has inherited?
+I recently heard a talk by Dr.</description>
+    </item>
     
     <item>
       <title>Enemy Tank Problem</title>
