@@ -15,19 +15,21 @@ In Fall 2018 I discovered that I enjoy [a certain kind of bar-style karaoke](www
 
 ## The Songs I've Sung (Last Updated 1/22/2019)
 
-| Count | Date       |          Song                     |     Artist           | Notes                        |
-|:-----:|------------|:----------------------------------|:---------------------|:-----------------------------|
-|   1   | 9/5/2018   |      Capri Pants                  |  Bikini Kill         |  2nd time ever sung at KU    |
-|   2   | 9/5/2018   | California Uber Alles             | Dead Kennedys        |                              |
-|   3   | 9/5/2018   |        Tunnels                    | Arcade Fire          | Three-way: NW, LW, MK        |
-|   4   | 9/5/2018   |My Slow Descent into Alcoholism    | New Pornographers    | Duet: NW, LW                 |
-|   5   | 11/17/2018 |War on the East Coast              | New Pornographers    |                              |
-|   6   | 11/17/2018 |Neverending Math Equation          | Modest Mouse         |                              |
-|   7   | 11/17/2018 |Power Out                          | Arcade Fire          | Duet: NW, LW                 |
-|   8   | 12/13/2018 |Cotton                             | Mountain Goats       | 5th Annual Sad Songs Only    |
-|   9   | 12/13/2018 |John Wayne Gacy, Jr                | Sufjan Stevens       | 5th Annual Sad Songs Only    |
-|   10  | 1/19/2019  |Psychic Trauma                     | Cloud Nothings       | Never been sung (KU debut)   |
-|   11  | 1/19/2019  |Kill the Poor                      | Dead Kennedys        | Never been sung (KU debut)   |
-|   12  | 1/19/2019  |Poison                             | Waxahatchee          | Never been sung (KU debut)   |
-|   13  | 1/19/2019  |Modern Man                         | Arcade Fire          | Duet: NW, LW                 |
-|   14  | 1/19/2019  |True Trans Soul Rebel              | Against Me!          |                              |
+\small
+
+| Count | Date      |          Song                     |     Artist           | Notes                          |
+|:-----:|-----------|:----------------------------------|:---------------------|:-------------------------------|
+|   1   | 9/5/18    |      Capri Pants                  |  Bikini Kill         |  2nd time ever sung at KU      |
+|   2   | 9/5/18    | California Uber Alles             | Dead Kennedys        |                                |
+|   3   | 9/5/18    |        Tunnels                    | Arcade Fire          | Three-way: NW, LW, MK          |
+|   4   | 9/5/18    |My Slow Descent into Alcoholism    | New Pornographers    | Duet: NW, LW                   |
+|   5   | 11/17/18  |War on the East Coast              | New Pornographers    |                                |
+|   6   | 11/17/18  |Neverending Math Equation          | Modest Mouse         |                                |
+|   7   | 11/17/18  |Power Out                          | Arcade Fire          | Duet: NW, LW                   |
+|   8   | 12/13/18  |Cotton                             | Mountain Goats       | 5th Annual Sad Songs Only      |
+|   9   | 12/13/18  |John Wayne Gacy, Jr                | Sufjan Stevens       | 5th Annual Sad Songs Only      |
+|   10  | 1/19/19   |Psychic Trauma                     | Cloud Nothings       | Never been sung (KU debut)     |
+|   11  | 1/19/19   |Kill the Poor                      | Dead Kennedys        | Never been sung (KU debut)     |
+|   12  | 1/19/19   |Poison                             | Waxahatchee          | Never been sung (KU debut)     |
+|   13  | 1/19/19   |Modern Man                         | Arcade Fire          | Duet: NW, LW                   |
+|   14  | 1/19/19   |True Trans Soul Rebel              | Against Me!          |                                |
