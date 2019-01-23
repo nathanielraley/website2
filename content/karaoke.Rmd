@@ -58,7 +58,7 @@ Oblivion - Grimes
 Obstacle 1 - Interpol  
 Love Will Tear Us Apart - Joy Division  
 Combat Baby - Metric  
-*Hatebreeders - Misfits  
+\*Hatebreeders - Misfits  
 We Are 138 - Misfits  
 Dramamine - Modest Mouse  
 I will - Mitski  
@@ -80,7 +80,7 @@ Young Adult Friction - Pains of Being Pure of Heart
 Spit On A Stranger - Pavement  
 Debaser - Pixies  
 Gigantic - Pixies  
-*Kill City - Iggy Pop
+\*Kill City - Iggy Pop
 Anchorless - Propagandhi  
 Back to the Motorleague - Propagandhi  
 I Wanna Be Sedated - Ramones  
@@ -92,12 +92,12 @@ Anarchy in the UK - Sex Pistols
 At Your Funeral - Saves the Day  
 Gloria - Patti Smith  
 Believing is Art - Spoon  
-*The Way We Get By - Spoon  
+\*The Way We Get By - Spoon  
 Inside Out - Spoon  
-*Don't Let It Get You Down - Spoon  
-*All the Pretty Girls Go To The City - Spoon  
+\*Don't Let It Get You Down - Spoon  
+\*All the Pretty Girls Go To The City - Spoon  
 Jonathan Fisk - Spoon 
-*Someone Something - Spoon  
+\*Someone Something - Spoon  
 Cruel - St. Vincent  
 Chicago - Sufjan  
 I Wanna Be Your Dog - The Stooges  
@@ -106,8 +106,8 @@ Psycho Killer - Talking Heads
 Singapore - Tom Waits  
 The Rat - Walkmen  
 Fightboat - The World Is A Beautiful Place and I am Not Afraid to Die  
-*True Love - X  
+\*True Love - X  
 Autumn Sweater - Yo La Tengo   
 
 
-*unsung as of 1/22/19
+\*unsung as of 1/22/19
