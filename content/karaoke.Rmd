@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-In Fall 2018 I discovered that I enjoy [a certain kind of bar-style karaoke](http://karaokeunderground.com). Karaoke underground specializes in tracks from *relatively* obscure indie and punk artists, though there are a fair number of more popular jams. See here for the slowly growing [song list](http://karaokeunderground.com/?page_id=16). Below, I list the songs I have sung by date in chronological order.
+In Fall 2018 I discovered that I enjoy a certain kind of bar-style karaoke: [Karaoke Underground](http://karaokeunderground.com) specializes in tracks from somewhat obscure indie and punk artists, though there are a fair number of more popular jams. See here for the slowly growing [song list](http://karaokeunderground.com/?page_id=16). Below, I list the songs I have sung by date in chronological order.
 
 ## The Songs I've Sung (Last Updated 1/22/2019)
 
@@ -55,10 +55,10 @@ Head Rolls Off - Frightened Rabbit
 Seasons - Future Islands  
 Start Wearing Purple - Gogol Bordello  
 Oblivion - Grimes  
-? - Interpol  
+Obstacle 1 - Interpol  
 Love Will Tear Us Apart - Joy Division  
 Combat Baby - Metric  
-Hatebreeders - Misfits  
+*Hatebreeders - Misfits  
 We Are 138 - Misfits  
 Dramamine - Modest Mouse  
 I will - Mitski  
@@ -80,6 +80,7 @@ Young Adult Friction - Pains of Being Pure of Heart
 Spit On A Stranger - Pavement  
 Debaser - Pixies  
 Gigantic - Pixies  
+*Kill City - Iggy Pop
 Anchorless - Propagandhi  
 Back to the Motorleague - Propagandhi  
 I Wanna Be Sedated - Ramones  
@@ -91,9 +92,12 @@ Anarchy in the UK - Sex Pistols
 At Your Funeral - Saves the Day  
 Gloria - Patti Smith  
 Believing is Art - Spoon  
-The Way We Get By - Spoon  
+*The Way We Get By - Spoon  
 Inside Out - Spoon  
-? - Spoon  
+*Don't Let It Get You Down - Spoon  
+*All the Pretty Girls Go To The City - Spoon  
+Jonathan Fisk - Spoon 
+*Someone Something - Spoon  
 Cruel - St. Vincent  
 Chicago - Sufjan  
 I Wanna Be Your Dog - The Stooges  
@@ -102,6 +106,8 @@ Psycho Killer - Talking Heads
 Singapore - Tom Waits  
 The Rat - Walkmen  
 Fightboat - The World Is A Beautiful Place and I am Not Afraid to Die  
-? - X
-Autumn Sweater - Yo La Tengo  
+*True Love - X  
+Autumn Sweater - Yo La Tengo   
 
+
+*unsung as of 1/22/19
