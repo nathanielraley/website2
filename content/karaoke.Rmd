@@ -11,11 +11,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-In Fall 2018 I discovered that I enjoy [a certain kind of bar-style karaoke](www.karaokeunderground.com). Karaoke underground specializes in tracks from *relatively* obscure indie and punk artists, though there are a fair number of more popular jams. See here for the slowly growing [song list](www.karaoukeunderground.com/songlist). Below, I list the songs I have sung by date in chronological order.
+In Fall 2018 I discovered that I enjoy [a certain kind of bar-style karaoke](http://karaokeunderground.com). Karaoke underground specializes in tracks from *relatively* obscure indie and punk artists, though there are a fair number of more popular jams. See here for the slowly growing [song list](http://karaokeunderground.com/?page_id=16). Below, I list the songs I have sung by date in chronological order.
 
 ## The Songs I've Sung (Last Updated 1/22/2019)
 
-\small
+ <font size="2">
+
 
 | Count | Date      |          Song                     |     Artist           | Notes                          |
 |:-----:|-----------|:----------------------------------|:---------------------|:-------------------------------|
@@ -33,3 +34,74 @@ In Fall 2018 I discovered that I enjoy [a certain kind of bar-style karaoke](www
 |   12  | 1/19/19   |Poison                             | Waxahatchee          | Never been sung (KU debut)     |
 |   13  | 1/19/19   |Modern Man                         | Arcade Fire          | Duet: NW, LW                   |
 |   14  | 1/19/19   |True Trans Soul Rebel              | Against Me!          |                                |
+
+</font> 
+
+## To-Sing List (Also Slowly Growing)
+
+FuckMyLife666 - Against Me!
+Amoeba - Adolescents
+Archie, Marry Me - Alvvays
+Coffee - Aesop Rock
+Hate, Rain On Me - AJJ
+Laika - Arcade Fire
+Carry the Zero - Built to Spill
+TV Set - The Cramps
+I Fought the Law - Dead Kennedys
+The Very Modern Dance - Destroyer
+Time Bomb - Dismemberment Plan
+San Francisco - Foxygen
+Head Rolls Off - Frightened Rabbit
+Seasons - Future Islands
+Start Wearing Purple - Gogol Bordello
+Oblivion - Grimes
+Interpol
+Love Will Tear Us Apart - Joy Division
+Combat Baby - Metric
+Hatebreeders - Misfits
+We Are 138 - Misfits
+Dramamine - Modest Mouse
+I will - Mitski
+Dance Music - Mountain Goats
+This Year - Mountain Goats
+No Children - Mountain Goats
+See America Right - Mountain Goats
+Communit Daugher - Neutral Milk Hotel
+Ghost - Neutral Milk Hotel
+In the Aeroplane Over the Sea - Neutral Milk Hotel
+Bizarre Love Triange - New Order
+Brill Bruisers - New Pornographers
+Challengers - New Pornographers
+Letter From An Occupant - New Pornographers
+These Are The Fables - New Pornographers
+Lost Coastlines - Okkervil River
+Old 97s - Timebomb
+Young Adult Friction - Pains of Being Pure of Heart
+Spit On A Stranger - Pavement
+Debaser - Pixies
+Gigantic - Pixies
+Anchorless - Propagandhi
+Back to the Motorleague - Propagandhi
+I Wanna Be Sedated - Ramones
+Bastards of Young - Repalcements
+Can't Hardly Wait - Replacements
+For Want of - Rites of Spring
+Virginia Plain - Roxy Music
+Anarchy in the UK - Sex Pistols
+At Your Funeral - Saves the Day
+Gloria - Patti Smith
+Believing is Art - Spoon
+The Way We Get By - Spoon
+Inside Out - Spoon
+... - Spoon
+Cruel - St. Vincent
+Chicago - Sufjan
+I Wanna Be Your Dog - The Stooges
+Psycho Killer - Talking Heads
+Velvet Underground?
+16 Shells... - Tom Waits
+Singapore - Tom Waits
+The Rat - Walkmen
+Fightboat - The World Is A Beautiful Place and I am Not Afraid to Die
+Autumn Sweater - Yo La Tengo
+...
