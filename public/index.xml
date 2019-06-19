@@ -6,10 +6,19 @@
     <description>Recent content in Home on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 11 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Worlds Greatest Monty Hall Simulation App</title>
+      <link>/2019/06/19/worlds-greatest-monty-hall-simulation-app/</link>
+      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/06/19/worlds-greatest-monty-hall-simulation-app/</guid>
+      <description>A couple months ago a colleague and I volunteered for some outreach at a local science museum. It was for an 21+ night (i.e., lots of nerdy adults drinking beers together) and the theme was “Get Your Game On”. As we are both faculty in the Department of Statistics and Data Sciences, we were spoiled for choice, but finally decided to set up a Monty Hall station where people would come by and play a version of the notoriously confusing Let’s Make a Deal game (the original car/goat scenario).</description>
+    </item>
     
     <item>
       <title>Sample Means and Shrinkage Estimators</title>
