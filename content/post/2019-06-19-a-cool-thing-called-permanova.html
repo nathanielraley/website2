@@ -38,9 +38,10 @@ tags: []
 <p>If you understand the logic of ANOVA (i.e., partitioning the total variation into a component attributable to differences <em>between groups</em> and an error component attributable to differences <em>within groups</em>), the MANOVA shouldn’t be too big of a leap: we just have to add dimension(s) for the additional response variables.</p>
 <p>With an ANOVA, we calculate the total sum of squares (SST) by taking the distance of each subject’s response value from the mean response value, square these distances, and add them up.</p>
 <p>With a MANOVA, we do something similar, but in two-dimensions: we calculate how far each subjects’ <code>response vector</code> is from the <code>mean vector</code>. Just imagine plotting both response variables against eachother in a coordinate plane, and then plotting the point that corresponds to the average value of each (large gray dot), like so</p>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
-<pre class="r"><code>ggplot(mtcars,aes(hp,mpg))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col=&#39;gray50&#39;,size=3)</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
+
+ggplot(mtcars,aes(hp,mpg))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col=&#39;gray50&#39;,size=3)</code></pre>
 <p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div id="total-sum-of-squares" class="section level3">
 <h3>Total Sum of Squares</h3>
@@ -73,25 +74,9 @@ sum(dists)/32</code></pre>
 <h2>Between-Group Sum of Squares</h2>
 <p>But what about the between-groups sum of squares (SSB)? Same idea! You just calculate how far the centroid for each group is from the grand centroid, square those distances, multiply each distance by the number of subjects in that group, and then add those numbers together</p>
 <pre class="r"><code>mtcars$am&lt;-as.factor(mtcars$am)
-ggplot(mtcars,aes(hp,mpg,group=am,color=am))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col=&#39;gray50&#39;,size=3)+
-  geom_point(aes(x=mean(hp[am==&quot;1&quot;]),y=mean(mpg[am==&quot;1&quot;])),color=&#39;skyblue&#39;, size=3)+
-  geom_point(aes(x=mean(hp[am==&quot;0&quot;]),y=mean(mpg[am==&quot;0&quot;])),color=&#39;tomato1&#39;,size=3)+
-  geom_segment(aes(x=mean(hp),y=mean(mpg), xend=mean(hp[am==&quot;1&quot;]),yend=mean(mpg[am==&quot;1&quot;])),color=&#39;black&#39;)+
-  geom_segment(aes(x=mean(hp),y=mean(mpg), xend=mean(hp[am==&quot;0&quot;]),yend=mean(mpg[am==&quot;0&quot;])),color=&#39;black&#39;)</code></pre>
-<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<pre class="r"><code>#00BFC4
-#F8766D1
 
-library(dplyr)</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
+mtcars%&gt;%group_by(am)%&gt;%mutate(meanhp=mean(hp),meanmpg=mean(mpg))%&gt;%ggplot(aes(hp,mpg,color=am))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col=&#39;gray50&#39;,size=4)+geom_point(aes(meanhp,meanmpg),size=4)+geom_segment(aes(x=mean(hp),y=mean(mpg), xend=meanhp,yend=meanmpg),color=&#39;black&#39;)</code></pre>
+<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>grandmean&lt;-mtcars%&gt;%summarize(meanhp=mean(hp),meanmpg=mean(mpg))
 groupmeans&lt;-mtcars%&gt;%group_by(am)%&gt;%summarize(n=n(),meanhp=mean(hp),meanmpg=mean(mpg))
 SSB&lt;-sum((cbind(groupmeans$n,groupmeans$n)*(rbind(grandmean,grandmean)-groupmeans[,-c(1,2)])^2))
@@ -104,41 +89,46 @@ SSB</code></pre>
 <p>You can also just subtract the SSB from SST to find the residual SSW</p>
 <pre class="r"><code>SST-SSB</code></pre>
 <pre><code>## [1] 137828.3</code></pre>
+<pre class="r"><code>mtcars%&gt;%group_by(am)%&gt;%mutate(meanhp=mean(hp),meanmpg=mean(mpg))%&gt;%ggplot(aes(hp,mpg,color=am))+geom_point()+
+  geom_point(aes(x=meanhp,y=meanmpg),size=4)+geom_segment(aes(x=hp,y=mpg,xend=meanhp,yend=meanmpg))</code></pre>
+<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 </div>
 <div id="matrix-formulation" class="section level2">
 <h2>Matrix Formulation</h2>
 <p>The above helps sketch the logic of MANOVA, but rather than these sum-of-squares calculations, in practice matricies are used to compute the test statistic. These matricies are known as Sum-of-Squares-and-Cross-Products (SSCP) matricies. The sum of their diagonal elements (i.e., the trace of the matrix) gives you the sum-of-squares values we just obtained.</p>
 <p>How do we calculate them? Each individual subject has a response vector containing their values for each of the response variables. You can subtract the mean of each response variable from each value. Then you take the outer product of each person’s centered response vector with itself, resulting in a <span class="math inline">\(p \times p\)</span> matrix for each person, where <span class="math inline">\(p\)</span> is the number of response variables. Just add these up across every person to get the total SSCP matrix. Recall that the outer product of a vector with itself is symmetric and calculated, for some matrix <span class="math inline">\(Z\)</span>, as follows:</p>
-$$ =
-<span class="math display">\[\begin{pmatrix}
+<p><span class="math display">\[
+\mathbf{ZZ&#39;}=
+\begin{pmatrix}
 z_1 \\
 z_2 \\
-\end{pmatrix}\]</span>
-<span class="math display">\[\begin{pmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 z_1 &amp;z_2
-\end{pmatrix}\]</span>
+\end{pmatrix}
 =
-<span class="math display">\[\begin{pmatrix}
+\begin{pmatrix}
 z_1z_1 &amp;z_1z_2 \\
 z_1z_2 &amp;z_2z_2
-\end{pmatrix}\]</span>
-<p>$$</p>
+\end{pmatrix}
+\]</span></p>
 <p>In this context, each person <span class="math inline">\(i\)</span> has their own outer-product matrix, and we add them up to get the total</p>
-$$ =
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+\mathbf{ZZ&#39;}=
+\begin{bmatrix}
 y_{1ij}-\bar y_{1\cdot \cdot} \\
 y_{2ij}-\bar y_{2\cdot \cdot} \\ 
-\end{bmatrix}\]</span>
-<span class="math display">\[\begin{bmatrix}
+\end{bmatrix}
+\begin{bmatrix}
 y_{1ij}-\bar y_{1\cdot \cdot} &amp;y_{2ij}-\bar y_{2\cdot \cdot}
-\end{bmatrix}\]</span>
+\end{bmatrix}
 =
-<span class="math display">\[\begin{bmatrix}
+\begin{bmatrix}
 (y_{1ij}-\bar y_{1\cdot \cdot})^2 &amp;(y_{1ij}-\bar y_{1\cdot \cdot})(y_{2ij}-\bar y_{2\cdot \cdot}) \\
 (y_{1ij}-\bar y_{1\cdot \cdot}) (y_{2ij}-\bar y_{2\cdot \cdot}) &amp; (y_{2ij}-\bar y_{2\cdot \cdot})^2
-\end{bmatrix}\]</span>
-<p>$$</p>
+\end{bmatrix}
+\]</span></p>
 <p>You get one of these for each person <span class="math inline">\(i\)</span>. Summing up across all people <span class="math inline">\(i\)</span> (and groups <span class="math inline">\(j\)</span>),</p>
 <p><span class="math display">\[
 \mathbf{T}=\sum_i \sum_j \begin{bmatrix}y_{1ij}-\bar y_{1\cdot \cdot}\\ y_{2ij}-\bar y_{2\cdot \cdot} \end{bmatrix}\begin{bmatrix}y_{1ij}-\bar y_{1\cdot \cdot}\\ y_{2ij}-\bar y_{2\cdot \cdot}\end{bmatrix}&#39;
@@ -153,12 +143,8 @@ head(Y)</code></pre>
 ## [4,]  110 21.4
 ## [5,]  175 18.7
 ## [6,]  105 18.1</code></pre>
-<pre class="r"><code>Ycent&lt;-cbind(Y[,1]-as.matrix(grandmean[1]),Y[,2]-as.matrix(grandmean[2]))</code></pre>
-<pre><code>## Warning in Y[, 1] - as.matrix(grandmean[1]): Recycling array of length 1 in vector-array arithmetic is deprecated.
-##   Use c() or as.vector() instead.</code></pre>
-<pre><code>## Warning in Y[, 2] - as.matrix(grandmean[2]): Recycling array of length 1 in vector-array arithmetic is deprecated.
-##   Use c() or as.vector() instead.</code></pre>
-<pre class="r"><code>head(Ycent)</code></pre>
+<pre class="r"><code>Ycent&lt;-cbind(Y[,1]-as.matrix(grandmean[1]),Y[,2]-as.matrix(grandmean[2]))
+head(Ycent)</code></pre>
 <pre><code>##          [,1]      [,2]
 ## [1,] -36.6875  0.909375
 ## [2,] -36.6875  0.909375
@@ -184,7 +170,7 @@ Tmat</code></pre>
 <pre><code>## [1] 146852.9</code></pre>
 <p>Notice that the diagonal elements of <code>Tmat</code> sum to SST. Furthermore, just like SST, this matrix can be partitioned into a part due to differences between groups and a part due to error. Traditionally, the part due to differences between groups (analogous to the SSB) is called the hypothesis matrix H, while the part due to error (analogous to the SSW) is called the error matrix E.</p>
 <p>We can calculate them using a procedure similar to the one used above. For the SSE, we do the exact same thing except we center each person’s response vector using the <em>group</em> mean (<span class="math inline">\(\bar y_{1\cdot j}\)</span>) rather than the grand mean (<span class="math inline">\(\bar y_{1\cdot \cdot}\)</span>)</p>
-<p><span class="math inline">\(\mathbf{E}=\sum_i \sum_j \begin{bmatrix}y_{1ij}-\bar y_{1\cdot j}\\ y_{2ij}-\bar y_{2\cdot j} \end{bmatrix}\begin{bmatrix}y_{1ij}-\bar y_{1\cdot j}\\ y_{2ij}-\bar y_{2\cdot j}\end{bmatrix}&#39;\)</span></p>
+<p><span class="math display">\[\mathbf{E}=\sum_i \sum_j \begin{bmatrix}y_{1ij}-\bar y_{1\cdot j}\\ y_{2ij}-\bar y_{2\cdot j} \end{bmatrix}\begin{bmatrix}y_{1ij}-\bar y_{1\cdot j}\\ y_{2ij}-\bar y_{2\cdot j}\end{bmatrix}&#39;\]</span></p>
 <pre class="r"><code>groupmeans&lt;-mtcars%&gt;%group_by(am)%&gt;%mutate(meanhp=mean(hp), meanmpg=mean(mpg))%&gt;%ungroup()%&gt;%select(meanhp,meanmpg)
 
 Ycent&lt;-cbind(Y[,1]-as.matrix(groupmeans[,1]),Y[,2]-as.matrix(groupmeans[,2]))
@@ -365,13 +351,8 @@ mean(perm.sampdist&gt;Fstat)</code></pre>
 <p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Thus, 16.88% of the simulated sampling distribution is greater than our observed F-stat. Since this distribution was created under the null hypothesis of no difference between groups, we have a nearly 17% chance of seeing an F-stat this large under the null, so we cannot reject this hypothesis as inconsistent with our data.</p>
 <p>In the R package <code>vegan</code>, there is a built-in function which conducts a permanova on a distance matrix (doesn’t need to be euclidean either)!</p>
-<pre class="r"><code>library(vegan)</code></pre>
-<pre><code>## Warning: package &#39;vegan&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Loading required package: permute</code></pre>
-<pre><code>## Warning: package &#39;permute&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## This is vegan 2.5-5</code></pre>
-<pre class="r"><code>adonis(euc_dist~am,data=mtcars)</code></pre>
+<pre class="r"><code>library(vegan)
+adonis(euc_dist~am,data=mtcars)</code></pre>
 <pre><code>## 
 ## Call:
 ## adonis(formula = euc_dist ~ am, data = mtcars) 
@@ -434,11 +415,7 @@ mean(perm.sampdist&gt;Fstat)</code></pre>
 <h3>A Better Example</h3>
 <p>Now let’s do a real, more complicated example. Say we are interested in whether the presence of trees in the legume family affect the abundance of bird species. (See the following post for lots of cool additional information about this example: <a href="https://rpubs.com/collnell/manova" class="uri">https://rpubs.com/collnell/manova</a>).</p>
 <p>The data we will use has 7 different bird species groups (columns): for each, abundance data was recorded for 32 different plots (thus, we have a 7-dimensional response variable). Also, for each of these plots, it was noted whether the trees were all part of the same species (DIVERSITY==M, for monoculture), or whether different species of trees were present (DIVERSITY==P, for polyculture). We will do a two-way PERMANOVA on this abundance data, testing whether tree diversity is associated with bird species abundance across these plots.</p>
-<pre class="r"><code>library(vegan)
-library(dplyr)
-library(ggplot2)
-
-birds&lt;-read.csv(&#39;https://raw.githubusercontent.com/collnell/lab-demo/master/bird_by_fg.csv&#39;)
+<pre class="r"><code>birds&lt;-read.csv(&#39;https://raw.githubusercontent.com/collnell/lab-demo/master/bird_by_fg.csv&#39;)
 head(birds)</code></pre>
 <pre><code>##   DIVERSITY PLOT CA FR GR HE IN NE OM
 ## 1         M    3  0  0  0  0  2  0  0
@@ -448,9 +425,9 @@ head(birds)</code></pre>
 ## 5         M   20  0  0  0  0  1  0  4
 ## 6         M   21  0  0  3  0 14  0  7</code></pre>
 <p>For example, we can visualize two species at a time in two dimensions. The average abundances for both of these two species appear higher in polyclonal plots (blue dots) than in monoclonal plots (red dots):</p>
-<pre class="r"><code>birds1&lt;-birds%&gt;%group_by(DIVERSITY)%&gt;%select(IN,OM)%&gt;%mutate(meanIN=mean(IN),meanOM=mean(OM))%&gt;%ungroup()%&gt;%mutate(GmeanIN=mean(IN),GmeanOM=mean(OM))</code></pre>
-<pre><code>## Adding missing grouping variables: `DIVERSITY`</code></pre>
-<pre class="r"><code>ggplot(birds1,aes(IN,OM,color=DIVERSITY))+geom_point(aes(x=GmeanIN,y=GmeanOM),size=4,color=&quot;gray50&quot;)+geom_segment(aes(x=GmeanIN, y=GmeanOM, xend=IN, yend=OM),color=&quot;gray50&quot;,lty=2)+geom_point()+geom_point(aes(x=meanIN,y=meanOM),size=4)+geom_segment(aes(x=meanIN, y=meanOM, xend=IN, yend=OM))</code></pre>
+<pre class="r"><code>birds1&lt;-birds%&gt;%group_by(DIVERSITY)%&gt;%select(IN,OM)%&gt;%mutate(meanIN=mean(IN),meanOM=mean(OM))%&gt;%ungroup()%&gt;%mutate(GmeanIN=mean(IN),GmeanOM=mean(OM))
+
+ggplot(birds1,aes(IN,OM,color=DIVERSITY))+geom_point(aes(x=GmeanIN,y=GmeanOM),size=4,color=&quot;gray50&quot;)+geom_segment(aes(x=GmeanIN, y=GmeanOM, xend=IN, yend=OM),color=&quot;gray50&quot;,lty=2)+geom_point()+geom_point(aes(x=meanIN,y=meanOM),size=4)+geom_segment(aes(x=meanIN, y=meanOM, xend=IN, yend=OM))</code></pre>
 <p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>But let’s test to see if this is true: are there any differences across all 7 species? We could use euclidean distances, but it is more appropriate to use an abundance-weighted distance/dissimilarity measure like Bray-Curtis. It is a good idea to take the square (or even fourth) root of the abundance counts to minimize influential observations.</p>
 <pre class="r"><code>## WORKING

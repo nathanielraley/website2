@@ -7,6 +7,10 @@ categories: []
 tags: []
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
+```
+
 ##MANOVA
 
 MANOVA stands for Multivariate (or Multiple) Analysis of Variance, and it's just what it sounds like. You have multiple *response* variables, and you want to test whether any of them differ across levels of your explanatory variable(s) (i.e., your groups). The null hypothesis here is that the means of each response variable are equal at every level of the explanatory variable(s); the alternative is that at least one response variable differs.
@@ -40,6 +44,7 @@ With a MANOVA, we do something similar, but in two-dimensions: we calculate how 
 
 ```{R, echo=T}
 library(ggplot2)
+library(dplyr)
 
 ggplot(mtcars,aes(hp,mpg))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col='gray50',size=3)
 
@@ -88,16 +93,10 @@ But what about the between-groups sum of squares (SSB)? Same idea! You just calc
 
 ```{R, echo=T}
 mtcars$am<-as.factor(mtcars$am)
-ggplot(mtcars,aes(hp,mpg,group=am,color=am))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col='gray50',size=3)+
-  geom_point(aes(x=mean(hp[am=="1"]),y=mean(mpg[am=="1"])),color='skyblue', size=3)+
-  geom_point(aes(x=mean(hp[am=="0"]),y=mean(mpg[am=="0"])),color='tomato1',size=3)+
-  geom_segment(aes(x=mean(hp),y=mean(mpg), xend=mean(hp[am=="1"]),yend=mean(mpg[am=="1"])),color='black')+
-  geom_segment(aes(x=mean(hp),y=mean(mpg), xend=mean(hp[am=="0"]),yend=mean(mpg[am=="0"])),color='black')
 
-#00BFC4
-#F8766D1
+mtcars%>%group_by(am)%>%mutate(meanhp=mean(hp),meanmpg=mean(mpg))%>%ggplot(aes(hp,mpg,color=am))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col='gray50',size=4)+geom_point(aes(meanhp,meanmpg),size=4)+geom_segment(aes(x=mean(hp),y=mean(mpg), xend=meanhp,yend=meanmpg),color='black')
 
-library(dplyr)
+
 grandmean<-mtcars%>%summarize(meanhp=mean(hp),meanmpg=mean(mpg))
 groupmeans<-mtcars%>%group_by(am)%>%summarize(n=n(),meanhp=mean(hp),meanmpg=mean(mpg))
 SSB<-sum((cbind(groupmeans$n,groupmeans$n)*(rbind(grandmean,grandmean)-groupmeans[,-c(1,2)])^2))
@@ -116,6 +115,9 @@ You can also just subtract the SSB from SST to find the residual SSW
 
 ```{R}
 SST-SSB
+
+mtcars%>%group_by(am)%>%mutate(meanhp=mean(hp),meanmpg=mean(mpg))%>%ggplot(aes(hp,mpg,color=am))+geom_point()+
+  geom_point(aes(x=meanhp,y=meanmpg),size=4)+geom_segment(aes(x=hp,y=mpg,xend=meanhp,yend=meanmpg))
 ```
 
 ## Matrix Formulation
@@ -130,7 +132,6 @@ $$
 z_1 \\
 z_2 \\
 \end{pmatrix}
-
 \begin{pmatrix}
 z_1 &z_2
 \end{pmatrix}
@@ -149,7 +150,6 @@ $$
 y_{1ij}-\bar y_{1\cdot \cdot} \\
 y_{2ij}-\bar y_{2\cdot \cdot} \\ 
 \end{bmatrix}
-
 \begin{bmatrix}
 y_{1ij}-\bar y_{1\cdot \cdot} &y_{2ij}-\bar y_{2\cdot \cdot}
 \end{bmatrix}
@@ -193,7 +193,7 @@ Notice that the diagonal elements of `Tmat` sum to SST. Furthermore, just like S
 
 We can calculate them using a procedure similar to the one used above. For the SSE, we do the exact same thing except we center each person's response vector using the *group* mean ($\bar y_{1\cdot j}$) rather than the grand mean ($\bar y_{1\cdot \cdot}$)
 
-$\mathbf{E}=\sum_i \sum_j \begin{bmatrix}y_{1ij}-\bar y_{1\cdot j}\\ y_{2ij}-\bar y_{2\cdot j} \end{bmatrix}\begin{bmatrix}y_{1ij}-\bar y_{1\cdot j}\\ y_{2ij}-\bar y_{2\cdot j}\end{bmatrix}'$
+$$\mathbf{E}=\sum_i \sum_j \begin{bmatrix}y_{1ij}-\bar y_{1\cdot j}\\ y_{2ij}-\bar y_{2\cdot j} \end{bmatrix}\begin{bmatrix}y_{1ij}-\bar y_{1\cdot j}\\ y_{2ij}-\bar y_{2\cdot j}\end{bmatrix}'$$
 
 ```{R}
 groupmeans<-mtcars%>%group_by(am)%>%mutate(meanhp=mean(hp), meanmpg=mean(mpg))%>%ungroup()%>%select(meanhp,meanmpg)
@@ -426,10 +426,6 @@ The data we will use has 7 different bird species groups (columns): for each, ab
 
 
 ```{R}
-library(vegan)
-library(dplyr)
-library(ggplot2)
-
 birds<-read.csv('https://raw.githubusercontent.com/collnell/lab-demo/master/bird_by_fg.csv')
 head(birds)
 ```
