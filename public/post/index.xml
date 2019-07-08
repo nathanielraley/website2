@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>A cool thing called PERMANOVA</title>
+      <title>MANOVA and A Cool Thing Called PERMANOVA</title>
       <link>/2019/06/19/a-cool-thing-called-permanova/</link>
       <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>/2019/06/19/a-cool-thing-called-permanova/</guid>
-      <description></description>
+      <description>MANOVA MANOVA stands for Multivariate (or Multiple) Analysis of Variance, and it’s just what it sounds like. You have multiple response variables, and you want to test whether any of them differ across levels of your explanatory variable(s) (i.e., your groups). The null hypothesis here is that the means of each response variable are equal at every level of the explanatory variable(s); the alternative is that at least one response variable differs.</description>
     </item>
     
     <item>
