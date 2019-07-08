@@ -125,8 +125,8 @@ plot(samp.sds,type='l',ylab="SD of sample mean", xlab="sample size",ylim=c(0,4))
 
 As we suspected, the standard deviation of the sample mean approaches 0 as the sample size increases. Let's look at these sampling distributions of the mean using the new package ggjoy:
 ```{R echo=FALSE}
-library(reshape2,ggplot2)
-library("ggjoy", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library(ggplot2); library(reshape2)
+library(ggjoy)
 ```
 ```{R}
 samps.big<-as.data.frame(cbind(seq(1,1000,1),t(samps.big)))

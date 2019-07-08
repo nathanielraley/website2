@@ -178,7 +178,17 @@ samp.sds&lt;-apply(samps.big,1,sd)
 plot(samp.sds,type=&#39;l&#39;,ylab=&quot;SD of sample mean&quot;, xlab=&quot;sample size&quot;,ylim=c(0,4))</code></pre>
 <p><img src="../../../../post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>As we suspected, the standard deviation of the sample mean approaches 0 as the sample size increases. Let’s look at these sampling distributions of the mean using the new package ggjoy:</p>
-<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Loading required package: ggridges</code></pre>
+<pre><code>## 
+## Attaching package: &#39;ggridges&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     scale_discrete_manual</code></pre>
+<pre><code>## The ggjoy package has been deprecated. Please switch over to the
+## ggridges package, which provides the same functionality. Porting
+## guidelines can be found here:
+## https://github.com/clauswilke/ggjoy/blob/master/README.md</code></pre>
 <pre class="r"><code>samps.big&lt;-as.data.frame(cbind(seq(1,1000,1),t(samps.big)))
 names(samps.big)&lt;-c(&quot;V1&quot;,seq(1,500,1))
 samps.thin&lt;-samps.big[,c(1,2,3,6,11,51,101,251,501)]
