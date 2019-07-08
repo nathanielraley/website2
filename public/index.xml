@@ -12,15 +12,6 @@
     
     
     <item>
-      <title>MANOVA and A Cool Thing Called PERMANOVA</title>
-      <link>/2019/06/19/a-cool-thing-called-permanova/</link>
-      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/2019/06/19/a-cool-thing-called-permanova/</guid>
-      <description>MANOVA MANOVA stands for Multivariate (or Multiple) Analysis of Variance, and it’s just what it sounds like. You have multiple response variables, and you want to test whether any of them differ across levels of your explanatory variable(s) (i.e., your groups). The null hypothesis here is that the means of each response variable are equal at every level of the explanatory variable(s); the alternative is that at least one response variable differs.</description>
-    </item>
-    
-    <item>
       <title>Worlds Greatest Monty Hall Simulation App</title>
       <link>/2019/06/19/worlds-greatest-monty-hall-simulation-app/</link>
       <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
@@ -468,6 +459,15 @@ https://goo.gl/forms/GwQGneCLc48O5bsj2</description>
       
       <guid>/karaoke/</guid>
       <description>The Songs I’ve Sung (Last Updated 1/22/2019) To-Sing List (Also Slowly Growing)   In Fall 2018 I discovered that I enjoy a certain kind of bar-style karaoke: Karaoke Underground specializes in tracks from somewhat obscure indie and punk artists, though there are a fair number of more popular jams. See here for the slowly growing song list. Below, I list the songs I have sung by date in chronological order.</description>
+    </item>
+    
+    <item>
+      <title>MANOVA and A Cool Thing Called PERMANOVA</title>
+      <link>/1/01/01/a-cool-thing-called-permanova/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/01/01/a-cool-thing-called-permanova/</guid>
+      <description>MANOVA MANOVA stands for Multivariate (or Multiple) Analysis of Variance, and it’s just what it sounds like. You have multiple response variables, and you want to test whether any of them differ across levels of your explanatory variable(s) (i.e., your groups). The null hypothesis here is that the means of each response variable are equal at every level of the explanatory variable(s); the alternative is that at least one response variable differs.</description>
     </item>
     
     <item>

@@ -1,7 +1,7 @@
 ---
 title: MANOVA and A Cool Thing Called PERMANOVA
 author: Nathaniel
-date: '2019-06-19'
+date: '2019-07-1'
 slug: a-cool-thing-called-permanova
 categories: []
 tags: []

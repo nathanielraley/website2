@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/2019/06/19/a-cool-thing-called-permanova/</loc>
-    <lastmod>2019-06-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/2019/06/19/worlds-greatest-monty-hall-simulation-app/</loc>
     <lastmod>2019-06-19T00:00:00+00:00</lastmod>
   </url>
@@ -270,6 +265,10 @@
     <loc>/categories/links/</loc>
     <lastmod>2013-12-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/1/01/01/a-cool-thing-called-permanova/</loc>
   </url>
   
   <url>
