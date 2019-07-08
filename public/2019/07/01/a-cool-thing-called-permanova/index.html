@@ -1,12 +1,96 @@
----
-title: MANOVA and A Cool Thing Called PERMANOVA
-author: Nathaniel
-date: '2019-07-01'
-slug: a-cool-thing-called-permanova
-categories: []
-tags: []
----
+<!DOCTYPE html>
+<html lang="en-us">
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../js/bigfoot.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../css/bigfoot.css">
+<script type="text/javascript">
+  $.bigfoot(
+        {
+            numberResetSelector: "article",
+           
+           
+            hoverDelay: 250
+        }
+    );
+</script>
+ 
+<link rel="stylesheet" href="css/font-awesome.min.css">
+ 
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.53" />
 
+
+<title>MANOVA and A Cool Thing Called PERMANOVA - Nathaniel Raley Woodward</title>
+<meta property="og:title" content="MANOVA and A Cool Thing Called PERMANOVA - Nathaniel Raley Woodward">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="100"
+         height="100"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="../../../../post/">Blog</a></li>
+    
+    <li><a href="../../../../teaching/">Teaching</a></li>
+    
+    <li><a href="../../../../cv.pdf">CV</a></li>
+    
+    <li><a href=""></a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">17 min read</span>
+    
+
+    <h1 class="article-title">MANOVA and A Cool Thing Called PERMANOVA</h1>
+
+    
+    <span class="article-date">2019/07/01</span>
+    
+
+    <div class="article-content">
+      
 
 
 <div id="manova" class="section level2">
@@ -41,13 +125,13 @@ tags: []
 <pre class="r"><code>library(ggplot2)</code></pre>
 <pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
 <pre class="r"><code>ggplot(mtcars,aes(hp,mpg))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col=&#39;gray50&#39;,size=3)</code></pre>
-<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="../../../../post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div id="total-sum-of-squares" class="section level3">
 <h3>Total Sum of Squares</h3>
 <p>The total sum of squares (SST) corresponds to the sum of the squared (euclidean) distances from each point to the mean point (called the <em>centroid</em>). A euclidean distance is just the distance formula you learned in school: <span class="math inline">\(d=\sqrt{(y_1-y_2)^2+(x_1-x_2)^2}\)</span> (just the hypotenuse of a triangle created by the points, from the pythagorean theorem).</p>
 <pre class="r"><code>ggplot(mtcars,aes(hp,mpg))+geom_point()+geom_segment(aes(x=mean(hp),y=mean(mpg), xend=hp,yend=mpg))+
   geom_point(aes(x=mean(hp),y=mean(mpg)),col=&#39;gray50&#39;,size=3)</code></pre>
-<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="../../../../post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Square those distances, add them up, and you’ve got your SST!</p>
 <pre class="r"><code>SST&lt;-with(mtcars, sum((hp-mean(hp))^2+(mpg-mean(mpg))^2))
 SST</code></pre>
@@ -78,7 +162,7 @@ ggplot(mtcars,aes(hp,mpg,group=am,color=am))+geom_point()+geom_point(aes(x=mean(
   geom_point(aes(x=mean(hp[am==&quot;0&quot;]),y=mean(mpg[am==&quot;0&quot;])),color=&#39;tomato1&#39;,size=3)+
   geom_segment(aes(x=mean(hp),y=mean(mpg), xend=mean(hp[am==&quot;1&quot;]),yend=mean(mpg[am==&quot;1&quot;])),color=&#39;black&#39;)+
   geom_segment(aes(x=mean(hp),y=mean(mpg), xend=mean(hp[am==&quot;0&quot;]),yend=mean(mpg[am==&quot;0&quot;])),color=&#39;black&#39;)</code></pre>
-<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="../../../../post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>#00BFC4
 #F8766D1
 
@@ -362,7 +446,7 @@ SST&lt;-sum(euc_dist^2)/32
 mean(perm.sampdist&gt;Fstat)</code></pre>
 <pre><code>## [1] 0.1744</code></pre>
 <pre class="r"><code>hist(perm.sampdist,breaks=20); abline(v = Fstat,col=&#39;red&#39;)</code></pre>
-<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="../../../../post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Thus, 16.88% of the simulated sampling distribution is greater than our observed F-stat. Since this distribution was created under the null hypothesis of no difference between groups, we have a nearly 17% chance of seeing an F-stat this large under the null, so we cannot reject this hypothesis as inconsistent with our data.</p>
 <p>In the R package <code>vegan</code>, there is a built-in function which conducts a permanova on a distance matrix (doesn’t need to be euclidean either)!</p>
 <pre class="r"><code>library(vegan)</code></pre>
@@ -429,7 +513,7 @@ SST&lt;-sum(euc_dist^2)/32
 mean(perm.sampdist&gt;Fstat)</code></pre>
 <pre><code>## [1] 0.1738</code></pre>
 <pre class="r"><code>hist(perm.sampdist,breaks=20); abline(v = Fstat,col=&#39;red&#39;)</code></pre>
-<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="../../../../post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <div id="a-better-example" class="section level3">
 <h3>A Better Example</h3>
 <p>Now let’s do a real, more complicated example. Say we are interested in whether the presence of trees in the legume family affect the abundance of bird species. (See the following post for lots of cool additional information about this example: <a href="https://rpubs.com/collnell/manova" class="uri">https://rpubs.com/collnell/manova</a>).</p>
@@ -451,7 +535,7 @@ head(birds)</code></pre>
 <pre class="r"><code>birds1&lt;-birds%&gt;%group_by(DIVERSITY)%&gt;%select(IN,OM)%&gt;%mutate(meanIN=mean(IN),meanOM=mean(OM))%&gt;%ungroup()%&gt;%mutate(GmeanIN=mean(IN),GmeanOM=mean(OM))</code></pre>
 <pre><code>## Adding missing grouping variables: `DIVERSITY`</code></pre>
 <pre class="r"><code>ggplot(birds1,aes(IN,OM,color=DIVERSITY))+geom_point(aes(x=GmeanIN,y=GmeanOM),size=4,color=&quot;gray50&quot;)+geom_segment(aes(x=GmeanIN, y=GmeanOM, xend=IN, yend=OM),color=&quot;gray50&quot;,lty=2)+geom_point()+geom_point(aes(x=meanIN,y=meanOM),size=4)+geom_segment(aes(x=meanIN, y=meanOM, xend=IN, yend=OM))</code></pre>
-<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="../../../../post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>But let’s test to see if this is true: are there any differences across all 7 species? We could use euclidean distances, but it is more appropriate to use an abundance-weighted distance/dissimilarity measure like Bray-Curtis. It is a good idea to take the square (or even fourth) root of the abundance counts to minimize influential observations.</p>
 <pre class="r"><code>## WORKING
 euc_dist&lt;-vegdist(sqrt(birds[,-c(1:2)]),method=&quot;bray&quot;)
@@ -502,3 +586,58 @@ mean(perm.sampdist&gt;Fstat)</code></pre>
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 </div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+       <img src="images/912.gif" width="200" style="padding:5px;"><br>
+       <p>&copy; Nathaniel Raley Woodward 2017</p>
+        <ul class="footer-links">
+           <li>
+           <a href="http://www.facebook.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-facebook"></i></a>
+          </li>
+          <li>
+           <a href="http://www.twitter.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li>
+           <a href="http://www.github.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-github"> </i></a>
+          </li>
+          <li>
+             <a href="http://www.linkedin.com/nathanielraley" class="footer-links-kudos"><i class="fa fa-linkedin-square"></i></a>
+          </li>
+           <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss"></i></a>
+            </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

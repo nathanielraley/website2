@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MANOVA and A Cool Thing Called PERMANOVA</title>
+      <link>/2019/07/01/a-cool-thing-called-permanova/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/07/01/a-cool-thing-called-permanova/</guid>
+      <description>MANOVA MANOVA stands for Multivariate (or Multiple) Analysis of Variance, and it’s just what it sounds like. You have multiple response variables, and you want to test whether any of them differ across levels of your explanatory variable(s) (i.e., your groups). The null hypothesis here is that the means of each response variable are equal at every level of the explanatory variable(s); the alternative is that at least one response variable differs.</description>
+    </item>
     
     <item>
       <title>Worlds Greatest Monty Hall Simulation App</title>
@@ -413,15 +422,6 @@ I enjoy riding buses and trains; I like their consistency&amp;mdash;the same tim
       <description>&amp;ldquo;O Muses, O high genius, aid me now!&amp;rdquo; -Inferno, Canto II
  While I&amp;rsquo;ve nothing interesting to say right now, I do have a few things to show you: a few tools I&amp;rsquo;ve found.
 If you use the &amp;ldquo;highlighter&amp;rdquo; function in a .pdf reader, you might find this service helpful (sumnotes.net); with a click, it copies all of the text you&amp;rsquo;ve highlighted and combines it into a single file. This is certainly nontrivial, and it took me a good half-an-hour to find.</description>
-    </item>
-    
-    <item>
-      <title>MANOVA and A Cool Thing Called PERMANOVA</title>
-      <link>/1/01/01/a-cool-thing-called-permanova/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/1/01/01/a-cool-thing-called-permanova/</guid>
-      <description>MANOVA MANOVA stands for Multivariate (or Multiple) Analysis of Variance, and it’s just what it sounds like. You have multiple response variables, and you want to test whether any of them differ across levels of your explanatory variable(s) (i.e., your groups). The null hypothesis here is that the means of each response variable are equal at every level of the explanatory variable(s); the alternative is that at least one response variable differs.</description>
     </item>
     
   </channel>
