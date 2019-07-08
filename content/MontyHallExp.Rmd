@@ -1,7 +1,7 @@
 ---
-title: "Explanation"
-author: ""
-date: ""
+title: "Monty Hall Explanation"
+author: Nathaniel Raley Woodward
+date: '2019-03-01'
 output: html_document
 ---
 
