@@ -41,13 +41,13 @@ tags: []
 <pre class="r"><code>library(ggplot2)</code></pre>
 <pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
 <pre class="r"><code>ggplot(mtcars,aes(hp,mpg))+geom_point()+geom_point(aes(x=mean(hp),y=mean(mpg)),col=&#39;gray50&#39;,size=3)</code></pre>
-<p><img src="2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div id="total-sum-of-squares" class="section level3">
 <h3>Total Sum of Squares</h3>
 <p>The total sum of squares (SST) corresponds to the sum of the squared (euclidean) distances from each point to the mean point (called the <em>centroid</em>). A euclidean distance is just the distance formula you learned in school: <span class="math inline">\(d=\sqrt{(y_1-y_2)^2+(x_1-x_2)^2}\)</span> (just the hypotenuse of a triangle created by the points, from the pythagorean theorem).</p>
 <pre class="r"><code>ggplot(mtcars,aes(hp,mpg))+geom_point()+geom_segment(aes(x=mean(hp),y=mean(mpg), xend=hp,yend=mpg))+
   geom_point(aes(x=mean(hp),y=mean(mpg)),col=&#39;gray50&#39;,size=3)</code></pre>
-<p><img src="2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Square those distances, add them up, and you’ve got your SST!</p>
 <pre class="r"><code>SST&lt;-with(mtcars, sum((hp-mean(hp))^2+(mpg-mean(mpg))^2))
 SST</code></pre>
@@ -65,8 +65,8 @@ sum(dists^2)/32</code></pre>
 <pre><code>## [1] 146852.9</code></pre>
 <pre class="r"><code>#a shortcut using the built-in dist() function
 dists&lt;-dist(respdat,&quot;euclid&quot;)^2
-sum()/32</code></pre>
-<pre><code>## [1] 0</code></pre>
+sum(dists)/32</code></pre>
+<pre><code>## [1] 146852.9</code></pre>
 </div>
 </div>
 <div id="between-group-sum-of-squares" class="section level2">
@@ -78,7 +78,7 @@ ggplot(mtcars,aes(hp,mpg,group=am,color=am))+geom_point()+geom_point(aes(x=mean(
   geom_point(aes(x=mean(hp[am==&quot;0&quot;]),y=mean(mpg[am==&quot;0&quot;])),color=&#39;tomato1&#39;,size=3)+
   geom_segment(aes(x=mean(hp),y=mean(mpg), xend=mean(hp[am==&quot;1&quot;]),yend=mean(mpg[am==&quot;1&quot;])),color=&#39;black&#39;)+
   geom_segment(aes(x=mean(hp),y=mean(mpg), xend=mean(hp[am==&quot;0&quot;]),yend=mean(mpg[am==&quot;0&quot;])),color=&#39;black&#39;)</code></pre>
-<p><img src="2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>#00BFC4
 #F8766D1
 
@@ -362,7 +362,7 @@ SST&lt;-sum(euc_dist^2)/32
 mean(perm.sampdist&gt;Fstat)</code></pre>
 <pre><code>## [1] 0.1744</code></pre>
 <pre class="r"><code>hist(perm.sampdist,breaks=20); abline(v = Fstat,col=&#39;red&#39;)</code></pre>
-<p><img src="2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Thus, 16.88% of the simulated sampling distribution is greater than our observed F-stat. Since this distribution was created under the null hypothesis of no difference between groups, we have a nearly 17% chance of seeing an F-stat this large under the null, so we cannot reject this hypothesis as inconsistent with our data.</p>
 <p>In the R package <code>vegan</code>, there is a built-in function which conducts a permanova on a distance matrix (doesn’t need to be euclidean either)!</p>
 <pre class="r"><code>library(vegan)</code></pre>
@@ -429,7 +429,7 @@ SST&lt;-sum(euc_dist^2)/32
 mean(perm.sampdist&gt;Fstat)</code></pre>
 <pre><code>## [1] 0.1738</code></pre>
 <pre class="r"><code>hist(perm.sampdist,breaks=20); abline(v = Fstat,col=&#39;red&#39;)</code></pre>
-<p><img src="2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <div id="a-better-example" class="section level3">
 <h3>A Better Example</h3>
 <p>Now let’s do a real, more complicated example. Say we are interested in whether the presence of trees in the legume family affect the abundance of bird species. (See the following post for lots of cool additional information about this example: <a href="https://rpubs.com/collnell/manova" class="uri">https://rpubs.com/collnell/manova</a>).</p>
@@ -451,7 +451,7 @@ head(birds)</code></pre>
 <pre class="r"><code>birds1&lt;-birds%&gt;%group_by(DIVERSITY)%&gt;%select(IN,OM)%&gt;%mutate(meanIN=mean(IN),meanOM=mean(OM))%&gt;%ungroup()%&gt;%mutate(GmeanIN=mean(IN),GmeanOM=mean(OM))</code></pre>
 <pre><code>## Adding missing grouping variables: `DIVERSITY`</code></pre>
 <pre class="r"><code>ggplot(birds1,aes(IN,OM,color=DIVERSITY))+geom_point(aes(x=GmeanIN,y=GmeanOM),size=4,color=&quot;gray50&quot;)+geom_segment(aes(x=GmeanIN, y=GmeanOM, xend=IN, yend=OM),color=&quot;gray50&quot;,lty=2)+geom_point()+geom_point(aes(x=meanIN,y=meanOM),size=4)+geom_segment(aes(x=meanIN, y=meanOM, xend=IN, yend=OM))</code></pre>
-<p><img src="2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>But let’s test to see if this is true: are there any differences across all 7 species? We could use euclidean distances, but it is more appropriate to use an abundance-weighted distance/dissimilarity measure like Bray-Curtis. It is a good idea to take the square (or even fourth) root of the abundance counts to minimize influential observations.</p>
 <pre class="r"><code>## WORKING
 euc_dist&lt;-vegdist(sqrt(birds[,-c(1:2)]),method=&quot;bray&quot;)

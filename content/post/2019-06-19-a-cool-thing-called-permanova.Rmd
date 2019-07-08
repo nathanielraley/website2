@@ -78,7 +78,7 @@ sum(dists^2)/32
 
 #a shortcut using the built-in dist() function
 dists<-dist(respdat,"euclid")^2
-sum()/32
+sum(dists)/32
 ```
 
 
