@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Repeated Measures ANOVA in R</title>
+      <link>/2019/07/14/repeated-measures-anova-in-r/</link>
+      <pubDate>Sun, 14 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/07/14/repeated-measures-anova-in-r/</guid>
+      <description>Hello again! In previous posts I have talked about one-way ANOVA, two-way ANOVA, and even MANOVA (for multiple response variables). But in practice, there is yet another way of partitioning the total variance in the outcome that allows you to account for repeated measures on the same subjects. These designs are very popular, but there is surpisingly little good information out there about conducting them in R. (Cue this post!</description>
+    </item>
     
     <item>
       <title>MANOVA and A Cool Thing Called PERMANOVA</title>

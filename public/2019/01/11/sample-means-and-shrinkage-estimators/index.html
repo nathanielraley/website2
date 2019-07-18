@@ -218,17 +218,17 @@ mcmc_samples &lt;- coda.samples(model, variable.names=c(&quot;mean&quot;,&quot;d
 
 print(summary(mcmc_samples)$statistics)</code></pre>
 <pre><code>##                Mean         SD     Naive SE Time-series SE
-## dist[1] -0.59609402 0.77158110 3.149967e-03    0.003748329
-## dist[2]  0.69986686 0.77541126 3.165603e-03    0.003776990
-## dist[3] -0.10692821 0.77458220 3.162219e-03    0.003788664
-## dist[4]  0.53392282 0.77480004 3.163108e-03    0.003753233
-## mean     0.51848471 0.58390177 2.383769e-03    0.003546926
-## tau      0.09596407 0.02158724 8.812956e-05    0.000093288</code></pre>
+## dist[1] -0.59431498 0.77244027 3.153474e-03   3.789202e-03
+## dist[2]  0.70185838 0.77555702 3.166198e-03   3.776318e-03
+## dist[3] -0.11245355 0.77395416 3.159655e-03   3.812411e-03
+## dist[4]  0.53325625 0.77274921 3.154735e-03   3.878896e-03
+## mean     0.52219435 0.58435695 2.385627e-03   3.561707e-03
+## tau      0.09608765 0.02173405 8.872887e-05   9.359819e-05</code></pre>
 <pre class="r"><code>shrink_ests&lt;-summary(mcmc_samples)$statistics[,1]
 shrinkmean&lt;-shrink_ests[1:4]+shrink_ests[5]</code></pre>
 <p>The RMSE for the shrinkage estimator is</p>
 <pre class="r"><code>sqrt(mean((shrinkmean-c(0,.5,1,1.5))^2))</code></pre>
-<pre><code>## [1] 0.5168793</code></pre>
+<pre><code>## [1] 0.5185277</code></pre>
 <pre class="r"><code>ggplot(dat1,aes(y=value,x=group,color=group))+geom_point()+scale_x_discrete()+geom_hline(aes(yintercept = true,color=group),lty=2)+geom_point(aes(x=group,y=samp.mean),pch=8,size=3)+geom_point(aes(x=group,y=shrinkmean),pch=8,size=3,color=&quot;black&quot;)+geom_hline(aes(yintercept=mean(dat1$value)))</code></pre>
 <p><img src="../../../../post/2019-01-11-sample-means-and-shrinkage-estimators_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>

@@ -563,6 +563,16 @@ Also note that the Bonferonni and Bonferroni-Holm procedures and general and can
 
 I hope you have enjoyed this introduction to ANOVA! I wanted to talk about power analysis but I think I had better save this topic for the next ANOVA post, where we deal with multifactor designs like the two-way ANOVA and where we discuss interactions. Stay tuned!
 
+
+####Postscript (What to do if your ANOVA assumptions are violated)
+
+If your assumptions are violated (e.g, if your samples are too small to assess normality), you can use the non-parametric Kruskal Wallis test. It tests whether the distribution of your response variable is the same across groups: if the distributions are similar, you can interpret it as testing whether there is a difference in medians between groups.
+
+```{R}
+kruskal.test(Height~Group,data=dat.long)
+```
+
+
 [^1]: Thanks Dr. Emmer, Professor Emeritus at UT Austin, In whose last-class-ever I learned so much!
 
 

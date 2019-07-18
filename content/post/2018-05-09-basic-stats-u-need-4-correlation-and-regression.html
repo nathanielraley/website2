@@ -700,22 +700,22 @@ sum1</code></pre>
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.80260 -0.73719 -0.08072  0.94106  1.88093 
+## -2.36827 -0.77767  0.03797  0.74459  1.89301 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.90446    0.16139   5.604    1e-06 ***
-## x            1.89388    0.06051  31.297   &lt;2e-16 ***
+## (Intercept)  0.68049    0.15512   4.387 6.27e-05 ***
+## x            1.90683    0.05123  37.219  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.135 on 48 degrees of freedom
-## Multiple R-squared:  0.9533, Adjusted R-squared:  0.9523 
-## F-statistic: 979.5 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.06 on 48 degrees of freedom
+## Multiple R-squared:  0.9665, Adjusted R-squared:  0.9658 
+## F-statistic:  1385 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre class="r"><code>beta&lt;-coef(sum1)[1:2,1]
 
 qplot(x,y)+geom_abline(intercept=1,slope=2,color=&quot;white&quot;)+geom_abline(intercept=beta[1],slope=beta[2],color=&quot;gray50&quot;)</code></pre>
-<p><img src="/post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /> We generated the data to have <span class="math inline">\(\epsilon\sim N(\mu=0,\sigma^2=1)\)</span>. Notice that the coefficient estimate for <span class="math inline">\(x\)</span>, (<span class="math inline">\(\hat b_1=\)</span> 1.89) is very close to the actual value (<span class="math inline">\(b_1=2\)</span>), and the coefficient estimate for the intercept (<span class="math inline">\(\hat b_0=\)</span> 0.9) is close to it’s actual value (<span class="math inline">\(b_0=1\)</span>). Notice also that the <em>residual standard error</em> is also close to 1. This is the standard deviation of the residuals (<span class="math inline">\(\epsilon=y-\hat y\)</span>) and thus it is an estimate of <span class="math inline">\(\sigma\)</span> above.</p>
+<p><img src="/post/2018-05-09-basic-stats-u-need-4-correlation-and-regression_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /> We generated the data to have <span class="math inline">\(\epsilon\sim N(\mu=0,\sigma^2=1)\)</span>. Notice that the coefficient estimate for <span class="math inline">\(x\)</span>, (<span class="math inline">\(\hat b_1=\)</span> 1.91) is very close to the actual value (<span class="math inline">\(b_1=2\)</span>), and the coefficient estimate for the intercept (<span class="math inline">\(\hat b_0=\)</span> 0.68) is close to it’s actual value (<span class="math inline">\(b_0=1\)</span>). Notice also that the <em>residual standard error</em> is also close to 1. This is the standard deviation of the residuals (<span class="math inline">\(\epsilon=y-\hat y\)</span>) and thus it is an estimate of <span class="math inline">\(\sigma\)</span> above.</p>
 <p>If we repeat this 1000 times (i.e., based on new random samples of 50), we get 1000 different estimates of the slope <span class="math inline">\(\hat b_1\)</span></p>
 <pre class="r"><code>#betas&lt;-NULL
 #sigma2&lt;-NULL
@@ -833,7 +833,7 @@ lmtest::bptest(samp.lm)</code></pre>
 ##  studentized Breusch-Pagan test
 ## 
 ## data:  samp.lm
-## BP = 7.6181, df = 1, p-value = 0.005778</code></pre>
+## BP = 0.20732, df = 1, p-value = 0.6489</code></pre>
 <p>In the Breusch-Pagan test, the null hypothesis is that variance is constant. Thus, if <span class="math inline">\(p&lt;.05\)</span> we have reason to suspect that the heteroskedasticity assumption might be violated. Also, if our residual plot shows any thickening/widening, or really any observable pattern, this is another way of diagnosing issues with nonconstant variance.</p>
 <p>To see if our residuals are normally distributed, we can compare quantiles of their distribution to expanded quantiles under a normal distribution. If we plot them against each-other, their match would be indicated by all points falling on a straight line (with deviations from the line indicating non-normality). There are also hypothesis tests, such as the Shapiro-Wilk test, that assess the extent of deviation from normality. Here again, the null hypothesis is that the observed distribution matches a normal distribution.</p>
 <pre class="r"><code>plot(samp.lm, which=c(2))</code></pre>
@@ -843,7 +843,7 @@ lmtest::bptest(samp.lm)</code></pre>
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  dat$res
-## W = 0.9876, p-value = 0.8751</code></pre>
+## W = 0.98788, p-value = 0.8846</code></pre>
 <p>This normal-errors assumption implies that at each <span class="math inline">\(x\)</span> the scatter of <span class="math inline">\(y\)</span> around the regression line is Normal. The equal-variances assumption implies that the variance of <span class="math inline">\(y\)</span> is constant for all <span class="math inline">\(x\)</span> (i.e., “homoskedasticity”). As we can see above (comparing empirical to theoretical distributions of <span class="math inline">\(y|x\)</span>), they will never hold <em>exactly</em> for any finite sample, but we can test them.</p>
 <div id="sampling-distributions-of-coefficient-estimates" class="section level2">
 <h2>Sampling distributions of coefficient estimates</h2>
@@ -856,8 +856,8 @@ cutoff95&lt;-apply(data.frame(betas,sigma2),2,function(x)quantile(x,probs=c(.025
 colnames(cutoff95)&lt;-c(&quot;Est.Intercept&quot;,&quot;Est.Slope&quot;,&quot;Est.Var&quot;)
 cutoff95</code></pre>
 <pre><code>##       Est.Intercept Est.Slope   Est.Var
-## 2.5%      0.7702692  1.896345 0.6340749
-## 97.5%     1.3084277  2.095798 1.3722810</code></pre>
+## 2.5%      0.7260233  1.868236 0.6882741
+## 97.5%     1.2541299  2.069957 1.5624381</code></pre>
 <pre class="r"><code>betas95&lt;-data.frame(est.int=betas[!(is.na(cut(betas[,1],breaks=cutoff95[,1]))),1],est.slope=betas[!(is.na(cut(betas[,2],breaks=cutoff95[,2]))),2],est.sigma2=sigma2[!(is.na(cut(sigma2,breaks=cutoff95[,3])))])
 
 cutoff95&lt;-gather(data.frame(cutoff95))
@@ -917,7 +917,7 @@ ggplot(b1,aes(x=value))+geom_histogram(bins=30)+geom_text(aes(x=1.9, y=75),label
 <p>Notice that the estimate of the variance depends on the actual sample values. Interestingly, we get pretty close to the empirical value based on one sample of size 50:</p>
 <pre class="r"><code>x_samp=sample(x,size=50)
 sqrt(1/sum((x_samp-mean(x_samp))^2))</code></pre>
-<pre><code>## [1] 0.04829033</code></pre>
+<pre><code>## [1] 0.0491038</code></pre>
 <p>Pretend all we observe are 50 observations. We can construct normal theory confidence intervals and conduct t-tests of the null hypothesis that <span class="math inline">\(\hat b_1\)</span> is zero. First we estimate <span class="math inline">\(\hat b_1\)</span> and <span class="math inline">\(s^2/\sum(x-\bar x)^2\)</span>. This means we have to estimate <span class="math inline">\(s^2=\frac{\sum(y_i-\hat y_i)^2}{n-2}\)</span>. Finally, we will conduct a t-test (<span class="math inline">\(df=n-2\)</span>) and also construct a 95% CI for our estimate, <span class="math display">\[
 \hat b_1 \pm t^*_{(\alpha=.975,\ df=48)} \times \frac{s^2}{\sum(x-\bar x)^2}
 \]</span></p>
@@ -929,9 +929,9 @@ b1&lt;-with(samp, sum((x-mean(x))*(y-mean(y)))/sum((x-mean(x))^2))
 b0&lt;-with(samp, mean(y)-b1*mean(x))
 
 paste(&quot;b0:&quot;,round(b0,4))</code></pre>
-<pre><code>## [1] &quot;b0: 1.3802&quot;</code></pre>
+<pre><code>## [1] &quot;b0: 1.1017&quot;</code></pre>
 <pre class="r"><code>paste(&quot;b1:&quot;,round(b1,4))</code></pre>
-<pre><code>## [1] &quot;b1: 1.985&quot;</code></pre>
+<pre><code>## [1] &quot;b1: 1.9468&quot;</code></pre>
 <p>Here is our estimated variance <span class="math inline">\(s^2\)</span>:</p>
 <pre class="r"><code>#residuals
 e&lt;-samp$y-(b0+b1*samp$x)
@@ -940,29 +940,29 @@ e&lt;-samp$y-(b0+b1*samp$x)
 s2&lt;-sum(e^2)/(50-2)
 
 s2</code></pre>
-<pre><code>## [1] 0.9040296</code></pre>
+<pre><code>## [1] 0.9409408</code></pre>
 <p>Here is our standard error (standard deviation of the sampling distribution for <span class="math inline">\(\hat b_1\)</span>):</p>
 <pre class="r"><code>#standard deviation of the sampling distribution (standard error)
 se_b1&lt;-with(samp, sqrt(s2/sum((x-mean(x))^2)))
 se_b1</code></pre>
-<pre><code>## [1] 0.04590818</code></pre>
+<pre><code>## [1] 0.0462198</code></pre>
 <pre class="r"><code>#for the slope too: see below
 se_b0&lt;-with(samp,sqrt(s2*((1/50)+(mean(x)^2/sum((x-mean(x))^2)))))</code></pre>
 <p>Let’s combine these to form a 95% confidence interval. We will use a critical <span class="math inline">\(t^*_{(48)}=2.0106\)</span> value that cuts off 2.5% in either tail.</p>
 <pre class="r"><code>#95% CI:
 b1+c(qt(.025,48)*se_b1,qt(.975,48)*se_b1)</code></pre>
-<pre><code>## [1] 1.892722 2.077331</code></pre>
-<p>Thus, there’s a 95% chance that the true <span class="math inline">\(b_1\)</span> is captured by the interval [1.893, 2.077]</p>
+<pre><code>## [1] 1.853878 2.039740</code></pre>
+<p>Thus, there’s a 95% chance that the true <span class="math inline">\(b_1\)</span> is captured by the interval [1.854, 2.04]</p>
 <p>Equivalently, we could test the null hypothesis of no effect <span class="math inline">\(H_0: b_1=0\)</span> versus the alternative hypothesis <span class="math inline">\(H_A: b_1\ne 0\)</span>:</p>
 <p>First we find the test statistic and the p-value (below):</p>
 <pre class="r"><code># t test (H0: b1=0)
 t=(b1-0)/se_b1
 t</code></pre>
-<pre><code>## [1] 43.23906</code></pre>
+<pre><code>## [1] 42.12068</code></pre>
 <pre class="r"><code># pvalue
 2*(1-pt(t,df = 48))</code></pre>
 <pre><code>## [1] 0</code></pre>
-<p>So <span class="math inline">\(t=\)</span> 43.2390604, <span class="math inline">\(p=\)</span> 0. Let’s confirm with R.</p>
+<p>So <span class="math inline">\(t=\)</span> 42.120678, <span class="math inline">\(p=\)</span> 0. Let’s confirm with R.</p>
 <pre class="r"><code>#confirm with R
 samp.lm&lt;-lm(y~x, data=samp)
 summary(samp.lm)</code></pre>
@@ -972,18 +972,18 @@ summary(samp.lm)</code></pre>
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.08756 -0.57176  0.08657  0.57385  2.17896 
+## -2.56789 -0.52330 -0.00091  0.57815  2.51947 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.38016    0.13446   10.26 1.07e-13 ***
-## x            1.98503    0.04591   43.24  &lt; 2e-16 ***
+## (Intercept)  1.10172    0.13779   7.996 2.24e-10 ***
+## x            1.94681    0.04622  42.121  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.9508 on 48 degrees of freedom
-## Multiple R-squared:  0.975,  Adjusted R-squared:  0.9744 
-## F-statistic:  1870 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 0.97 on 48 degrees of freedom
+## Multiple R-squared:  0.9737, Adjusted R-squared:  0.9731 
+## F-statistic:  1774 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>In much the same fashion, you can also construct 95% confidence intervals and conduct hypotheses tests for the intercept <span class="math inline">\(b_0\)</span>.</p>
 <p>However, the standard deviation of the sampling distribution of <span class="math inline">\(b_0\)</span> (i.e., the standard error) is different! We wont walk through the derivation, but it is very similar to that above for <span class="math inline">\(b_1\)</span>. You wind up with this for the variance:</p>
 <p><span class="math display">\[
@@ -997,7 +997,7 @@ s.e.(b_0)=\frac{s}{\sqrt{n}}\sqrt{1+\frac{\bar x^2}{\sum(x_i-\bar x)^2/n}}
 <p>So a 95% confidence interval for <span class="math inline">\(b_0\)</span> looks like</p>
 <p><span class="math display">\[
 \hat b_0 \pm t^*_{(n-2)}*s.e.(b_0)
-\]</span> In our specific case, <span class="math inline">\(\hat b_0\)</span> is 1.3802 and our standard error is 0.1344647, and our 95% confidence interval for the intercept is 1.1098055, 1.6505244</p>
+\]</span> In our specific case, <span class="math inline">\(\hat b_0\)</span> is 1.1017 and our standard error is 0.1377908, and our 95% confidence interval for the intercept is 0.8246693, 1.3787632</p>
 </div>
 <div id="confidence-and-prediction-intervals-for-a-given-x" class="section level2">
 <h2>Confidence (and prediction) intervals for a given X</h2>
@@ -1012,15 +1012,15 @@ where\ (as\ before),\\
 s^2=\frac{\sum (y_i-\hat y)^2}{n-2}
 \]</span></p>
 <p>Again, I will not bore you with the derivation of the standard error (it is similar to how we did the slope above). Notice that the standard error is a function of the specific value of <span class="math inline">\(x_k\)</span> that is chosen (the numerator of the second term). Notice that this numerator <span class="math inline">\((x_k-\bar x)^2\)</span> will be zero when we choose <span class="math inline">\(x_k=\bar x\)</span>, and that the further away <span class="math inline">\(x_k\)</span> is from the the mean, the larger the numerator becomes. This fact accounts for the wider confidence interval at the ends of the range of <span class="math inline">\(x\)</span> and the narrowest interval at the mean of x.</p>
-<p>Let’s calculate the 95% CI for three values of <span class="math inline">\(x_k: min(x),0, \text{ and } \bar x\)</span>. The mean of the <span class="math inline">\(x\)</span>s in our data was 0.009 and the smallest <span class="math inline">\(x\)</span> in our data was -4.93</p>
+<p>Let’s calculate the 95% CI for three values of <span class="math inline">\(x_k: min(x),0, \text{ and } \bar x\)</span>. The mean of the <span class="math inline">\(x\)</span>s in our data was 0.28 and the smallest <span class="math inline">\(x\)</span> in our data was -4.71</p>
 <pre class="r"><code>preds&lt;-predict(samp.lm, newdata=data.frame(x=c(min(samp$x),0,mean(samp$x))),interval=&#39;confidence&#39;)
 
 print(paste(&quot;95% CI for yhat when x=min(x): &quot;,&quot;[&quot;,round(preds[1,2],3),&quot;,&quot;,round(preds[1,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for yhat when x=min(x):  [ -8.936 , -7.876 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for yhat when x=min(x):  [ -8.607 , -7.528 ]&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;95% CI for yhat when x=0:      &quot;,&quot;[&quot;,round(preds[2,2],3),&quot;,&quot;,round(preds[2,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for yhat when x=0:       [ 1.11 , 1.651 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for yhat when x=0:       [ 0.825 , 1.379 ]&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;95% CI for yhat when x=mean(x):&quot;,&quot;[&quot;,round(preds[3,2],3),&quot;,&quot;,round(preds[3,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for yhat when x=mean(x): [ 1.128 , 1.668 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for yhat when x=mean(x): [ 1.371 , 1.923 ]&quot;</code></pre>
 <p>We can see this better if we plot these (in red) along with the full 95% confidence bands (in gray) on the regression line and zoom in.</p>
 <pre class="r"><code>ggplot(samp,aes(x,y))+geom_point()+geom_smooth(method=lm,size=.5,color=&quot;black&quot;,fill=&#39;gray50&#39;)+
 #  scale_x_continuous(limits=c(min(x),mean(x)+1))+
@@ -1044,11 +1044,11 @@ s^2=\frac{\sum (y_i-\hat y)^2}{n-2}
 <pre class="r"><code>preds&lt;-predict(samp.lm, newdata=data.frame(x=c(min(samp$x),0,mean(samp$x))),interval=&#39;prediction&#39;)
 
 print(paste(&quot;95% CI for y (obs) when x=min(x): &quot;,&quot;[&quot;,round(preds[1,2],3),&quot;,&quot;,round(preds[1,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for y (obs) when x=min(x):  [ -10.39 , -6.422 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for y (obs) when x=min(x):  [ -10.091 , -6.044 ]&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;95% CI for y (obs) when x=0:      &quot;,&quot;[&quot;,round(preds[2,2],3),&quot;,&quot;,round(preds[2,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for y (obs) when x=0:       [ -0.551 , 3.311 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for y (obs) when x=0:       [ -0.868 , 3.072 ]&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;95% CI for y (obs) when x=mean(x):&quot;,&quot;[&quot;,round(preds[3,2],3),&quot;,&quot;,round(preds[3,3],3),&quot;]&quot;))</code></pre>
-<pre><code>## [1] &quot;95% CI for y (obs) when x=mean(x): [ -0.533 , 3.329 ]&quot;</code></pre>
+<pre><code>## [1] &quot;95% CI for y (obs) when x=mean(x): [ -0.323 , 3.617 ]&quot;</code></pre>
 <p>Let’s plot both the prediction and the confidence interval for our data:</p>
 <pre class="r"><code>pred.int&lt;-data.frame(predict(samp.lm,                       newdata=data.frame(x=samp$x),interval=&#39;prediction&#39;))
 
