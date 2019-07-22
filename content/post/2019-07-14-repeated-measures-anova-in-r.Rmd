@@ -8,7 +8,6 @@ tags: []
 output:
   blogdown::html_page:
     toc: true
-    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
@@ -22,7 +21,7 @@ In this example, the treatment (coffee) was administered *within subjects*: each
 
 The repeated-measures ANOVA is a generalization of this idea. Imagine you had a third condition which was the effect of *two cups of coffee* (participants had to drink two cups of coffee and then measure then pulse). A repeated-measures ANOVA would let you ask if any of your conditions (none, one cup, two cups) affected pulse rate.
 
-### One Within-Subjects Factor
+## One Within-Subjects Factor
 
 Let's use a more realistic framing example. Say you want to know whether giving kids a **pre-questions** (i.e., asking them questions before a lesson), a **post-questions** (i.e., asking them questions after a lesson), or **control** (no additional practice questions) resulted in better performance on the test for that unit (out of 36 questions). Imagine that there are three units of material, the tests are normed to be of equal difficulty, and every student is in **pre**, **post**, or **control** condition for each three units (counterbalanced). Thus, each student gets a score from a unit where they got pre-lesson questions, a score from a unit where they got post-lesson questions, and a score from a unit where they had no additional practice questions.
 
@@ -71,7 +70,7 @@ data%>%select(subj,factorA,Y,subj_mean)%>%
 ```
 The last column contains each subject's mean test score, while the bottom row contains the mean test score for each condition. The value in the bottom right corner (25) is the grand mean.
 
-#### Partitioning the Total Sum of Squares (SST)
+### Partitioning the Total Sum of Squares (SST)
 
 Introducing some notation, here we have $N=8$ subjects each measured in $K=3$ conditions. $Y_{ij}$ is the test score for student $i$ in condition $j$. $\bar Y_{\bullet j}$ is the mean test score for condition $j$ (the means of the columns, above).  $\bar Y_{\bullet \bullet}$ is the grand mean (the average test score overall). Finally, $\bar Y_{i\bullet}$ is the average test score for subject $i$ (i.e., averaged across the three conditions; last column of table, above). 
 
@@ -144,7 +143,7 @@ Fstat <- (175/2)/(77/14)
 pf(Fstat, df1 = 2, df2 = 14, lower.tail = F)
 
 plot(curve(df(x,2,14),from=0, to=20), type="line")
-abline(v=Fstat,h=0)
+abline(v=Fstat,h=0,add=T)
 ```
 
 Wow, looks very unusual to see an $F$ this big if the treatment has no effect! Let's confirm our calculations by using the repeated-measures ANOVA function in base R. Notice that you must specify the error term yourself. It will always be of the form `Error(unit with repeated measures/ within-subjects variable)`. Take a minute to confirm the correspondence between the table below and the sum of squares calculations above.
@@ -154,7 +153,7 @@ anova1<-aov(Y ~ factorA + Error(subj/factorA), data=data)
 summary(anova1)
 ```
 
-### Naive analysis (not accounting for repeated measures)
+## Naive analysis (not accounting for repeated measures)
 
 Look what happens if we do not account for the fact that some of the variability within conditions is due to variability between subjects. 
 
@@ -164,7 +163,7 @@ summary(aov(Y ~ factorA, data=data))
 
 Notice that this regular one-way ANOVA uses $SSW$ as the denominator sum of squares (the error), and this is much bigger than it would be if you removed the $SSbs$. Notice that the numerator (the between-groups sum of squares, SSB) does not change. Thus, by not correcting for repeated measures, we are not only violating the independence assumption, we are leaving lots of error on the table: indeed, this extra error increases the denominator of the F statistic to such an extent that it masks the effect of treatment!
 
-### Mixed-effects model of same data
+## Mixed-effects model of same data
 
 You can also achieve the same results using a hierarchical model with the `lme4` package in R. This is what I normally use in practice.
 
@@ -192,7 +191,7 @@ emmeans(anova1,~factorA)%>%pairs()
 
 ```
 
-#### Checking Assumptions
+### Checking Assumptions
 
 Ah yes, assumptions. We should have done this earlier, but here we are. Just as typical ANOVA makes the assumption that groups have equal population variances, repeated-measures ANOVA makes a variance assumption too, called *sphericity.* 
 
@@ -242,17 +241,17 @@ Mauchly's test has a $p=.355$, so we fail to reject the sphericity hypothesis (w
 Notice that we have specifed `multivariate=F` as an argument to the summary function. By default, the summary will give you the results of a MANOVA *treating each of your repeated measures as a different response variable*. This isn't really useful here, because the groups are defined by the single within-subjects variable.
 
 
-#### Effect size
+### Effect size
 
 You can compute eta squared ($\eta^2$) just as you would for a regular ANOVA: it's just the proportion of total variation due to the factor of interest. Here, there is just a single factor, so $\eta^2=\frac{SSB}{SST}=\frac{175}{756}=.2315$
 
-### One between, one within (a two-way split plot design)
+## One between, one within (a two-way split plot design)
 
 Now, let's take the same data, but let's add a between-subjects variable to it. Let's say subjects S1, S2, S3, and S4 are in one between-subjects condition (e.g., female; call it B1) while subjects S5, S6, S7, and S8 are in another between-subjects condition (e.g., male; call it B2). 
 
 
 ```{R}
-######### One between, one within (Two-way split plot)
+###### One between, one within (Two-way split plot)
 
 subj<-rep(c("S1","S2","S3","S4","S5","S6","S7","S8"),3)
 factorA<-rep(c("A1","A2","A3"),each=8)
@@ -312,9 +311,8 @@ Let's do a quick example. The grand mean is $\bar Y_{\bullet \bullet \bullet}=25
 
 So if you are in condition A1 and B1, with no interaction we expect the cell mean to be $\text{grand mean + effect of A1 + effect of B1}=25+2.5+3.75=31.25$. However, the actual cell mean for cell A1,B1 (i.e., the average of the test scores for the four observations in that condtion) is $\bar Y_{\bullet 1 1}=\frac{31+33+28+35}{4}=31.75$. Thus, the interaction effect for cell A1,B1 is the difference between 31.75 and the expected 31.25, or 0.5. Do this for all six cells, square them, and add them up, and you have your interaction sum of squares! If this is big enough, you will be able to reject the null hypothesis of no interaction!
 
+<!--
 $$
-2+2
-\begin{table}[]
 \begin{tabular}{lcccccl}
                                         &                         & A1                                                                        & A2                                                                        & A3                                                                        &  \overline{Y}_{i \bullet \bullet}  &  \overline{Y}_{\bullet \bullet k}                      \\ \cline{3-5}
 \multicolumn{1}{c}{\multirow{4}{*}{B1}} & \multicolumn{1}{c|}{S1} & \multicolumn{1}{c|}{31}                                                   & \multicolumn{1}{c|}{30}                                                   & \multicolumn{1}{c|}{29}                                                   & 30 & \multirow{4}{*}{28.75} \\
@@ -327,8 +325,11 @@ $$
                                         & \multicolumn{1}{c|}{S8} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}24\\ (\overline{Y}_{\bullet 12}=23.25)\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}25\\ (\overline{Y}_{\bullet 22}=23.25)\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}17\\ (\overline{Y}_{\bullet 32}=17.25)\end{tabular}} & 22 &                        \\ \cline{2-6}
                                         &  \begin{tabular}[c]{@{}c@{}}\overline{Y}_{\bullet j \bullet} \\ A effect:  \end{tabular}                     & \begin{tabular}[c]{@{}c@{}}27.5\\ (+2.5)\end{tabular}                     & \begin{tabular}[c]{@{}c@{}}26.25 \\ (+1.25)\end{tabular}                  & \begin{tabular}[c]{@{}c@{}}21.25\\ (-3.75)\end{tabular}                   & \overline{Y}_{\bullet \bullet \bullet}=25 &                       
 \end{tabular}
-\end{table}
 $$
+-->
+
+![](../../static/splitplottable.png)
+
 
 All of the required means are illustrated in the table above. I think it is a really helpful way to think about it (columns are the within-subjects factor A, small rows are each individual students, grouped into to larger rows representing the two levels of the between-subjects factor).
 
@@ -424,12 +425,12 @@ summary(aov1, multivariate=F)
 
 Looks reasonably well met!
 
-### Two within-subjects factors
+## Two within-subjects factors
 
 OK, so we have looked at a repeated measures ANOVA with one within-subjects variable, and then a two-way repeated measures ANOVA (one between, one within a.k.a split-plot). Let's look at another two-way, but this time let's consider the case where you have two within-subjects variables. I am going to have to add more data to make this work. What I will do is, I will duplicate the control group exactly so that now there are four levels of factor A (for a total of $4\times 8=32$ test scores). 
 
 ```{R}
-######### Two within!
+###### Two within!
 
 ##added a second observation on all eight subjects to make a fully factored design
 
@@ -621,7 +622,7 @@ summary(aov1,multivariate=F)
 ```
 
 
-### Real Example
+## Real Example
 
 A former student conducted some research for my course that lended itself to a repeated-measures ANOVA design. She had 67 participants rate 8 photos (everyone sees the same eight photos in the same order), 5 of which featured people without glasses and 3 of which featured people without glasses. Each participate had to rate how intelligent (1 = *very unintelligent*, 5 = *very intelligent*) the person in each photo looks. Finally, she recorded whether the participants themselves had vision correction (*None, Glasses, Other*). The response variable is `Rating`, the within-subjects variable is whether the photo is wearing glasses (`PhotoGlasses`), while the between-subjects variable is the person's vision correction status (`Correction`). The variable `PersonID` gives each person a unique integer by which to identify them.
 

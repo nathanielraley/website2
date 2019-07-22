@@ -17,7 +17,7 @@
       <pubDate>Sun, 14 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>/2019/07/14/repeated-measures-anova-in-r/</guid>
-      <description>Hello again! In previous posts I have talked about one-way ANOVA, two-way ANOVA, and even MANOVA (for multiple response variables). But in practice, there is yet another way of partitioning the total variance in the outcome that allows you to account for repeated measures on the same subjects. These designs are very popular, but there is surpisingly little good information out there about conducting them in R. (Cue this post!</description>
+      <description>One Within-Subjects Factor Partitioning the Total Sum of Squares (SST)  Naive analysis (not accounting for repeated measures) Mixed-effects model of same data Checking Assumptions Effect size  One between, one within (a two-way split plot design) Two within-subjects factors Real Example   Hello again! In previous posts I have talked about one-way ANOVA, two-way ANOVA, and even MANOVA (for multiple response variables). But in practice, there is yet another way of partitioning the total variance in the outcome that allows you to account for repeated measures on the same subjects.</description>
     </item>
     
     <item>
@@ -36,6 +36,15 @@
       
       <guid>/2019/06/19/worlds-greatest-monty-hall-simulation-app/</guid>
       <description>A couple months ago a colleague and I volunteered for some outreach at a local science museum. It was for an 21+ night (i.e., lots of nerdy adults drinking beers together) and the theme was “Get Your Game On”. As we are both faculty in the Department of Statistics and Data Sciences, we were spoiled for choice, but finally decided to set up a Monty Hall station where people would come by and play a version of the notoriously confusing Let’s Make a Deal game (the original car/goat scenario).</description>
+    </item>
+    
+    <item>
+      <title>Basic Stats U Need #5: Two-Way ANOVA</title>
+      <link>/2019/05/18/basic-stats-u-need-5-two-way-anova/</link>
+      <pubDate>Sat, 18 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/18/basic-stats-u-need-5-two-way-anova/</guid>
+      <description>Two-Way ANOVA Assumptions Partitioning the Total Sum of Squares (\(SS_T\)) Two-Way ANOVA Table Mechanics of Two-Way ANOVA Interactions in Two-Way ANOVA: 8 Possibilities  Full Example: Effect of Vitamin C on Guinea Pig Tooth Growth Sum of Squares Calculations Example: Two-Way ANOVA, no Interaction Calculation of Dose \(\times\) Supplement Interaction Effect Example: Two-Way ANOVA with Interaction Full ANOVA table for Guinea Pig example Post Hoc Tests (only do comparisons of interest!</description>
     </item>
     
     <item>
