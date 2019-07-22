@@ -574,22 +574,11 @@ This happens in unbalanced designs!
 
 #### Why does this happen?
 
-In standard ANOVA, an assumption is made that the factors are orthogonal (i.e., uncorrelated). Indeed, if this is not so, then the ratio of between-to-within variances will not follow an F distribution. 
-
-```{R}
-modmat<-model.matrix(fit)
-
-modmat[,2]%*%modmat[,3]
-
-modmat
-
-```
-
-
+In standard ANOVA, an assumption is made that the factors are orthogonal (i.e., uncorrelated). Indeed, if this is not so, then the ratio of between-to-within variances will not follow an F distribution. In an unbalanced design, unequal cell sizes induce a dependence between factors: this means the simplified SS calculations above will not work!
 
 #### Writing out ANOVA models
 
-Think about all of the possible ANOVA models for our outcome data, where $\mu$ is the grand mean, $\alpha_j$ is the effect for level $j$ of factor A (e.g., `am`), $\beta_k$ is the effect for level $k$ of factor B (e.g., `cyl`), $(\alpha\beta)_{jk}$ is the effect for cell $j,k$, and $e_{ijk}$ is the error term for person $i$, (i.e., for the full model, $e_{ijk}=y_{ijk}-[\mu+\alpha_j+\beta_k+(\alpha\beta)_{jk}]$). Here, let the effect of transmission (`am`) be $\alpha$ and the effect of cylinder (`cyl`) be $\beta$.
+To see why this is, think about all of the possible ANOVA models for our outcome data, where $\mu$ is the grand mean, $\alpha_j$ is the effect for level $j$ of factor A (e.g., `am`), $\beta_k$ is the effect for level $k$ of factor B (e.g., `cyl`), $(\alpha\beta)_{jk}$ is the effect for cell $j,k$, and $e_{ijk}$ is the error term for person $i$, (i.e., for the full model, $e_{ijk}=y_{ijk}-[\mu+\alpha_j+\beta_k+(\alpha\beta)_{jk}]$). Here, let the effect of transmission (`am`) be $\alpha$ and the effect of cylinder (`cyl`) be $\beta$.
 
 $$
 \begin{array}{r c l}
