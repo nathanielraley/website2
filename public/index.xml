@@ -6,10 +6,19 @@
     <description>Recent content in Home on Nathaniel Raley Woodward</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Logistic (and Poisson) Regression</title>
+      <link>/2019/07/24/logistic-and-poisson-regression/</link>
+      <pubDate>Wed, 24 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/07/24/logistic-and-poisson-regression/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Repeated Measures ANOVA in R</title>
