@@ -714,7 +714,6 @@ summary(anova1)</code></pre>
 <h3>Equal Variance (Homoskedasticity)</h3>
 <p>Fortunately, ANOVA is very robust to non-normality (provided the groups are roughly symmetrical and, if skewed, skewed the same way) and relatively robust to unequal variances (provided the sample size in each group is about the same). Looking at our box plots, we see that the spreads look a little different across the four groups. However, two standard procedures for testing the null hypothesis that group variances are equal (Bartlett’s test and Levene’s test) both fail to reject this assumption.</p>
 <pre class="r"><code>library(car)</code></pre>
-<pre><code>## Warning: package &#39;car&#39; was built under R version 3.5.2</code></pre>
 <pre><code>## Loading required package: carData</code></pre>
 <pre class="r"><code>boxplot(dat.long$Height~dat.long$Group)</code></pre>
 <p><img src="../../../../post/2017-08-27-basic-stats-u-need-3-anova_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>

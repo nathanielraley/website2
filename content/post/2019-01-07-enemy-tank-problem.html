@@ -29,12 +29,12 @@ m=max(samp)
 k=length(samp)
 
 nhat=2*m/k</code></pre>
-<p>The maximum value of our sample is 1000, and so our estimator <span class="math inline">\(\widehat N\)</span> is 193.6. Let’s do this 5000 times, taking a new sample of tanks each time.</p>
+<p>The maximum value of our sample is 1000, and so our estimator <span class="math inline">\(\widehat N\)</span> is 190.2. Let’s do this 5000 times, taking a new sample of tanks each time.</p>
 <pre class="r"><code>nhats&lt;-replicate(5000,{samp=sample(tanks,size=10, replace = F)
            m=max(samp); k=length(samp); nhat=2*m/k})
 
 mean(nhats)</code></pre>
-<pre><code>## [1] 181.7598</code></pre>
+<pre><code>## [1] 182.4356</code></pre>
 <p>This is not very good! Under replication, our made-up estimator is <em>way</em> underestimating the true <span class="math inline">\(N=1000\)</span>.</p>
 <p>Let’s try to derive a better <span class="math inline">\(\widehat N\)</span>. We could start with the assumption that captured tank serial numbers follow a uniform distribution. This means that the serial numbers are equally spaced and that each tank serial number has an equal probability of being chosen. To take a simple example, if there were 1000 tanks in all, each tank would have a <span class="math inline">\(1/1000\)</span> chance of being captured (assuming tanks appear randomly, which is not necessarily very likely). But we don’t know how many tanks there are in all: this is what we are trying to estimate!</p>
 <p>One way to think about this is, what is the probability of getting a sample of serial numbers with a maximum value less than or equal to <span class="math inline">\(m\)</span> (i.e., <span class="math inline">\(max(x)\le m\)</span>) when the population maximum (i.e., the true total of tanks produced) is <span class="math inline">\(N\)</span>?</p>
@@ -132,12 +132,12 @@ m=max(samp)
 k=length(samp)
 
 nhat=m+(m/k)-1</code></pre>
-<p>The maximum value of our sample is 250, and so our estimator <span class="math inline">\(\widehat N\)</span> is 289.4. Let’s do this 5000 times, taking a new sample of tanks each time.</p>
+<p>The maximum value of our sample is 250, and so our estimator <span class="math inline">\(\widehat N\)</span> is 276.2. Let’s do this 5000 times, taking a new sample of tanks each time.</p>
 <pre class="r"><code>nhats&lt;-replicate(5000,{samp=sample(tanks,size=5, replace = F)
            m=max(samp); k=length(samp); nhat=m+(m/k)-1})
 
 mean(nhats)</code></pre>
-<pre><code>## [1] 248.8278</code></pre>
+<pre><code>## [1] 250.6659</code></pre>
 <pre class="r"><code>dists&lt;-replicate(5000,{mean(abs(diff(sort(sample(1:100,5, replace = T)))))})</code></pre>
 <p>The average of these 5000 estimates is pretty close to 250. But look at the distribution:</p>
 <pre class="r"><code>qplot(nhats)+theme_minimal()</code></pre>
@@ -154,7 +154,7 @@ for(j in 1:5000){
 samp=sample(tanks,size=5, replace = F); tanky&lt;-vector(); m=max(samp); for(i in m:350)tanky[i-m-1]&lt;-tank.fun1(i,m,5); nhats2[j]&lt;-m+sum(tanky&gt;.5)+1}
 
 mean(nhats2)</code></pre>
-<pre><code>## [1] 239.4556</code></pre>
+<pre><code>## [1] 239.3592</code></pre>
 <p>Here’s the distribution. Notice that the running average converges somewhere between 239 and 240 rather than 250, indicating that this estimator is biased (though not too terribly).</p>
 <pre class="r"><code>qplot(nhats)+theme_minimal()</code></pre>
 <p><img src="/post/2019-01-07-enemy-tank-problem_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>

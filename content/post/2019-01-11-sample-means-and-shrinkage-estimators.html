@@ -55,7 +55,7 @@ RMSE=\sqrt{\frac 1 K\sum_i^K{(\widehat \mu_i- \mu_i)^2}}
 <pre><code>## # A tibble: 1 x 1
 ##    RMSE
 ##   &lt;dbl&gt;
-## 1 0.892</code></pre>
+## 1  1.20</code></pre>
 </div>
 <div id="made-up-shrinkage-estimator" class="section level2">
 <h2>Made up shrinkage estimator</h2>
@@ -68,7 +68,7 @@ ggplot(dat1,aes(y=value,x=group,color=group))+geom_point()+scale_x_discrete()+ge
 <p>The black line represents the grand mean and the colored asterisks represent the group means. The black asterisks represent the shrinkage estimators for each group. The distance from the dashed lines (the true means) is what it’s all about!</p>
 <pre class="r"><code>shrinkest&lt;-dat1%&gt;%group_by(group)%&gt;%summarize(shrinkest=unique(shrinkmean))%&gt;%.$shrinkest
 sqrt(mean((shrinkest-c(0,.5,1,1.5))^2))</code></pre>
-<pre><code>## [1] 0.7185077</code></pre>
+<pre><code>## [1] 1.076894</code></pre>
 </div>
 <div id="hierarchical-bayes-shrinkage-estimates" class="section level2">
 <h2>Hierarchical Bayes shrinkage estimates</h2>
@@ -85,19 +85,19 @@ summary(fit)</code></pre>
 ## lm(formula = value ~ group, data = dat1, contrasts = list(group = contr.sum))
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -9.546 -1.203 -0.110  2.337  5.835 
+##      Min       1Q   Median       3Q      Max 
+## -11.6302  -2.7673   0.0476   2.4210   8.2231 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)   0.7968     0.5276   1.510    0.140
-## group1       -1.5027     0.9138  -1.644    0.109
-## group2        1.1766     0.9138   1.288    0.206
-## group3       -0.5023     0.9138  -0.550    0.586
+## (Intercept)   1.1192     0.6898   1.622    0.113
+## group1       -0.0256     1.1948  -0.021    0.983
+## group2        1.1161     1.1948   0.934    0.356
+## group3       -0.2314     1.1948  -0.194    0.848
 ## 
-## Residual standard error: 3.337 on 36 degrees of freedom
-## Multiple R-squared:  0.1026, Adjusted R-squared:  0.02779 
-## F-statistic: 1.372 on 3 and 36 DF,  p-value: 0.267</code></pre>
+## Residual standard error: 4.363 on 36 degrees of freedom
+## Multiple R-squared:  0.02888,    Adjusted R-squared:  -0.05205 
+## F-statistic: 0.3569 on 3 and 36 DF,  p-value: 0.7844</code></pre>
 <p>Let’s give <span class="math inline">\(\mu\)</span> and <span class="math inline">\(c_i\)</span> their own prior distributions. Specifically, assume both are normal, with mean zero and and separate variance hyperparameters.</p>
 <p><span class="math display">\[
 \mu \sim N(0,\sigma_{\mu}^2) \\
@@ -134,17 +134,17 @@ mcmc_samples &lt;- coda.samples(model, variable.names=c(&quot;mean&quot;,&quot;d
 
 print(summary(mcmc_samples)$statistics)</code></pre>
 <pre><code>##                Mean         SD     Naive SE Time-series SE
-## dist[1] -0.59431498 0.77244027 3.153474e-03   3.789202e-03
-## dist[2]  0.70185838 0.77555702 3.166198e-03   3.776318e-03
-## dist[3] -0.11245355 0.77395416 3.159655e-03   3.812411e-03
-## dist[4]  0.53325625 0.77274921 3.154735e-03   3.878896e-03
-## mean     0.52219435 0.58435695 2.385627e-03   3.561707e-03
-## tau      0.09608765 0.02173405 8.872887e-05   9.359819e-05</code></pre>
+## dist[1]  0.15618970 0.82835024 3.381726e-03   3.712037e-03
+## dist[2]  0.57435535 0.83561763 3.411395e-03   3.791723e-03
+## dist[3]  0.08470563 0.82864822 3.382942e-03   3.723827e-03
+## dist[4] -0.14799922 0.83595718 3.412781e-03   3.757953e-03
+## mean     0.65684071 0.64656960 2.639609e-03   3.436477e-03
+## tau      0.05766110 0.01281282 5.230813e-05   5.387339e-05</code></pre>
 <pre class="r"><code>shrink_ests&lt;-summary(mcmc_samples)$statistics[,1]
 shrinkmean&lt;-shrink_ests[1:4]+shrink_ests[5]</code></pre>
 <p>The RMSE for the shrinkage estimator is</p>
 <pre class="r"><code>sqrt(mean((shrinkmean-c(0,.5,1,1.5))^2))</code></pre>
-<pre><code>## [1] 0.5185277</code></pre>
+<pre><code>## [1] 0.7491428</code></pre>
 <pre class="r"><code>ggplot(dat1,aes(y=value,x=group,color=group))+geom_point()+scale_x_discrete()+geom_hline(aes(yintercept = true,color=group),lty=2)+geom_point(aes(x=group,y=samp.mean),pch=8,size=3)+geom_point(aes(x=group,y=shrinkmean),pch=8,size=3,color=&quot;black&quot;)+geom_hline(aes(yintercept=mean(dat1$value)))</code></pre>
 <p><img src="/post/2019-01-11-sample-means-and-shrinkage-estimators_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
@@ -166,7 +166,7 @@ rand_ests&lt;-grandmean+b+u
 dat1$rand_ests&lt;-rep(rand_ests,each=10)</code></pre>
 <p>Lets see how this random estimator worked out:</p>
 <pre class="r"><code>sqrt(mean((rand_ests-c(0,.5,1,1.5))^2))</code></pre>
-<pre><code>## [1] 0.8518284</code></pre>
+<pre><code>## [1] 1.070817</code></pre>
 <pre class="r"><code>ggplot(dat1,aes(y=value,x=group,color=group))+geom_point()+scale_x_discrete()+geom_hline(aes(yintercept = true,color=group),lty=2)+geom_point(aes(x=group,y=samp.mean),pch=8,size=3)+geom_point(aes(x=group,y=rand_ests),pch=8,size=3,color=&quot;black&quot;)+geom_hline(aes(yintercept=mean(dat1$value)))</code></pre>
 <p><img src="/post/2019-01-11-sample-means-and-shrinkage-estimators_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Better than our original of .892, which we get using the group means!</p>
@@ -196,10 +196,10 @@ RMSE2[i]&lt;-sqrt(mean((rand_ests-c(0,.5,1,1.5))^2))
 }
 
 mean(RMSE2&lt;RMSE1)</code></pre>
-<pre><code>## [1] 0.5336</code></pre>
+<pre><code>## [1] 0.5296</code></pre>
 <p>This means that more than half the time, the random estimator is outperforming the sample means!</p>
 <p>It is important to realize that sample size and sample variance both affect this result. The larger the sample size (or the smaller the variance), the less of an effect shrinkage has on overall estimation accuracy.</p>
-<p>In the present example, the effect size <span class="math inline">\(f^2=\frac{\frac 1 p\sum (\mu_i-\mu_{\cdot})^2}{\sigma^2}=\frac{R^2}{1-R^2}\)</span> is 0.1142977</p>
+<p>In the present example, the effect size <span class="math inline">\(f^2=\frac{\frac 1 p\sum (\mu_i-\mu_{\cdot})^2}{\sigma^2}=\frac{R^2}{1-R^2}\)</span> is 0.0297404</p>
 <p>It can be shown that the minimum sample size per condition needed to ensure that the sample means are more accurate than random estimators on average is equal to</p>
 <p><span class="math display">\[
 n_r = \frac{\sqrt{p(p-1)}}{pf^2}

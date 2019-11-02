@@ -620,6 +620,7 @@ data%&gt;%ggplot(aes(y=meanAB, x=factorA, color=factorB, group=factorB))+geom_po
 ##  A2 - A3      5.00 1.21 12 4.140   0.0036 
 ## 
 ## Results are averaged over the levels of: factorB 
+## Degrees-of-freedom method: kenward-roger 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <pre class="r"><code>emmeans(fit,pairwise~factorB)</code></pre>
 <pre><code>## $emmeans
@@ -635,7 +636,8 @@ data%&gt;%ggplot(aes(y=meanAB, x=factorA, color=factorB, group=factorB))+geom_po
 ##  contrast estimate   SE df t.ratio p.value
 ##  B1 - B2       7.5 2.15  6 3.487   0.0130 
 ## 
-## Results are averaged over the levels of: factorA</code></pre>
+## Results are averaged over the levels of: factorA 
+## Degrees-of-freedom method: kenward-roger</code></pre>
 <p>What about that sphericity assumption?</p>
 <pre class="r"><code>library(car)
 

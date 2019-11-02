@@ -12,12 +12,14 @@
     
     
     <item>
-      <title>Logistic (and Poisson) Regression</title>
+      <title>Binary and Count Prediction</title>
       <link>/2019/07/24/logistic-and-poisson-regression/</link>
       <pubDate>Wed, 24 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>/2019/07/24/logistic-and-poisson-regression/</guid>
-      <description></description>
+      <description>Let’s enrich our previous discussion of linear regression by considering outcome data that is binary/dichotomous (e.g., success/failure, whether someone recovered or not) and data that is count-based (e.g., number of distinct species per survey site).
+In a regular linear regression, we model an outcome \(Y\) as a linear function of explanatory variables \(X_i\) and error \(e\), like this
+\[ Y=\beta_0+\beta_1X_1+\dots+\beta_nX_n+e, \phantom{xxxxx} e\sim N(0,\sigma) \] Let’s focus on the case of just a single predictor,</description>
     </item>
     
     <item>

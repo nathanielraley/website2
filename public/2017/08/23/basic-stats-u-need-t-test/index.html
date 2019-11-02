@@ -142,15 +142,15 @@ samps.sd&lt;-apply(samps10,2,sd)</code></pre>
 <p>Now, is it really true that, when we substitute <span class="math inline">\(s\)</span> for <span class="math inline">\(\sigma\)</span> that 95% of the time the true population mean lies within <span class="math inline">\(\bar{X}\pm 1.96*s/\sqrt{n}\)</span>?</p>
 <pre class="r"><code>s10.s&lt;-mean(samps.mean-1.96*samps.sd/sqrt(10)&gt; pop.mean | pop.mean&gt;samps.mean+1.96*samps.sd/sqrt(10))
 s10.s</code></pre>
-<pre><code>## [1] 0.0828</code></pre>
-<p>Hmm, it looks like the population mean is actually outside this range 8.28% of the time. Clearly, when we do not know <span class="math inline">\(\sigma\)</span>, we cannot substitute <span class="math inline">\(s\)</span> with impunity. Again, had we known <span class="math inline">\(s\)</span>, things would have been fine:</p>
+<pre><code>## [1] 0.0854</code></pre>
+<p>Hmm, it looks like the population mean is actually outside this range 8.54% of the time. Clearly, when we do not know <span class="math inline">\(\sigma\)</span>, we cannot substitute <span class="math inline">\(s\)</span> with impunity. Again, had we known <span class="math inline">\(s\)</span>, things would have been fine:</p>
 <pre class="r"><code>samps10&lt;-matrix(nrow=10,ncol=10000)
 samps10&lt;-replicate(10000,sample(pop.height,10))
 samps.mean&lt;-apply(samps10,2,mean)
 s10.sigma&lt;-mean(samps.mean-1.96*pop.sd/sqrt(10)&gt; pop.mean | pop.mean&gt;samps.mean+1.96*pop.sd/sqrt(10))
 s10.sigma</code></pre>
-<pre><code>## [1] 0.048</code></pre>
-<p>Using the population standard deviation, we find that the population mean falls outside two standard errors of the sample mean just 4.8% of the time. But this is no help to us in the real world!</p>
+<pre><code>## [1] 0.0466</code></pre>
+<p>Using the population standard deviation, we find that the population mean falls outside two standard errors of the sample mean just 4.66% of the time. But this is no help to us in the real world!</p>
 <p>Things just get worse with smaller samples. Here’s what happens if we just have <span class="math inline">\(n=3\)</span></p>
 <pre class="r"><code>samps3&lt;-matrix(nrow=3,ncol=10000)
 samps3&lt;-replicate(10000,sample(pop.height,3))
@@ -158,8 +158,8 @@ samps3.mean&lt;-apply(samps3,2,mean)
 samps3.sd&lt;-apply(samps3,2,sd)
 s3.s&lt;-mean(samps3.mean-1.96*samps3.sd/sqrt(3)&gt; pop.mean | pop.mean&gt;samps3.mean+1.96*samps3.sd/sqrt(3))
 s3.s</code></pre>
-<pre><code>## [1] 0.2073</code></pre>
-<p>Yikes, now the population mean falls outside our 95% confidence interval 20.73% of the time; clearly, assuming normality is inappropriate when samples are small and we are using <span class="math inline">\(s\)</span> instead of <span class="math inline">\(\sigma\)</span>.</p>
+<pre><code>## [1] 0.2059</code></pre>
+<p>Yikes, now the population mean falls outside our 95% confidence interval 20.59% of the time; clearly, assuming normality is inappropriate when samples are small and we are using <span class="math inline">\(s\)</span> instead of <span class="math inline">\(\sigma\)</span>.</p>
 <p>This problem was solved by William Sealy Gosset (“Student”“) in 1908, whose paper is excerpted throughout this post</p>
 <center>
 <img src="student3.png" />
@@ -217,7 +217,7 @@ ts=(samps.mean-pop.mean)/(samps.sd/sqrt(n))
 curve(dt(x,df=9),add=T,col=&quot;red&quot;)
 curve(dnorm(x,0,samps.sd[1]/sqrt(n)),add=T,col=&quot;blue&quot;)}</code></pre>
 <p><img src="../../../../post/2017-08-23-basic-stats-u-need-t-test_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
-<p>Looks much better! Remember how when we assumed that the means of samples of size 3 were normally distributed, our 95% confidence interval (the interval from Z=-1.96 to Z=1.96) only included the mean 79.27% of the time? In a <span class="math inline">\(t\)</span> distribution with n-1 degrees of freedom, 95% of the distribution lies within 4.3 <em>sample</em> standard deviations of the population mean.</p>
+<p>Looks much better! Remember how when we assumed that the means of samples of size 3 were normally distributed, our 95% confidence interval (the interval from Z=-1.96 to Z=1.96) only included the mean 79.41% of the time? In a <span class="math inline">\(t\)</span> distribution with n-1 degrees of freedom, 95% of the distribution lies within 4.3 <em>sample</em> standard deviations of the population mean.</p>
 <pre class="r"><code>qt(c(.025,.975),2)</code></pre>
 <pre><code>## [1] -4.302653  4.302653</code></pre>
 <pre class="r"><code>x1&lt;-seq(-6,-4.3,len=100)
@@ -251,8 +251,8 @@ samps3t.mean&lt;-apply(samps3t,2,mean)
 samps3t.sd&lt;-apply(samps3t,2,sd)
 s3t.s&lt;-mean(samps3t.mean-4.303*samps3t.sd/sqrt(3)&gt; pop.mean | pop.mean&gt;samps3t.mean+4.303*samps3t.sd/sqrt(3))
 s3t.s</code></pre>
-<pre><code>## [1] 0.0605</code></pre>
-<p>Yay! Assuming a t-distribution, the population mean falls outside our 95% confidence interval 6.05% of the time; clearly this distribution is a much better fit for a sampling distribution when samples are small and we are using <span class="math inline">\(s\)</span> instead of <span class="math inline">\(\sigma\)</span>.</p>
+<pre><code>## [1] 0.056</code></pre>
+<p>Yay! Assuming a t-distribution, the population mean falls outside our 95% confidence interval 5.6% of the time; clearly this distribution is a much better fit for a sampling distribution when samples are small and we are using <span class="math inline">\(s\)</span> instead of <span class="math inline">\(\sigma\)</span>.</p>
 </div>
 <div id="students-simulations" class="section level1">
 <h1>Student’s “Simulations”</h1>
@@ -290,7 +290,7 @@ polygon(c(x4[1],x4,x4[100]),c(0,y4,0),col=&quot;black&quot;,border=NA)
 abline(v=tstat,lty=2)}</code></pre>
 <p><img src="../../../../post/2017-08-23-basic-stats-u-need-t-test_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <pre class="r"><code>2*(1-pt(tstat,df=9))</code></pre>
-<pre><code>## [1] 0.002133724</code></pre>
+<pre><code>## [1] 0.02300813</code></pre>
 <p>The probability of observing a sample mean (i.e., a <em>t</em> statistic) at least this extreme (in either direction!) is .016 (this is the sum of the black areas under the <em>t</em> curve). The area under the curve to the right of our observed statistic is only <code>round(1-pt(tstat,df=9),3)</code>, but we have to double it to account for a just as extreme or more extreme observation happening in the other direction. We do this because we didn’t have any <em>a priori</em> hypothesis about the direction of the effect: our default alternative hypothesis was that <span class="math inline">\(\mu \ne 0\)</span>, or <span class="math inline">\(prob \gt |t|=p \lt -t + p &gt; t\)</span> where <em>t</em> is our observerd t-statistic <code>tstat</code>. The area shown in gray <em>plus</em> the area in black is equal to 5% of the distribution, 2.5% on each side. This represents the standard “rejection region” with a significance level of 0.05; thus, even if the null hypothesis is true and there is no effect (i.e., <span class="math inline">\(\mu =0\)</span>), 5% of the time we would still observe sample means that are at least this extreme: namely, more than <span class="math inline">\(t^*_{(1-\frac{\alpha}{2}=.975,n-1=9)}=2.262\)</span> sample standard deviation away from the true mean.</p>
 </div>
 <div id="assumptions-independence-normality-and-equality-of-variances" class="section level1">

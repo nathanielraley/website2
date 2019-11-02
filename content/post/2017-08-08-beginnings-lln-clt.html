@@ -30,7 +30,7 @@ curve(dnorm(x,63.8,2.7)/(1/pw)+dnorm(x,69.3,3.0)/(1/(1-pw)),add=T,col=&quot;gree
 <p>The population (green) is not quite normal; rather, it’s a mix of two normal distributions: see red and blue normals. Add them together, and you get the green one. The mean and standard deviation of our population are 66.49 and 3.94, and a normal distribution with those parameters is shown in black. But lets forge ahead and see what happens; we grab the first student who passes by and we measure them. Remember, we are interested in the average height of all students!</p>
 <pre class="r"><code>s1&lt;-sample(pop.height,1,replace=T)
 s1</code></pre>
-<pre><code>## [1] 68.26519</code></pre>
+<pre><code>## [1] 66.25691</code></pre>
 <p>Since all we have is this one student’s height, this is our best estimate of the population mean. But how sure are we? Is this a good estimate? Remember (<em>wink-wink</em>), we don’t actually know the mean or standard deviation of our population. As it stands, we have no way of quantifying our uncertainty. What can we say about the population mean with a sample size of 1? (Answer: <a href="https://stats.stackexchange.com/questions/157582/what-can-we-say-about-population-mean-from-a-sample-size-of-1">not much?!</a>)</p>
 </div>
 <div id="bumping-into-the-law-of-large-numbers" class="section level2">
@@ -38,9 +38,9 @@ s1</code></pre>
 <p>We would like to have a better estimate of the mean, and we need some way of quantifying our uncertainty, so lets collect more data. We measure 10 people this time, and take the mean and standard deviation.</p>
 <pre class="r"><code>s10&lt;-sample(pop.height,10,replace=T)
 mean(s10);sd(s10)</code></pre>
-<pre><code>## [1] 67.15998</code></pre>
-<pre><code>## [1] 4.031935</code></pre>
-<p>Well—becoming omnicient for a moment—we can see that this mean is quite a bit closer to the population mean:<span class="math inline">\(\mid \bar{X}_{10}-\mu\mid=\)</span> 0.675 versus <span class="math inline">\(\mid \bar{X}_1-\mu\mid=\)</span> 1.78. Are we guaranteed to get closer and closer to the population mean as we measure more and more people?</p>
+<pre><code>## [1] 68.7775</code></pre>
+<pre><code>## [1] 3.660682</code></pre>
+<p>Well—becoming omnicient for a moment—we can see that this mean is quite a bit closer to the population mean:<span class="math inline">\(\mid \bar{X}_{10}-\mu\mid=\)</span> 2.292 versus <span class="math inline">\(\mid \bar{X}_1-\mu\mid=\)</span> 0.228. Are we guaranteed to get closer and closer to the population mean as we measure more and more people?</p>
 <pre class="r"><code>ss&lt;-vector()
 ss[1]&lt;-s1
 for(i in 2:1000){
@@ -53,9 +53,9 @@ abline(pop.mean,0,col=&quot;green&quot;)</code></pre>
 </div>
 <div id="standard-deviation-of-the-sample-mean-aka-standard-error" class="section level2">
 <h2>Standard Deviation of the Sample Mean (aka “Standard Error”)</h2>
-<p>OK, so we know that our sample mean is a good estimator of the population mean, especially if we have a large sample, but let’s not be hasty. What does this tell us? Well, the mean of the sample of 10 heights is 67.16 and the standard deviation is 4.03; we know that for a normal distribution, ~95% of the data lies within two-ish (1.96) standard deviations above and below the mean. Does this mean that we are 95% sure that the population mean lies within</p>
+<p>OK, so we know that our sample mean is a good estimator of the population mean, especially if we have a large sample, but let’s not be hasty. What does this tell us? Well, the mean of the sample of 10 heights is 68.78 and the standard deviation is 3.66; we know that for a normal distribution, ~95% of the data lies within two-ish (1.96) standard deviations above and below the mean. Does this mean that we are 95% sure that the population mean lies within</p>
 <pre class="r"><code>c(mean(s10)-1.96*sd(s10), mean(s10)+1.96*sd(s10))</code></pre>
-<pre><code>## [1] 59.25739 75.06257</code></pre>
+<pre><code>## [1] 61.60256 75.95244</code></pre>
 <p>Unfortunately, no. This is the sample standard deviation of heights: how far our 10 heights are away from their own mean on average. But the individual heights don’t concern us: we are interested in the mean! How close is our mean to the population mean? To get at this, we need to know how the sample mean <em>itself</em> is distributed instead of the individual observations. We can’t expect the mean to have the same distribution as the original distribution! That is, if we took tons of random samples of 10 people and took the average height for each sample, what sort of a distribution would these means follow? Would it be normal? Would it be more or less spread out than the original distribution? Let’s have a look</p>
 <pre class="r"><code>samps10&lt;-replicate(10000,sample(pop.height,10,replace=T))
 s10.means&lt;-apply(samps10,2,mean)
@@ -65,15 +65,15 @@ curve(dnorm(x,63.8,2.7)/(1/pw)+dnorm(x,69.3,3.0)/(1/(1-pw)),add=T,col=&quot;gree
 <p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Now, I ask you: what is the standard deviation of these 10-observation means?</p>
 <pre class="r"><code>sd(s10.means)</code></pre>
-<pre><code>## [1] 1.252002</code></pre>
-<p>Quite small! Quite a bit smaller than our original sample standard devation 4.03 (and—omnisciently again—quite a bit smaller than our population sd of 3.94). Just look at the overlayed population distribution (green), or compare range of the distribution of the sample means (61.87, 71.1) to the range of the population (53.42, 81.28)! How about the mean?</p>
+<pre><code>## [1] 1.242055</code></pre>
+<p>Quite small! Quite a bit smaller than our original sample standard devation 3.66 (and—omnisciently again—quite a bit smaller than our population sd of 3.94). Just look at the overlayed population distribution (green), or compare range of the distribution of the sample means (62.02, 71.03) to the range of the population (53.42, 81.28)! How about the mean?</p>
 <pre class="r"><code>mean(s10.means)</code></pre>
-<pre><code>## [1] 66.4594</code></pre>
-<p>Pretty close to the mean of our first sample of 10, 67.16, and right on top of the population mean, 66.49 as expected. So when we take a bunch of samples of a certain size and we take their means, the mean of those means will approach the population mean (LLN), but the standard deviation of those means <em>doesn’t</em> approach the population standard deviation. Why? What does it approach?</p>
-<p>Averages are—by definition—right in the middle of a sample, so means are always less extreme than the observations they are based on. This explains why we saw that our distribution of means had a tighter range and sd than the population it is based on. Now, the smaller the sample, the more likely your mean is to be skewed one way or another by the influence of extreme observations you randomly chose. Conversely, when each sample is larger, it is more representative, and thus extreme observations are given less weight each time you take the mean. Recall the mean of our first sample of 10, 67.16. This was 0.675 away from the population mean. But if we took a sample of 100, the mean of this sample should be much closer.</p>
+<pre><code>## [1] 66.48131</code></pre>
+<p>Pretty close to the mean of our first sample of 10, 68.78, and right on top of the population mean, 66.49 as expected. So when we take a bunch of samples of a certain size and we take their means, the mean of those means will approach the population mean (LLN), but the standard deviation of those means <em>doesn’t</em> approach the population standard deviation. Why? What does it approach?</p>
+<p>Averages are—by definition—right in the middle of a sample, so means are always less extreme than the observations they are based on. This explains why we saw that our distribution of means had a tighter range and sd than the population it is based on. Now, the smaller the sample, the more likely your mean is to be skewed one way or another by the influence of extreme observations you randomly chose. Conversely, when each sample is larger, it is more representative, and thus extreme observations are given less weight each time you take the mean. Recall the mean of our first sample of 10, 68.78. This was 2.292 away from the population mean. But if we took a sample of 100, the mean of this sample should be much closer.</p>
 <pre class="r"><code>s100&lt;-sample(pop.height,100,replace=T)
 abs(mean(s100)-pop.mean)</code></pre>
-<pre><code>## [1] 0.5430644</code></pre>
+<pre><code>## [1] 1.236596</code></pre>
 <p>And it is. If we took a bunch of 100-person samples and took the mean of each one, these means will be much closer together than the means of 10-person samples: that is, their variance (and sd) will be smaller. Here’s proof:</p>
 <pre class="r"><code>samps100&lt;-replicate(10000,sample(pop.height,100,replace=T))
 s100.means&lt;-apply(samps100,2,mean)
@@ -83,7 +83,7 @@ curve(dnorm(x,63.8,2.7)/(1/pw)+dnorm(x,69.3,3.0)/(1/(1-pw)),add=T,col=&quot;gree
 curve(dnorm(x,mean(s10.means),sd(s10.means)),add=T)</code></pre>
 <p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>sd(s100.means)</code></pre>
-<pre><code>## [1] 0.3949855</code></pre>
+<pre><code>## [1] 0.3897787</code></pre>
 <p>So the variance of the distribution of means <span class="math inline">\(\bar{X}\)</span> is a function of the size of the sample each mean is based on. That’s reasonable: taking it to it’s logical conclusion, if you were to take a bunch of samples of 40,000 people from our population of 40,000 then the mean of each sample will always equal the population mean, and thus the variance of all of these means will be zero.</p>
 <p>What exactly is the relationship between sample size and the standard deviation of the sample mean? We will prove this mathematically below, but for let’s just brute force it: we will take 1000 samples of size 2 and take the average of each, 1000 samples of size 3 and take the average of each, all the way up to sample of size 500. Then, we will plot the standard deviation of the 1000 sample means for each sample size.</p>
 <pre class="r"><code>samps.big&lt;-matrix(nrow=500,ncol=1000)
@@ -94,7 +94,6 @@ samp.sds&lt;-apply(samps.big,1,sd)
 plot(samp.sds,type=&#39;l&#39;,ylab=&quot;SD of sample mean&quot;, xlab=&quot;sample size&quot;,ylim=c(0,4))</code></pre>
 <p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>As we suspected, the standard deviation of the sample mean approaches 0 as the sample size increases. Let’s look at these sampling distributions of the mean using the new package ggjoy:</p>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
 <pre><code>## Loading required package: ggridges</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;ggridges&#39;</code></pre>
@@ -111,7 +110,7 @@ samps.thin&lt;-samps.big[,c(1,2,3,6,11,51,101,251,501)]
 samps.thin&lt;-melt(samps.thin,id=&quot;V1&quot;)
 names(samps.thin)&lt;-c(&quot;id&quot;,&quot;n&quot;,&quot;Means&quot;)
 ggplot(samps.thin, aes(x =Means, y=n,height=..density..))+geom_joy(scale=3)</code></pre>
-<pre><code>## Picking joint bandwidth of 0.319</code></pre>
+<pre><code>## Picking joint bandwidth of 0.309</code></pre>
 <p><img src="/post/2017-08-08-beginnings-lln-clt_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>OK fine, so we see its going to zero, but at what rate? Well, we know it’s a function of the population standard deviation, but how <em>exactly</em> are they related? As sample gets bigger, sd gets smaller, so perhaps they are just inversely related (red)? Nope, inverse drops too quickly, but that’s the right idea. We need to make the denominator smaller so it doesn’t drop so much. We can make it smaller by taking the log (blue), or taking the sqare root (green)</p>
 <pre class="r"><code>plot(samp.sds,type=&#39;l&#39;,ylab=&quot;SD of sample mean&quot;, xlab=&quot;sample size&quot;)
@@ -270,7 +269,7 @@ curve(dnorm(x,0,sqrt(10/3)),add=T,col=&quot;red&quot;)}</code></pre>
 <h2>Finally, Back to Heights: How (Un)Sure Are We?</h2>
 <p>Going back to our very first sample of size 10, we can now say that we are 95% sure that the population mean is within <span class="math inline">\(\bar{X}\pm 1.96*\sigma/\sqrt{n}\)</span>, which is</p>
 <pre class="r"><code>mean(s10)+c(-1.96*pop.sd/sqrt(10),1.96*pop.sd/sqrt(10))</code></pre>
-<pre><code>## [1] 64.71793 69.60203</code></pre>
+<pre><code>## [1] 66.33545 71.21955</code></pre>
 <p>But here we are using our knowledge of the population mean, 3.94 to put a confidence interval around our esimated mean! In the real world, we won’t know the mean <span class="math inline">\(\mu\)</span> or the standard devation <span class="math inline">\(\sigma\)</span> of the population: we will have to estimate them both, using the sample mean <span class="math inline">\(\bar{X} =\frac{1}{n}\sum_{i=1}^{n}X_i\)</span> and the sample standard deviation <span class="math inline">\(s\)</span>. But as we will see, there’s a problem.</p>
 <center>
 <img src="student1.png" />

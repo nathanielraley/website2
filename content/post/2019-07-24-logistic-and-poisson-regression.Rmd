@@ -495,7 +495,8 @@ heights<-vector()
 
 for(i in 1:100) heights[i]<-ROC1$TPR[i]+ROC1$TPR[i+1]
 
-sum(heights*widths/2)%>%round(4)
+AUC<-sum(heights*widths/2)
+AUC%>%round(4)
 ```
 
 You can interpret the AUC as the probability that a randomly selected person *with cancer* has a higher predicted probability of having cancer than a randomly selected person *without cancer*. 

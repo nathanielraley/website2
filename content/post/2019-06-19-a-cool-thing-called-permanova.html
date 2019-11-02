@@ -346,7 +346,7 @@ SST&lt;-sum(euc_dist^2)/32
 } )
 
 mean(perm.sampdist&gt;Fstat)</code></pre>
-<pre><code>## [1] 0.1744</code></pre>
+<pre><code>## [1] 0.1802</code></pre>
 <pre class="r"><code>hist(perm.sampdist,breaks=20); abline(v = Fstat,col=&#39;red&#39;)</code></pre>
 <p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Thus, 16.88% of the simulated sampling distribution is greater than our observed F-stat. Since this distribution was created under the null hypothesis of no difference between groups, we have a nearly 17% chance of seeing an F-stat this large under the null, so we cannot reject this hypothesis as inconsistent with our data.</p>
@@ -363,7 +363,7 @@ adonis(euc_dist~am,data=mtcars)</code></pre>
 ## Terms added sequentially (first to last)
 ## 
 ##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)
-## am         1      9025  9024.6  1.9643 0.06145  0.197
+## am         1      9025  9024.6  1.9643 0.06145  0.177
 ## Residuals 30    137828  4594.3         0.93855       
 ## Total     31    146853                 1.00000</code></pre>
 <p>Note that these results are the same. However, the results do differ from those of a traditional MANOVA: making parametric assumptions does give us more power, and in this case produces significant results.</p>
@@ -408,7 +408,7 @@ SST&lt;-sum(euc_dist^2)/32
 } )
 
 mean(perm.sampdist&gt;Fstat)</code></pre>
-<pre><code>## [1] 0.1738</code></pre>
+<pre><code>## [1] 0.1784</code></pre>
 <pre class="r"><code>hist(perm.sampdist,breaks=20); abline(v = Fstat,col=&#39;red&#39;)</code></pre>
 <p><img src="/post/2019-06-19-a-cool-thing-called-permanova_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <div id="a-better-example" class="section level3">
@@ -471,10 +471,10 @@ mean(perm.sampdist&gt;Fstat)</code></pre>
 ## 
 ## Terms added sequentially (first to last)
 ## 
-##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)  
-## DIVERSITY  1   0.32857 0.32857  4.1585 0.12174  0.011 *
-## Residuals 30   2.37033 0.07901         0.87826         
-## Total     31   2.69890                 1.00000         
+##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)   
+## DIVERSITY  1   0.32857 0.32857  4.1585 0.12174  0.005 **
+## Residuals 30   2.37033 0.07901         0.87826          
+## Total     31   2.69890                 1.00000          
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
