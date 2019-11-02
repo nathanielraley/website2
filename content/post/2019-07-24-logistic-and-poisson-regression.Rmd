@@ -26,7 +26,7 @@ $$
 
 Recall that the residuals (deviations from data to prediction) are normally distributed, since you can rearrange the above to $Y-\beta_0+\beta_1X_1=e, \phantom{xxxxx} e\sim N(0,\sigma)$
 
-Also, recall that $\beta_0+\beta_1X_1$ is equal to the mean of $Y$ where $X_1=x_i$. That is $\mu=E[Y|X]=\beta_0+\beta_1X_1$
+Also, recall that $\beta_0+\beta_1X_1$ is equal to the mean of $Y$ where $X_1=x_i$. That is $\mu=E[Y|X]=\beta_0+\beta_1X_1$, and therefore we are modeling the response variable $Y\sim N(\beta_0+\beta_1X_1,\sigma)$
 
 What happens if we try to run a linear regression on binary response data? Let's use the `biopsy` dataset include with the MASS package. This dataset includes nine attributes of tumors and whether they were malignant (1) or benign (0). Let's predict this outcome from the clump thickness using simple linear regression.
 
@@ -127,14 +127,14 @@ The probit regression is classifying correctly about 85.49% of the time using ju
 
 ## Logistic regression
 
-There is another, more widely used link function for binary data, and that is the logistic function. This approach is based on the odds ratio. Recall that the odds are calculated from a probability like so: $odds(p)=\frac{p}{1-p}$. The nice thing about this is that we can take a variable $p$ from $[0,1]$ and transform it. However, as $p$ approaches 0, the odds approach 0, and as $p$ approaches 1, the odds approach $\infty$.
+There is another, more widely used link function for binary data, and that is the logit (or log odds) function. This approach is based on odds. Recall that the odds are calculated from a probability like so: $odds(p)=\frac{p}{1-p}$. The nice thing about this is that we can take a variable $p$ from $[0,1]$ and transform it. However, as $p$ approaches 0, the odds approach 0, and as $p$ approaches 1, the odds approach $\infty$.
 
 ```{R}
 curve(x/(1-x),from = 0, 1)
 ```
 
 
-If we take the logarithm of the odds (use the natural log for convenience), you now have variable taking values from $[-\infty,\infty]$. This function, the logarithm of the odds, is called the *logit* function: it is where logistic regression gets its name. Below is a graph of $y=log(\frac{p}{1-p})$ shown alongside the dotted normal quantile function (i.e., $\Phi^{-1}(x)$
+If we take the logarithm of the odds (use the natural log for convenience), you now have variable taking values from $[-\infty,\infty]$. This function, the logarithm of the odds, is called the *logit* function (it's inverse is the *logistic* function): it is where logistic regression gets its name. Below is a graph of $y=log(\frac{p}{1-p})$ shown alongside the dotted normal quantile function (i.e., $\Phi^{-1}(x)$
 
 ```{R}
 curve(log(x/(1-x)),0,1)
@@ -488,7 +488,7 @@ ROC1[which.max(ROC1$TPR-ROC1$FPR),]
 
 ### AUC 
 
-The area under the curve (AUC) quantifies how well we are predicting overally and it is easy to calculate: just connect every two adjacent points with a line and then drop a vertical line from each point to the x-axis to form a trapezoid. Then just calculate the area of each trapezoid, $(x_1-x_0)(y_0+y_1)/2$ and add them all together.
+The area under the curve (AUC) quantifies how well we are predicting overall and it is easy to calculate: just connect every two adjacent points with a line and then drop a vertical line from each point to the x-axis to form a trapezoid. Then just calculate the area of each trapezoid, $(x_1-x_0)(y_0+y_1)/2$ and add them all together.
 
 ```{R}
 #order dataset from least to greatest
@@ -505,7 +505,7 @@ AUC%>%round(4)
 
 You can interpret the AUC as the probability that a randomly selected person *with cancer* has a higher predicted probability of having cancer than a randomly selected person *without cancer*. 
 
-By way of an important, interesting aside, you might be thinking that this sounds like the usual interpretation for a Wilcoxon test statistic W (the non-parametric alternative to Student's t test, sometimes called Mann-Whitney U). To refresh, this is a nonparametric statistic used to test whether the level of some numeric variable in one population tends to be greater/less than in another population without making any assumptions about how the variable is distributed, with the null hypothesis that the numeric variable is a useful discriminator: that an value of the numeric variable is just as likely to be from an individual in the first population as from an individual in the second. To calculate this statistic, you compare every observation in your first sample to every observation in your second sample, recording 1 if the first is bigger, 0 if the second is bigger, and 0.5 if they are equal. Then you average these across all possible combinations to get your U statistic.
+By way of an important, interesting aside, you might be thinking that this sounds like the usual interpretation for a Wilcoxon test statistic W (the non-parametric alternative to Student's t test, sometimes called Mann-Whitney U). To refresh, this is a nonparametric statistic used to test whether the level of some numeric variable in one population tends to be greater/less than in another population without making any assumptions about how the variable is distributed, with the null hypothesis that the numeric variable is a useful discriminator: that a value of the numeric variable is just as likely to be from an individual in the first population as from an individual in the second. To calculate this statistic, you compare every observation in your first sample to every observation in your second sample, recording 1 if the first is bigger, 0 if the second is bigger, and 0.5 if they are equal. Then you average these across all possible combinations to get your U statistic.
 
 Let's calculate this statistic for a binary prediction situation: We will compute how well the scores (i.e., the predicted probabilities of cancer) discriminate between those with cancer (sample 1) and those without (sample 2). Our malignant sample consists of 241 individuals and our benign sample consists of 458 individuals. Comparing each individual's predicted outcome in one sample to each individual's predicted outcome in the other means we make $241\times 458=110378$ comparisons. Using the base R function `expand.grid()` we generate a row for every possible comparison. Then we check if predicted probability of disease is higher for malignant than for benign for every row and sum up the yesses.  
 
@@ -660,7 +660,7 @@ prussian<-read.table("http://www.randomservices.org/random/data/HorseKicks.txt",
 
 prussian<-gather(prussian,Corps,Kicks,-Year)
 prussian$Corps<-as.factor(prussian$Corps)
-prussian
+prussian%>%head()
 ```
 
 Good! Notice that most of the Kicks per year are close to zero. For a Poisson distribution, recall that the pmf is given as
@@ -809,7 +809,7 @@ If you are dealing with counts across groups whose sizes are different, you must
 
 ```{R}
 prussian<-prussian%>%mutate(Size=round(runif(n=280,min = 5000, max=10000)))
-prussian%>%dplyr::select(Year,Corps,Kicks,Size)
+prussian%>%dplyr::select(Year,Corps,Kicks,Size)%>%head()
 
 fitoffset<-glm(Kicks~Year,data=prussian,family="poisson", offset=log(Size))
 summary(fitoffset)
