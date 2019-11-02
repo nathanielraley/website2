@@ -1,0 +1,587 @@
+---
+title: "WS11"
+author: "SDS328M Fall 2019"
+date: "10/14/2019"
+output: html_document
+---
+
+
+
+```{R}
+poke<-read.csv("http://www.nathanielwoodward.com/pokemon.csv")
+poke%>%select_if(is.numeric)->poke_nums
+cov(poke_nums)%>%round()
+```    
+
+```{R}
+poke%>%select_if(is.numeric)%>%cov%>%round(2)
+
+
+```    
+
+```{R}
+poke%>%select_if(is.numeric)%>%scale%>%cov%>%round(2)
+
+
+```   
+
+```{R}
+library(tidyverse)
+#library(ade4)
+#athletes<-olympic$tab
+#load(file = "../../data/athletes.RData")
+#on the server, run: load(file = "/stor/work/SDS348_Fall2019/Data/athletes.RData")
+head(athletes)
+
+
+```   
+
+```{R}
+cor(athletes)%>%round(2)
+
+
+```    
+
+```{R}
+athletes = data.frame(scale(athletes))
+ggplot(athletes, aes(x = weight, y = disc))+geom_point()+coord_fixed()
+
+
+```   
+
+```{R}
+var(athletes$weight)+var(athletes$disc)
+
+
+```   
+
+```{R}
+ath_gg = ggplot(athletes, aes(x = weight, y = disc)) +geom_point()
+ath_gg +geom_segment(aes(xend = weight, yend = 0), lty=2)+
+  geom_hline(yintercept=0,color="blue",lwd=1.5)+
+  geom_point(aes(y = 0), colour = "orange",size=3)+coord_fixed()
+
+
+```   
+
+```{R}
+ggplot(athletes, aes(x = weight,y=0))+geom_abline(intercept = 0, slope = 0,col = "blue", lwd = 1.5)+
+geom_point(color="orange",size=3)+theme(axis.text.y=element_blank(),axis.title.y=element_blank())+coord_fixed()
+
+
+```   
+
+```{R}
+#variance of points projected on x-axis?
+var(athletes$weight)+0 
+
+
+```   
+
+```{R}
+reg1 = lm(disc ~ weight, data = athletes)
+a1 = reg1$coefficients[1] # intercept
+b1 = reg1$coefficients[2] # slope
+pline1 = ath_gg + geom_abline(intercept = a1, slope = b1,
+    col = "blue", lwd = 1.5)
+pline1 + geom_segment(aes(xend = weight, yend = reg1$fitted),
+    lty=2)+
+  geom_point(y=reg1$fitted.values,size = 2, shape = 16,color="green")+coord_fixed()
+
+
+```   
+
+```{R}
+athletes%>%mutate(fit=reg1$fitted.values)%>%select(disc,weight,fit)%>%
+  mutate(dist=ifelse(weight<0,-sqrt(weight^2+fit^2),sqrt(weight^2+fit^2)))%>%
+  ggplot(aes(x = dist, y = 0)) +geom_abline(intercept = 0, slope = 0,
+    col = "blue", lwd = 1.5)+
+  geom_point(color="green",size=3)+theme(axis.text.y=element_blank(),axis.title.y=element_blank())+coord_fixed()
+
+
+```    
+
+```{R}
+var(athletes$weight)+var(reg1$fitted.values)
+
+
+```    
+
+```{R}
+athletes%>%mutate(fit=reg1$fitted.values)%>%select(disc,weight,fit)%>%
+  mutate(dist=ifelse(weight<0,-sqrt(weight^2+fit^2),sqrt(weight^2+fit^2)))%>%
+  ggplot(aes(x = weight, y = 0)) +geom_abline(intercept = 0, slope = 0,
+    col = "blue", alpha=.8, lwd = 1.5)+
+  geom_point(col="orange",size=3,alpha=.8)+geom_point(aes(x=dist),color="green",size=3,alpha=.8)
+
+
+```   
+
+```{R}
+xy = cbind(athletes$disc, athletes$weight)
+svda = svd(xy)
+pc = xy %*% svda$v[, 1] %*% t(svda$v[, 1])
+bp = svda$v[2, 1] / svda$v[1, 1]
+ap = mean(pc[, 2]) - bp * mean(pc[, 1])
+ath_gg + geom_segment(xend = pc[, 1], yend = pc[, 2]) +
+  geom_abline(intercept = ap, slope = bp, col = "blue", lwd = 1.5)+coord_fixed()+
+  geom_point(aes(x=pc[,1],y=pc[,2]),color="purple",size=3)
+
+
+```  
+
+
+```{R}
+athletes%>%
+  mutate(dist1=ifelse(pc[,1]<0,-sqrt(pc[,1]^2+pc[,2]^2),sqrt(pc[,1]^2+pc[,2]^2)))%>%
+  ggplot(aes(x = dist1, y = 0)) +geom_abline(intercept = 0, slope = 0,
+    col = "blue", lwd = 1.5)+geom_point(color="purple",size=3)+theme(axis.text.y=element_blank(),axis.title=element_blank())+coord_fixed()
+
+
+```  
+
+
+```{R}
+var(pc[,1])+var(pc[,2])
+
+
+## ----include=F-----------------------------------------------------------
+var(ifelse(pc[,1]<0,-sqrt(pc[,1]^2+pc[,2]^2),sqrt(pc[,1]^2+pc[,2]^2)))
+
+
+```  
+
+
+```{R}
+pline1 + geom_segment(aes(xend = weight, yend = reg1$fitted),lty=2)+
+  geom_point(y=reg1$fitted.values, shape = 16,color="green",size=3)+coord_fixed()+
+  geom_segment(xend = pc[, 1], yend = pc[, 2]) +
+  geom_abline(intercept = ap, slope = bp, col = "blue", lwd = 1.5)+
+  geom_point(aes(x=pc[,1],y=pc[,2]),color="purple",size=3)
+
+
+```   
+
+
+```{R}
+athletes%>%mutate(fit=reg1$fitted.values)%>%
+  mutate(dist1=ifelse(weight<0,-sqrt(weight^2+fit^2),sqrt(weight^2+fit^2)))%>%
+  mutate(dist2=ifelse(pc[,1]<0,-sqrt(pc[,1]^2+pc[,2]^2),sqrt(pc[,1]^2+pc[,2]^2)))%>%
+  ggplot()+geom_abline(intercept = 0, slope = 0,col = "blue", lwd = 1.5)+
+  geom_point(aes(x = dist1, y = 0), color="green",size=3,alpha=.7)+
+  geom_point(aes(x = dist2, y = 0), color="purple",size=3,alpha=.7)+
+  theme(axis.text.y=element_blank(),axis.title=element_blank())+coord_fixed()
+
+
+```   
+
+
+```{R}
+ath_gg +
+  geom_vline(xintercept = 0,lty=2)+
+  geom_hline(yintercept = 0,lty=2)+
+  geom_abline(intercept = ap, slope = bp, col = "blue", lwd = 1)+coord_fixed()+
+  geom_abline(intercept = ap, slope = -bp, col = "red", lwd = 1)+
+  annotate(geom="text",-1,1.5,col="red",label="PC2",size=7)+
+  annotate(geom="text",1,1.5,col="blue",label="PC1",size=7)
+
+
+```   
+
+
+```{R}
+ppdf = tibble(PC1n = -svda$u[, 1] * svda$d[1],
+              PC2n = svda$u[, 2] * svda$d[2])
+ggplot(ppdf, aes(x = PC1n, y = PC2n)) + geom_point() + xlab("PC1 ")+
+    ylab("PC2")+
+  geom_abline(intercept = ap, slope = bp,lty=2)+
+  geom_abline(intercept = ap, slope = -bp,lty=2)+
+  geom_vline(xintercept = 0,lwd=1.5,col="red")+
+  geom_hline(yintercept = 0,lwd=1.5,col="blue")+coord_fixed()
+
+
+```   
+
+
+```{R}
+eig1<-athletes%>%select(weight,disc)%>%cor%>%eigen()
+eig1
+
+C<-athletes%>%select(weight,disc)%>%cor
+D<-eig1$values*diag(c(1,1)) 
+U<-eig1$vectors
+
+
+```   
+
+
+```{R}
+C # covariance matrix
+
+
+```   
+
+
+```{R}
+U # eigenvectors
+D # eigenvalues
+
+
+```   
+
+
+```{R}
+U%*%D%*%t(U)
+
+
+```   
+
+
+```{R}
+ath_gg +
+  geom_vline(xintercept = 0,lty=2)+
+  geom_hline(yintercept = 0,lty=2)+
+  geom_abline(intercept = ap, slope = bp, col = "blue", lwd = 1)+coord_fixed()+
+  geom_abline(intercept = ap, slope = -bp, col = "red", lwd = 1)+
+  annotate(geom="text",-1,1.5,col="red",label="PC2",size=7)+
+  annotate(geom="text",1,1.5,col="blue",label="PC1",size=7)+
+  geom_segment(aes(0,0,xend=.7071,yend=.7071),arrow=arrow())+
+  geom_segment(aes(0,0,xend=-.7071,yend=.7071),arrow=arrow())+
+  annotate(geom="text",1.2,.7071,label="(.7071,.7071)",size=5)+
+  annotate(geom="text",-1.2,.7071,label="(-.7071,.7071)",size=5)
+
+
+```   
+
+
+```{R}
+ppdf = tibble(PC1n = -svda$u[, 1] * svda$d[1],
+              PC2n = svda$u[, 2] * svda$d[2])
+ggplot(ppdf, aes(x = PC1n, y = PC2n)) + geom_point() + xlab("PC1 ")+
+    ylab("PC2")+
+  geom_abline(intercept = ap, slope = bp,lty=2)+
+  geom_abline(intercept = ap, slope = -bp,lty=2)+
+  geom_vline(xintercept = 0,lwd=1.5,col="red")+
+  geom_hline(yintercept = 0,lwd=1.5,col="blue")+coord_fixed()+
+  geom_segment(aes(0,0,xend=0,yend=1),arrow=arrow())+
+  geom_segment(aes(0,0,xend=1,yend=0),arrow=arrow())
+
+
+```   
+
+
+```{R}
+eig1$vectors
+
+
+```   
+
+
+```{R}
+xy<-athletes%>%select(weight,disc)%>%as.matrix
+scores<-t(t(eig1$vectors)%*%t(xy))%>%as.data.frame
+
+
+```   
+
+```{R}
+ggplot(athletes, aes(x=weight,y=disc))+geom_point()+
+  xlab("x")+ylab("y")+ggtitle("Original")
+
+
+```  
+
+
+```{R}
+ggplot(scores, aes(x=V1,y=V2))+geom_point()+
+  xlab("PC1")+ylab("PC2")+ggtitle("New")
+
+
+```   
+
+```{R}
+ggplot(athletes, aes(x=weight,y=disc))+geom_point()+
+xlab("x")+ylab("y")+ggtitle("Original")+
+annotate(geom="text",-2,-2,label="(-2.78, -2.15)", size=7)+
+geom_point(x=-2.78,y=-2.15,color="red", pch=1,size=4)
+
+
+```   
+
+```{R}
+xy<-athletes%>%select(weight,disc)%>%as.matrix
+scores<-t(t(eig1$vectors)%*%t(xy))%>%data.frame
+ggplot(scores, aes(x=X1,y=X2))+geom_point()+
+  xlab("PC1")+ylab("PC2")+ggtitle("New")+
+  annotate(geom="text",-2.5,.6, label="(-3.49, .45)", size=7)+
+  geom_point(x=-3.49,y=.45,color="red", pch=1,size=4)
+
+
+```   
+
+```{R}
+scores<-t(t(eig1$vectors)%*%t(xy))
+colnames(scores)<-c("PC1","PC2")
+cbind(xy,scores)
+
+
+```   
+
+```{R}
+ath_gg +
+  geom_abline(intercept = ap, slope = bp, col = "blue", lwd = 1)+coord_fixed()+
+#  geom_abline(intercept = ap, slope = -bp, col = "red", lwd = 1)+
+  annotate(geom="text",1,1.5,col="blue",label="PC1",size=7)
+
+
+```  
+
+```{R}
+ppdf = tibble(PC1n = -svda$u[, 1] * svda$d[1],
+              PC2n = svda$u[, 2] * svda$d[2])
+ggplot(ppdf, aes(x = PC1n, y = PC2n)) + geom_point() + xlab("PC1 ")+
+    ylab("PC2")+
+  geom_hline(yintercept = 0,lwd=1.5,col="blue")+coord_fixed()
+
+
+```   
+
+```{R}
+ath_gg +
+  geom_abline(intercept = ap, slope = bp, col = "blue", lwd = 1)+coord_fixed()+
+  geom_abline(intercept = ap, slope = -bp, col = "red", lwd = 1)+
+  annotate(geom="text",-1,1.5,col="red",label="PC2",size=7)
+
+
+```   
+
+```{R}
+ppdf = tibble(PC1n = -svda$u[, 1] * svda$d[1],
+              PC2n = svda$u[, 2] * svda$d[2])
+ggplot(ppdf, aes(x = PC1n, y = PC2n)) + geom_point() + xlab("PC1 ")+
+    ylab("PC2")+
+  geom_vline(xintercept = 0,lwd=1.5,col="red")+
+  geom_hline(yintercept = 0,lwd=1.5,col="blue")+coord_fixed()
+
+
+```   
+
+```{R}
+eig1$values #variance of each PC
+
+
+```   
+
+```{R}
+poke1<-poke
+poke1<-poke1%>%select(-Generation,-X.)
+poke_nums<-poke1%>%select_if(is.numeric)%>%scale
+rownames(poke_nums)<-poke1$Name
+poke_pca<-princomp(poke_nums)
+names(poke_pca)
+
+
+```   
+
+```{R}
+summary(poke_pca, loadings=T)
+```
+
+
+```{R}
+eigval<-poke_pca$sdev^2 #square to convert SDs to eigenvalues
+varprop=round(eigval/sum(eigval),2) #proportion of var explained by each PC
+
+ggplot()+geom_bar(aes(y=varprop,x=1:7),stat="identity")+xlab("")+geom_path(aes(y=varprop,x=1:7))+
+  geom_text(aes(x=1:7,y=varprop,label=round(varprop,2)),vjust=1,col="white",size=5)+
+  scale_y_continuous(breaks=seq(0,.6,.2),labels = scales::percent)+
+  scale_x_continuous(breaks=1:10)
+
+ggplot()+geom_bar(aes(y=varprop,x=1:7),stat="identity")+xlab("")+geom_path(aes(y=varprop,x=1:7))+
+  geom_text(aes(x=1:7,y=varprop,label=round(varprop,2)),vjust=1,col="white",size=5)+
+  scale_y_continuous(breaks=seq(0,.6,.2),labels = scales::percent)+
+  scale_x_continuous(breaks=1:10)
+
+
+```   
+
+
+```{R}
+round(cumsum(eigval)/sum(eigval),2) #cumulative proportion of variance
+eigval #eigenvalues
+
+
+```   
+
+```{R}
+summary(poke_pca, loadings=T)
+
+
+```  
+
+```{R}
+eigen(cor(poke_nums))
+
+
+## ----fig.height=5--------------------------------------------------------
+ggplot()+geom_point(aes(poke_pca$scores[,1], poke_pca$scores[,2]))+xlab("PC1")+ylab("PC2")
+
+
+```    
+
+
+
+```{R}
+Name<-poke1$Name
+
+poke_pca$scores%>%as.data.frame%>%cbind(Name,.)%>%top_n(3,Comp.1) #highest on PC1
+poke_pca$scores%>%as.data.frame%>%cbind(Name,.)%>%top_n(3,wt=desc(Comp.1)) #lowest on PC1
+
+
+```   
+
+```{R}
+poke_pca$scores%>%as.data.frame%>%cbind(Name,.)%>%top_n(3,wt=Comp.2) #highest on PC2
+poke_pca$scores%>%as.data.frame%>%cbind(Name,.)%>%top_n(3,wt=desc(Comp.2)) #lowest on PC2
+
+
+```   
+
+```{R}
+poke1%>%filter(Name%in%c("MewtwoMega Mewtwo Y","KyogrePrimal Kyogre","RayquazaMega Rayquaza"))
+
+
+```   
+
+```{R}
+poke1%>%filter(Name%in%c("Weedle","Magikarp","Sunkern"))
+
+
+```  
+
+```{R}
+poke1%>%filter(Name%in%c("AlakazamMega Alakazam","DeoxysAttack Forme"))
+
+
+```  
+
+```{R}
+poke1%>%filter(Name%in%c("Shuckle","SteelixMega Steelix", "AggronMega Aggron"))
+
+
+```   
+
+```{R}
+poke_pca$loadings[1:7,1:2]%>%as.data.frame%>%rownames_to_column%>%
+ggplot()+geom_hline(aes(yintercept=0),lty=2)+
+  geom_vline(aes(xintercept=0),lty=2)+ylab("PC2")+xlab("PC1")+
+  geom_segment(aes(x=0,y=0,xend=Comp.1,yend=Comp.2),arrow=arrow(),col="red")+
+  geom_label(aes(x=Comp.1*1.1,y=Comp.2*1.1,label=rowname))
+
+
+```  
+
+```{R}
+library(factoextra)
+fviz_pca_biplot(poke_pca)
+
+
+```   
+
+```{R}
+#Lets scale our 10 events
+#Let's also flip the sign on the running events, since shorter time = better
+library(ade4)
+athletes<-olympic$tab
+athletes%>%scale%>%mutate_at(c(1,5,6,10),function(x)-1*x)
+cov(athletes)%>%round(2)
+
+
+```   
+
+```{R}
+ath_pca<-princomp(athletes)
+summary(ath_pca,loadings=T)
+
+
+```   
+
+```{R}
+summary(ath_pca,loadings=T)
+
+
+```   
+
+
+```{R}
+eigval<-ath_pca$sdev^2 
+varprop=round(eigval/sum(eigval),2) 
+
+ggplot()+geom_bar(aes(y=varprop,x=1:10),stat="identity")+xlab("")+geom_path(aes(y=varprop,x=1:10))+
+  geom_text(aes(x=1:10,y=varprop,label=round(varprop,2)),vjust=1,col="white",size=4)+
+  scale_y_continuous(breaks=seq(0,.6,.2),labels = scales::percent)+
+  scale_x_continuous(breaks=1:10)
+
+
+```   
+
+```{R}
+eigval
+
+
+```   
+
+```{R}
+summary(ath_pca,loadings=T)
+
+
+```   
+
+```{R}
+library(factoextra)
+fviz_pca_biplot(ath_pca)+coord_fixed()
+
+
+```   
+
+```{R}
+ggplot()+geom_point(aes(y=olympic$score, x=ath_pca$scores[,1]))+
+  geom_text(aes(y=olympic$score, x=ath_pca$scores[,1],),label=rownames(ath),vjust=-1)+
+  xlab("PC1")+ylab("Overall Decathlon Score")
+
+cor(olympic$score,ath_pca$scores[,1])
+
+
+```    
+
+```{R}
+iris%>%select(-Species)%>%scale%>%princomp->iris_pca
+
+summary(iris_pca, loadings=T)
+
+
+```  
+
+```{R}
+eigvals<-iris_pca$sdev^2
+varprop<-eigvals/4
+
+ggplot()+geom_bar(aes(y=varprop,x=1:4),stat="identity")+xlab("")+geom_path(aes(y=varprop,x=1:4))+
+  geom_text(aes(x=1:4,y=varprop,label=round(varprop,3)),vjust=1,col="white",size=4)+
+  scale_y_continuous(breaks=seq(0,.8,.2),labels = scales::percent)+
+  scale_x_continuous(breaks=1:4)
+
+
+```   
+
+```{R}
+iris_pca$loadings[1:4,1:2]%>%as.data.frame%>%rownames_to_column%>%
+ggplot()+geom_hline(aes(yintercept=0),lty=2)+
+  geom_vline(aes(xintercept=0),lty=2)+ylab("PC2")+xlab("PC1")+
+  geom_segment(aes(x=0,y=0,xend=Comp.1,yend=Comp.2),arrow=arrow(),col="red")+
+  geom_label(aes(x=Comp.1*1.1,y=Comp.2*1.1,label=rowname))
+
+```
+
+
+
